@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Персональный сайт Лаукерта Кирилла: главная страница с новостями и картой сайта">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Главная — Персональный сайт Лаукерта Кирилла</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта: id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>Учебный сайт по дисциплине «Интернет-программирование» | Лабораторная работа №2 «Гиперссылки»</small></p>
+    </header>
+
+    <!-- Навигация: относительные ссылки; текущая страница — ссылка-заглушка без href -->
+    <nav>
+        <ul>
+            <li><a title="Вы уже на этой странице">Главная</a></li>
+            <li><a href="about.html" title="Страница обо мне">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a href="files.html" title="Файлы для скачивания">Файлы</a></li>
+            <li><a href="contacts.html" title="Контактная информация">Контакты</a></li>
+            <li><a href="links.html" title="Внешние ссылки">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Вводный раздел: назначение сайта, переходы на другие страницы -->
+        <section id="intro">
+            <h2>Добро пожаловать!</h2>
+            <p>
+                Меня зовут Лаукерт Кирилл Максимович, я студент группы 220032-11 института
+                прикладной математики и компьютерных наук Тульского государственного университета.
+                Этот сайт создан в рамках лабораторной работы №2 по дисциплине
+                «Интернет-программирование» и посвящён моей учёбе и работам.
+            </p>
+            <ul>
+                <li><a href="about.html">Узнать обо мне подробнее</a></li>
+                <li><a href="works.html">Посмотреть мои работы</a></li>
+                <li><a href="files.html">Скачать файлы</a></li>
+            </ul>
+        </section>
+
+        <!-- Новости: раздел с метками для ссылок-якорей -->
+        <section id="news">
+            <h2>Новости сайта</h2>
+
+            <h3 id="news-lr1">Сдана лабораторная работа №1</h3>
+            <p>
+                Изучена структура HTML-документа, принципы создания списков, таблиц, гиперссылок,
+                а также особенности применения тегов &lt;span&gt; и &lt;div&gt;.
+                Страницы первой работы можно открыть в разделе
+                <a href="works.html#lr1">Мои работы</a>.
+            </p>
+
+            <h3 id="news-lr2">Выполняется лабораторная работа №2</h3>
+            <p>
+                Создан этот многостраничный сайт: изучаются относительные и абсолютные ссылки,
+                ссылки-якоря, ссылки на адрес электронной почты и ссылки на файлы.
+                Например, <a href="#news-lr1">новость о ЛР1</a> находится выше по этой же странице —
+                это работа ссылки-якоря.
+            </p>
+        </section>
+
+        <!-- Карта сайта: таблица переходов -->
+        <section id="sitemap">
+            <h2>Карта сайта</h2>
+            <table>
+                <tr><th>Страница</th><th>Содержимое</th><th>Демонстрируемые ссылки</th></tr>
+                <tr><td><a href="about.html">О себе</a></td><td>Автобиография, анкета</td><td>Относительные, якоря</td></tr>
+                <tr><td><a href="works.html">Мои работы</a></td><td>Задания курса</td><td>Относительные (в т.ч. «..»), якоря</td></tr>
+                <tr><td><a href="files.html">Файлы</a></td><td>Файлы для скачивания</td><td>Ссылки на файлы (download)</td></tr>
+                <tr><td><a href="contacts.html">Контакты</a></td><td>Контактная информация</td><td>Ссылка на e-mail (mailto)</td></tr>
+                <tr><td><a href="links.html">Ссылки</a></td><td>Внешние ссылки</td><td>Абсолютные, target="_blank"</td></tr>
+            </table>
+        </section>
+    </main>
+
+    <!-- Боковая панель: ссылки-якоря на метки ДРУГИХ документов (путь#метка) -->
+    <aside>
+        <h3>Полезные разделы</h3>
+        <ul>
+            <li><a href="about.html#education">Моё образование</a></li>
+            <li><a href="works.html#lr2">Работа над ЛР2</a></li>
+            <li><a href="contacts.html#email">Электронная почта</a></li>
+            <li><a href="links.html#spravochniki">Справочники по HTML</a></li>
+        </ul>
+    </aside>
+
+    <!-- Подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начало</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо (макетный адрес)">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>

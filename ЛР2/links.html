@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Внешние ссылки: справочники по HTML, инструменты валидации, университет">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Ссылки — Персональный сайт Лаукерта Кирилла</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта: id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>Ссылки</small></p>
+    </header>
+
+    <!-- Навигация: текущая страница — ссылка-заглушка без href -->
+    <nav>
+        <ul>
+            <li><a href="index.html" title="На главную">Главная</a></li>
+            <li><a href="about.html" title="Страница обо мне">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a href="files.html" title="Файлы для скачивания">Файлы</a></li>
+            <li><a href="contacts.html" title="Контактная информация">Контакты</a></li>
+            <li><a title="Вы уже на этой странице">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Оглавление страницы: ссылки-якоря на категории ссылок -->
+        <section id="toc">
+            <h2>Внешние ссылки</h2>
+            <p>Ссылки на другие сайты — <strong>абсолютные</strong>: в адресе указаны протокол,
+                имя сервера и путь. Они открываются в новой вкладке (<code>target="_blank"</code>),
+                чтобы не уводить посетителя с этого сайта.</p>
+            <ul>
+                <li><a href="#spravochniki">Справочники по HTML</a></li>
+                <li><a href="#validaciya">Валидация</a></li>
+                <li><a href="#ucheba">Учёба</a></li>
+                <li><a href="#proekty">Мои проекты</a></li>
+            </ul>
+        </section>
+
+        <!-- Категория 1: справочники -->
+        <section id="spravochniki">
+            <h2>Справочники по HTML</h2>
+            <ul>
+                <!-- Абсолютная ссылка: протокол + имя сервера + путь -->
+                <li><a href="http://htmlbook.ru/html/a" target="_blank"
+                       title="Справочник по атрибутам тега a — из методички">htmlbook.ru — атрибуты тега &lt;a&gt;</a></li>
+                <li><a href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/a" target="_blank"
+                       title="MDN — справочник по элементу a">MDN — элемент &lt;a&gt;</a></li>
+                <li><a href="https://developer.mozilla.org/ru/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks"
+                       target="_blank" title="MDN — учебник по созданию гиперссылок">MDN — создание гиперссылок</a></li>
+            </ul>
+        </section>
+
+        <!-- Категория 2: валидация -->
+        <section id="validaciya">
+            <h2>Валидация</h2>
+            <ul>
+                <li><a href="https://validator.w3.org/" target="_blank"
+                       title="Онлайн-валидатор консорциума W3C">W3C Markup Validation Service</a></li>
+                <li><a href="https://www.w3.org/" target="_blank"
+                       title="Консорциум Всемирной паутины">W3C — консорциум</a></li>
+            </ul>
+        </section>
+
+        <!-- Категория 3: учёба -->
+        <section id="ucheba">
+            <h2>Учёба</h2>
+            <ul>
+                <li><a href="https://tsu.tula.ru/" target="_blank"
+                       title="Официальный сайт ТулГУ">Тульский государственный университет</a></li>
+                <!-- Абсолютная ссылка с якорем: после пути через # указана метка страницы -->
+                <li><a href="https://ru.wikipedia.org/wiki/HTML#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F"
+                       target="_blank" title="Ссылка сразу к разделу «История»">Википедия — HTML (раздел «История»)</a></li>
+            </ul>
+        </section>
+
+        <!-- Категория 4: мои проекты -->
+        <section id="proekty">
+            <h2>Мои проекты</h2>
+            <ul>
+                <li><a href="https://github.com/kert25" target="_blank"
+                       title="Профиль на GitHub">Мой GitHub</a></li>
+                <li><a href="https://github.com/kert25/Learning-Hub" target="_blank"
+                       title="Учебное приложение с карточками">Learning Hub (карточки повторений)</a></li>
+            </ul>
+        </section>
+
+        <!-- Пояснение об абсолютных и относительных адресах -->
+        <section id="note">
+            <h2>Абсолютные и относительные адреса</h2>
+            <p>
+                Абсолютный адрес состоит минимум из трёх частей: протокол
+                (<code>https:</code>), имя сервера (<code>//site.ru</code>) и путь
+                (<code>/blog/index.html</code>). Если в адресе нет имени сервера или протокола —
+                это относительный адрес, например <code>index.html</code> или
+                <code>../ЛР1/first.html</code>. На страницах этого сайта для навигации
+                используются относительные ссылки, а на этой странице — абсолютные.
+            </p>
+        </section>
+    </main>
+
+    <!-- Боковая панель: переходы на метки других страниц -->
+    <aside>
+        <h3>Смотрите также</h3>
+        <ul>
+            <li><a href="index.html#sitemap">Карта сайта</a></li>
+            <li><a href="works.html">Мои работы</a></li>
+            <li><a href="contacts.html#email">Электронная почта</a></li>
+        </ul>
+    </aside>
+
+    <!-- Подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начало</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо (макетный адрес)">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>

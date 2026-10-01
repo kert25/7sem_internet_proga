@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контакты: электронная почта и страницы автора сайта">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Контакты — Персональный сайт Лаукерта Кирилла</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта: id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>Контакты</small></p>
+    </header>
+
+    <!-- Навигация: текущая страница — ссылка-заглушка без href -->
+    <nav>
+        <ul>
+            <li><a href="index.html" title="На главную">Главная</a></li>
+            <li><a href="about.html" title="Страница обо мне">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a href="files.html" title="Файлы для скачивания">Файлы</a></li>
+            <li><a title="Вы уже на этой странице">Контакты</a></li>
+            <li><a href="links.html" title="Внешние ссылки">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Раздел с e-mail: метка id="email" для переходов с других страниц -->
+        <section id="email">
+            <h2>Электронная почта</h2>
+            <p>
+                <!-- Ссылка на адрес электронной почты: в href указывается mailto:адрес.
+                     Параметр subject задаёт тему письма (записана в процентной кодировке) -->
+                Написать мне можно по адресу:
+                <a href="mailto:laukert@example.com"
+                   title="Адрес макетный (example.com) — откроет почтовый клиент">
+                    laukert@example.com</a>
+                или
+                <a href="mailto:laukert@example.com?subject=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D1%81%D0%B0%D0%B9%D1%82%D1%83"
+                   title="Письмо с заранее заполненной темой «Вопрос по сайту»">
+                    написать письмо с готовой темой «Вопрос по сайту»</a>.
+            </p>
+            <p><small>Замечание: адрес электронной почты на этой странице — макетный
+                (домен example.com зарезервирован для примеров), при щелчке по ссылке
+                открывается почтовый клиент по умолчанию.</small></p>
+        </section>
+
+        <!-- Таблица контактов -->
+        <section id="table">
+            <h2>Контактная информация</h2>
+            <table>
+                <tr><th>Способ связи</th><th>Адрес</th><th>Примечание</th></tr>
+                <tr>
+                    <td>E-mail</td>
+                    <!-- Ссылка на e-mail внутри таблицы -->
+                    <td><a href="mailto:laukert@example.com">laukert@example.com</a></td>
+                    <td>макетный адрес</td>
+                </tr>
+                <tr>
+                    <td>GitHub</td>
+                    <!-- Абсолютная ссылка на внешний ресурс, открывается в новой вкладке -->
+                    <td><a href="https://github.com/kert25" target="_blank" title="Мои проекты на GitHub">github.com/kert25</a></td>
+                    <td>мои проекты</td>
+                </tr>
+                <tr>
+                    <td>Учёба</td>
+                    <td>группа 220032-11, ИПМКН ТулГУ</td>
+                    <td><a href="about.html#education">подробнее обо мне</a></td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <!-- Боковая панель: переходы на метки других страниц -->
+    <aside>
+        <h3>Смотрите также</h3>
+        <ul>
+            <li><a href="files.html#downloads">Скачать резюме (TXT)</a></li>
+            <li><a href="about.html#info">Моя анкета</a></li>
+            <li><a href="links.html#proekty">Мои проекты</a></li>
+        </ul>
+    </aside>
+
+    <!-- Подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начало</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо (макетный адрес)">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>

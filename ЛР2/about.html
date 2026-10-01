@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Обо мне: анкета, образование и интересы Лаукерта Кирилла">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>О себе — Персональный сайт Лаукерта Кирилла</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта: id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>О себе</small></p>
+    </header>
+
+    <!-- Навигация: текущая страница — ссылка-заглушка без href -->
+    <nav>
+        <ul>
+            <li><a href="index.html" title="На главную">Главная</a></li>
+            <li><a title="Вы уже на этой странице">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a href="files.html" title="Файлы для скачивания">Файлы</a></li>
+            <li><a href="contacts.html" title="Контактная информация">Контакты</a></li>
+            <li><a href="links.html" title="Внешние ссылки">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Оглавление страницы: ссылки-якоря на разделы этой же страницы -->
+        <section id="toc">
+            <h2>Содержание страницы</h2>
+            <ul>
+                <li><a href="#info">Краткая анкета</a></li>
+                <li><a href="#education">Образование</a></li>
+                <li><a href="#interests">Интересы</a></li>
+            </ul>
+        </section>
+
+        <!-- Анкета: фото берётся из вложенной папки img (относительный путь) -->
+        <section id="info">
+            <h2>Краткая анкета</h2>
+            <table>
+                <tr>
+                    <td rowspan="5" style="text-align: center; vertical-align: middle; width: 140px;">
+                        <img src="img/avatar.jpg" alt="Фотография автора сайта" width="110" height="110"><br>
+                        <small>Фото автора</small>
+                    </td>
+                    <th style="text-align: left;">ФИО</th>
+                    <td>Лаукерт Кирилл Максимович</td>
+                </tr>
+                <tr><th style="text-align: left;">Группа</th><td>220032-11</td></tr>
+                <tr><th style="text-align: left;">Институт</th><td>ИПМКН, ТулГУ</td></tr>
+                <tr><th style="text-align: left;">Курс</th><td>4 (7-й семестр)</td></tr>
+                <tr><th style="text-align: left;">Дисциплина</th><td>Интернет-программирование</td></tr>
+            </table>
+        </section>
+
+        <section id="education">
+            <h2>Образование</h2>
+            <p>
+                Учусь в Тульском государственном университете в институте прикладной математики
+                и компьютерных наук по направлению "Программная инженерия".
+                Официальный сайт университета можно открыть в разделе
+                <a href="links.html#ucheba">Ссылки</a>.
+            </p>
+            <p>
+                За время учёбы освоил: основы программирования, алгоритмы и структуры данных,
+                методы программирования, системы управления базами данных, тестирование
+                и интеграцию программных систем.
+            </p>
+        </section>
+
+        <section id="interests">
+            <h2>Интересы</h2>
+            <ul>
+                <li>Веб-разработка: HTML, CSS, JavaScript, PHP</li>
+                <li>Автоматизация тестирования (pytest, Selenium)</li>
+                <li>Системный анализ и проектирование ПО</li>
+            </ul>
+            <p>
+                С выполненными работами можно ознакомиться на странице
+                <a href="works.html">«Мои работы»</a>.
+            </p>
+        </section>
+    </main>
+
+    <!-- Боковая панель: переходы на метки других страниц -->
+    <aside>
+        <h3>Смотрите также</h3>
+        <ul>
+            <li><a href="index.html#news">Новости сайта</a></li>
+            <li><a href="files.html#downloads">Файлы для скачивания</a></li>
+            <li><a href="contacts.html">Контактная информация</a></li>
+        </ul>
+    </aside>
+
+    <!-- Подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начале страницы — оглавление</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо (макетный адрес)">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>

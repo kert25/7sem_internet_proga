@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Шаблон страницы персонального сайта: логические части документа">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Шаблон страницы сайта</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- ЛОГИЧЕСКАЯ ЧАСТЬ 1: шапка сайта. Атрибут id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>Подзаголовок/название раздела</small></p>
+    </header>
+
+    <!-- ЛОГИЧЕСКАЯ ЧАСТЬ 2: навигация по сайту (относительные ссылки на страницы).
+         Ссылка текущей страницы — ссылка-заглушка <a> без атрибута href -->
+    <nav>
+        <ul>
+            <li><a>Главная</a></li>
+            <li><a href="about.html" title="Страница обо мне">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a href="files.html" title="Файлы для скачивания">Файлы</a></li>
+            <li><a href="contacts.html" title="Контактная информация">Контакты</a></li>
+            <li><a href="links.html" title="Внешние ссылки">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <!-- ЛОГИЧЕСКАЯ ЧАСТЬ 3: основное содержимое страницы (секции с метками для якорей) -->
+    <main>
+        <section id="section-1">
+            <h2>Заголовок первого раздела</h2>
+            <p>Содержимое раздела.</p>
+        </section>
+        <section id="section-2">
+            <h2>Заголовок второго раздела</h2>
+            <p>Содержимое раздела.</p>
+        </section>
+    </main>
+
+    <!-- ЛОГИЧЕСКАЯ ЧАСТЬ 4: боковая панель (дополнительные ссылки) -->
+    <aside>
+        <h3>Дополнительно</h3>
+        <ul>
+            <li><a href="#section-1">Первый раздел</a></li>
+            <li><a href="#section-2">Второй раздел</a></li>
+        </ul>
+    </aside>
+
+    <!-- ЛОГИЧЕСКАЯ ЧАСТЬ 5: подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начало</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>

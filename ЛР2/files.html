@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Файлы для скачивания: резюме, план курса, шпаргалка по тегу a">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Файлы — Персональный сайт Лаукерта Кирилла</title>
+    <!-- Базовое оформление, одинаковое для всех страниц сайта -->
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background-color: #f7f8fa; color: #1f2937; margin: 0 auto; max-width: 900px; padding: 0 16px 24px; }
+        header { border-bottom: 3px solid #4f46e5; padding-top: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+        section, aside { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 18px; margin: 14px 0; }
+        aside { background-color: #eef2ff; }
+        footer { border-top: 3px solid #4f46e5; margin-top: 18px; padding-top: 10px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #9aa5b1; padding: 6px 10px; }
+        th { background-color: #e8edf7; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта: id="top" — метка для ссылок-якорей «В начало» -->
+    <header id="top">
+        <h1>Персональный сайт Лаукерта Кирилла</h1>
+        <p><small>Файлы</small></p>
+    </header>
+
+    <!-- Навигация: текущая страница — ссылка-заглушка без href -->
+    <nav>
+        <ul>
+            <li><a href="index.html" title="На главную">Главная</a></li>
+            <li><a href="about.html" title="Страница обо мне">О себе</a></li>
+            <li><a href="works.html" title="Задания курса">Мои работы</a></li>
+            <li><a title="Вы уже на этой странице">Файлы</a></li>
+            <li><a href="contacts.html" title="Контактная информация">Контакты</a></li>
+            <li><a href="links.html" title="Внешние ссылки">Ссылки</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Раздел со списком файлов: метка id="downloads" для переходов с других страниц -->
+        <section id="downloads">
+            <h2>Файлы для скачивания</h2>
+            <p>
+                Файлы лежат во вложенной папке <code>downloads</code>. В ссылках используется
+                атрибут <code>download</code> — он сообщает браузеру, что файл нужно скачать,
+                а не открывать прямо на странице.
+            </p>
+            <table>
+                <tr><th>Файл</th><th>Описание</th></tr>
+                <!-- Ссылка на файл с атрибутом download: браузер скачает файл -->
+                <tr>
+                    <td><a href="downloads/rezjume.txt" download title="Текстовое резюме">rezjume.txt</a></td>
+                    <td>Резюме (учебное, текстовый формат)</td>
+                </tr>
+                <tr>
+                    <td><a href="downloads/plan_kursa.txt" download title="План лабораторных работ курса">plan_kursa.txt</a></td>
+                    <td>План лабораторных работ курса</td>
+                </tr>
+                <tr>
+                    <td><a href="downloads/shpargalka_a.txt" download title="Справка по атрибутам тега a">shpargalka_a.txt</a></td>
+                    <td>Шпаргалка по тегу &lt;a&gt;</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Сравнение поведения: одна и та же ссылка без атрибута download -->
+        <section id="compare">
+            <h2>Сравнение поведения</h2>
+            <p>
+                Текстовые файлы браузер умеет открывать прямо на странице. Ссылка
+                <a href="downloads/rezjume.txt" title="Откроется в браузере, а не скачается">резюме без атрибута download</a>
+                откроет файл в текущей вкладке, а все ссылки выше — скачают его.
+            </p>
+            <p>
+                Замечание: если для типа файла существует стандартная обработка, браузер
+                может игнорировать атрибут <code>download</code>.
+            </p>
+        </section>
+    </main>
+
+    <!-- Боковая панель: переходы на метки других страниц -->
+    <aside>
+        <h3>Смотрите также</h3>
+        <ul>
+            <li><a href="contacts.html#email">Связаться со мной</a></li>
+            <li><a href="works.html#lr2">Описание работы над сайтом</a></li>
+            <li><a href="links.html#spravochniki">Справочники по HTML</a></li>
+        </ul>
+    </aside>
+
+    <!-- Подвал: копирайт, ссылка-якорь «В начало», ссылка на e-mail -->
+    <footer>
+        <p>&copy; Лаукерт Кирилл Максимович, 2026</p>
+        <p>
+            <a href="#top" title="Вернуться к началу страницы">В начало</a> |
+            <a href="mailto:laukert@example.com" title="Написать письмо (макетный адрес)">Написать мне</a>
+        </p>
+    </footer>
+
+</body>
+</html>
