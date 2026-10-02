@@ -1,14 +1,32 @@
 # -*- coding: utf-8 -*-
-"""Сборщик отчётов .docx (чистый Python: zipfile + OOXML, без внешних зависимостей).
+"""Универсальный сборщик отчётов .docx (чистый Python: zipfile + OOXML, без зависимостей).
 
-Адаптация _tools/make_docx.py из репозитория kert25/6sem_internet_proga
-под дисциплину «Интернет-программирование» 7-го семестра (препод. Сафронова М.А.).
-
-Титульный лист — по образцу ЛР1.docx (Times New Roman 14 pt, A4,
-поля 2/1,5/2/3 см, разрыв страницы, номер страницы в колонтитуле, скрытый на титуле).
+Не привязан ни к вузу, ни к дисциплине: все данные титульного листа берутся
+из файла контекста (--context, по умолчанию _context.json). Титульник — типовой
+для вузов РФ (Times New Roman 14 pt, A4, поля 2/1,5/2/3 см, разрыв страницы,
+номер страницы в колонтитуле, скрытый на титуле). Если титульник вашего вуза
+отличается структурно — адаптируйте title_page() под образец вуза.
 
 Использование:
-    py make_docx.py --out <ЛР2.docx> --num 2 --theme "Гиперссылки" --content content.json
+    py make_docx.py --out Отчет_ЛР2.docx --num 2 --theme "Тема" \
+        --content ЛР2/content.json [--context _context.json] [--no-title]
+
+--context — JSON с данными титульного листа; обязателен, если строится титульник.
+    Обязательные поля: university (список строк шапки титульника по порядку),
+    discipline, student, group, teacher, teacher_title, city, year.
+    Необязательные поля переопределяют типовые формулировки титульника:
+    performed_prefix ("Выполнил: ст. гр.  "), accepted_prefix ("Принял: "),
+    report_label ("ЛАБОРАТОРНАЯ РАБОТА №%d"), discipline_label ("по дисциплине"),
+    theme_label ("по теме") — используйте их вместо правки кода, если вуз
+    отличается формулировками. Допустимы любые доп. поля (напр. variant) —
+    они просто игнорируются тут.
+--no-title — без титульного листа и шапки (для служебных документов, напр. text.docx).
+
+Синхронизация с скиллом lab-works: этот скрипт существует в двух копиях —
+в проекте (_tools/) и в скилле (scripts/). Общие улучшения (багфиксы, формат
+content.json — всё, что не привязано к вузу) копируются в копию скилла;
+вуз-специфичная адаптация title_page() под образец вуза остаётся ТОЛЬКО
+в копии проекта (_tools/), в скилл не копируется.
 
 content.json — список элементов:
     {"h":  "Заголовок раздела"}               — полужирный Times New Roman 14 pt
@@ -16,6 +34,7 @@ content.json — список элементов:
     {"code": "текст программы"}                — листинг Courier New 12 pt
     {"codefile": "путь/к/файлу"}               — листинг из файла (UTF-8)
     {"img": "путь.png", "caption": "Подпись"}  — рисунок по центру + подпись 12 pt
+    {"table": {"rows": [[...]], "widths": [dxa...], "header": true}} — таблица
     {"pb": true}                               — разрыв страницы
 Относительные пути в content.json разрешаются от каталога самого content.json.
 """
@@ -29,6 +48,7 @@ PIC = "http://schemas.openxmlformats.org/drawingml/2006/picture"
 
 TNR = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'
 COURIER = '<w:rFonts w:ascii="Courier New" w:hAnsi="Courier New" w:cs="Courier New"/>'
+TABLE_WIDTH = 9355
 
 def esc(s):
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -54,38 +74,62 @@ def para(runs, jc=None, spacing=True, ind=None):
     ppr += "</w:pPr>"
     return "<w:p>%s%s</w:p>" % (ppr, body)
 
-def title_page(num, theme):
-    """Титульный лист — по образцу ЛР1.docx (7-й семестр, преп. Сафронова М.А.)."""
+# Обязательные поля файла контекста для титульного листа.
+TITLE_FIELDS = ("university", "discipline", "student", "group",
+                "teacher", "teacher_title", "city", "year")
+
+def load_context(path):
+    """Читает файл контекста и проверяет обязательные поля титульного листа."""
+    try:
+        with open(path, encoding="utf-8-sig") as f:
+            ctx = json.load(f)
+    except FileNotFoundError:
+        raise SystemExit("%s не найден — создайте файл контекста "
+                         "(данные титульного листа) по ответам пользователя" % path)
+    missing = [k for k in TITLE_FIELDS if not ctx.get(k)]
+    if missing:
+        raise SystemExit("в %s отсутствуют/пусты поля: %s — заполните по ответам "
+                         "пользователя, не выдумывайте" % (path, ", ".join(missing)))
+    if isinstance(ctx["university"], str):
+        ctx["university"] = [ctx["university"]]
+    return ctx
+
+def title_page(num, theme, ctx):
+    """Титульный лист — типовой для вузов РФ, все данные из ctx.
+
+    Обязательные поля — TITLE_FIELDS. Необязательные поля (performed_prefix,
+    accepted_prefix, report_label, discipline_label, theme_label) переопределяют
+    типовые формулировки без правки кода. Если титульник вуза отличается
+    структурой принципиально — адаптируйте эту функцию под образец вуза
+    (адаптация остаётся в копии проекта, в скилл не копируется).
+    Ширины строк «Выполнил»/«Принял»: имя прижимается к правому краю."""
+    done_left = ctx.get("performed_prefix", "Выполнил: ст. гр.  ") + ctx["group"]
+    done_pad = max(1, 80 - len(done_left))
+    took_left = ctx.get("accepted_prefix", "Принял: ") + ctx["teacher_title"]
+    took_pad = max(1, 72 - len(took_left))
     p = []
-    p.append(para(run("МИНОБРНАУКИ РОССИИ"), jc="center"))                      # P00
-    p.append(para(run("Федеральное государственное бюджетное "), jc="center"))  # P01
-    p.append(para([run("образовательное учреждение высшего образования"),        # P02
-                   run("«Тульский государственный университет»", br_type="")], jc="center"))
-    p.append(para(run("Институт прикладной математики и компьютерных наук"), jc="center"))  # P03
-    p.append(para(run(""), jc="center"))   # P04
-    p.append(para(run("")))                # P05
-    p.append(para(run("")))                # P06
-    p.append(para(run("")))                # P07
-    p.append(para(run(""), jc="center"))   # P08
-    p.append(para(run("ЛАБОРАТОРНАЯ РАБОТА №%d" % num), jc="center"))           # P09
-    p.append(para(run("по дисциплине"), jc="center"))                            # P10
-    p.append(para(run("Интернет-программирование"), jc="center", ind=(567, 566)))  # P11
+    for line in ctx["university"]:                                   # шапка вуза
+        p.append(para(run(line), jc="center"))
+    for _ in range(5):                                               # P04-P08
+        p.append(para(run(""), jc="center"))
+    p.append(para(run(ctx.get("report_label", "ЛАБОРАТОРНАЯ РАБОТА №%d") % num),
+                   jc="center"))                                                # P09
+    p.append(para(run(ctx.get("discipline_label", "по дисциплине")), jc="center"))  # P10
+    p.append(para(run(ctx["discipline"]), jc="center", ind=(567, 566)))           # P11
     p.append(para(run(" "), jc="center", ind=(567, 566)))                        # P12
-    p.append(para(run("по теме"), jc="center", ind=(567, 566)))                  # P13
+    p.append(para(run(ctx.get("theme_label", "по теме")), jc="center", ind=(567, 566)))  # P13
     p.append('<w:p><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/>'
              '<w:jc w:val="center"/></w:pPr>%s</w:p>' % run("«%s»" % theme))     # P14
-    p.append(para(run(" ")))                # P15
-    p.append(para(run(""), jc="center"))   # P16
-    p.append(para(run(""), jc="center"))   # P17
-    p.append(para(run(""), jc="center"))   # P18
-    p.append(para([run("Выполнил: ст. гр.  220032-11" + " " * 52),               # P19
-                   run("Лаукерт К.М. "), run(" ")], jc="both"))
-    p.append(para(run(""), jc="both"))     # P20
-    p.append(para([run("Принял: к.т.н., доцент ИПМКН" + " " * 44),              # P21
-                   run("Сафронова М.А. "), run(" ")], jc="both"))
-    for _ in range(6):                      # P22-P27
+    for _ in range(4):                                               # P15-P18
+        p.append(para(run(""), jc="center"))
+    p.append(para([run(done_left + " " * done_pad),                             # P19
+                   run("%s " % ctx.get("student_title", ctx["student"])), run(" ")], jc="both"))
+    p.append(para(run(""), jc="both"))                                          # P20
+    p.append(para([run(took_left + " " * took_pad),                             # P21
+                   run("%s " % ctx["teacher"]), run(" ")], jc="both"))
+    for _ in range(6):                                                # P22-P27
         p.append(para(run(""), jc="both"))
-    p.append(para(run("Тула 2026"), jc="center"))                               # P28
+    p.append(para(run("%s %s" % (ctx["city"], ctx["year"])), jc="center"))       # P28
     p.append('<w:p>%s</w:p>' % run("", br_type="page"))                          # P29
     return "".join(p)
 
@@ -125,6 +169,47 @@ def image_xml(png_path, rid, img_id):
         '</a:graphicData></a:graphic></wp:inline></w:drawing></w:r>'
     ) % {"wp": WP, "a": A, "pic": PIC, "w": emu_w, "h": emu_h, "id": img_id, "rid": rid}
     return drawing, data
+
+
+def table_xml(spec):
+    """Возвращает OOXML-таблицу из {rows, widths?, header?}."""
+    rows = spec.get("rows")
+    if not isinstance(rows, list) or not rows or not all(isinstance(row, list) and row for row in rows):
+        raise ValueError("table.rows должен быть непустым списком непустых строк")
+    columns = len(rows[0])
+    if any(len(row) != columns for row in rows):
+        raise ValueError("все строки table.rows должны иметь одинаковое число ячеек")
+    widths = spec.get("widths")
+    if widths is None:
+        widths = [TABLE_WIDTH // columns] * columns
+        widths[-1] += TABLE_WIDTH - sum(widths)
+    if (not isinstance(widths, list) or len(widths) != columns or
+            any(not isinstance(width, int) or width <= 0 for width in widths)):
+        raise ValueError("table.widths должен содержать положительную ширину для каждой колонки")
+    if sum(widths) > TABLE_WIDTH:
+        raise ValueError("сумма table.widths не должна превышать %d dxa" % TABLE_WIDTH)
+    header = spec.get("header", True)
+    borders = ('<w:tblBorders><w:top w:val="single" w:sz="4" w:color="auto"/>'
+               '<w:left w:val="single" w:sz="4" w:color="auto"/>'
+               '<w:bottom w:val="single" w:sz="4" w:color="auto"/>'
+               '<w:right w:val="single" w:sz="4" w:color="auto"/>'
+               '<w:insideH w:val="single" w:sz="4" w:color="auto"/>'
+               '<w:insideV w:val="single" w:sz="4" w:color="auto"/></w:tblBorders>')
+    out = ['<w:tbl><w:tblPr><w:tblW w:w="%d" w:type="dxa"/>%s</w:tblPr>' %
+           (sum(widths), borders)]
+    out.append('<w:tblGrid>%s</w:tblGrid>' % ''.join(
+        '<w:gridCol w:w="%d"/>' % width for width in widths))
+    for row_index, row in enumerate(rows):
+        cells = []
+        for width, value in zip(widths, row):
+            paragraphs = []
+            for line in str(value).split("\n"):
+                paragraphs.append(para(run(line if line else " ", b=bool(header and row_index == 0))))
+            shade = '<w:shd w:val="clear" w:fill="D9EAD3"/>' if header and row_index == 0 else ''
+            cells.append('<w:tc><w:tcPr><w:tcW w:w="%d" w:type="dxa"/>%s</w:tcPr>%s</w:tc>' %
+                         (width, shade, ''.join(paragraphs)))
+        out.append('<w:tr><w:trPr><w:cantSplit/></w:trPr>%s</w:tr>' % ''.join(cells))
+    return ''.join(out) + '</w:tbl>'
 
 CONTENT_TYPES = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
@@ -166,14 +251,16 @@ SECT_PR = ('<w:sectPr><w:footerReference w:type="default" r:id="rId2"/>'
            'w:bottom="1134" w:left="1701" w:header="708" w:footer="708" w:gutter="0"/>'
            '<w:titlePg/></w:sectPr>')
 
-def build(out, num, theme, content, workdir):
+def build(out, num, theme, content, workdir, ctx=None, title=True):
     def resolve(p):
         return os.path.normpath(os.path.join(workdir, p))
-    paras = [title_page(num, theme)]
-    # Шапка отчёта (вторая страница, как в образце)
-    paras.append(para(run("Лабораторная работа №%d" % num, sz=32, b=True), jc="center"))
-    paras.append(para(run("по теме «%s»" % theme, sz=32, b=True), jc="center"))
-    paras.append(para(run(" ", sz=32)))
+    paras = []
+    if title:
+        paras.append(title_page(num, theme, ctx))
+        # Шапка отчёта (вторая страница, как в образце)
+        paras.append(para(run("Лабораторная работа №%d" % num, sz=32, b=True), jc="center"))
+        paras.append(para(run("по теме «%s»" % theme, sz=32, b=True), jc="center"))
+        paras.append(para(run(" ", sz=32)))
     media, img_rels = {}, []
     rid_n = 100
     for item in content:
@@ -186,6 +273,8 @@ def build(out, num, theme, content, workdir):
                 paras.append(code_block(f.read()))
         elif "code" in item:
             paras.append(code_block(item["code"]))
+        elif "table" in item:
+            paras.append(table_xml(item["table"]))
         elif "img" in item:
             rid = "rIdImg%d" % rid_n
             drawing, data = image_xml(resolve(item["img"]), rid, rid_n)
@@ -219,11 +308,16 @@ def main():
     ap.add_argument("--num", type=int, required=True)
     ap.add_argument("--theme", required=True)
     ap.add_argument("--content", required=True, help="JSON-файл содержимого")
+    ap.add_argument("--context", default="_context.json",
+                    help="JSON-файл данных титульного листа (по умолчанию _context.json)")
+    ap.add_argument("--no-title", action="store_true",
+                    help="без титульного листа и шапки (служебные документы)")
     a = ap.parse_args()
     with open(a.content, encoding="utf-8-sig") as f:
         content = json.load(f)
+    ctx = None if a.no_title else load_context(a.context)
     workdir = os.path.dirname(os.path.abspath(a.content))
-    build(a.out, a.num, a.theme, content, workdir)
+    build(a.out, a.num, a.theme, content, workdir, ctx, title=not a.no_title)
 
 if __name__ == "__main__":
     main()

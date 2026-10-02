@@ -1,0 +1,82 @@
+{
+  "version": 2,
+  "commit_on_completion": false,
+  "project_notes": [],
+  "labs": {
+    "1": {
+      "status": "completed",
+      "directory": "ЛР1",
+      "report_number": 1,
+      "theme": "Знакомство с HTML",
+      "notes": [
+        "Отчёт создан до внедрения стандартизированного workflow."
+      ],
+      "next_step": "Завершено и подтверждено пользователем.",
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-10-02T06:07:43Z",
+        "checks": [
+          "content_references",
+          "docx_structure",
+          "pdf_signature",
+          "pdf_text",
+          "text_docx",
+          "quality_gate"
+        ],
+        "warnings": []
+      },
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "artifacts": [
+        "ЛР1/content.json",
+        "ЛР1/content_text.json",
+        "ЛР1/screenshots/",
+        "ЛР1/Отчет_ЛР1.docx",
+        "ЛР1/Отчет_ЛР1.pdf",
+        "ЛР1/text.docx",
+        "ЛР1/quality_gate.json"
+      ]
+    },
+    "2": {
+      "status": "completed",
+      "directory": "ЛР2",
+      "methodical_guide": "ЛР2/Лабораторная работа 2 _ Гиперссылки.pdf",
+      "report_number": 2,
+      "theme": "Гиперссылки",
+      "notes": [
+        "Отчёт создан до внедрения стандартизированного workflow."
+      ],
+      "next_step": "Завершено и подтверждено пользователем.",
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-10-02T06:07:43Z",
+        "checks": [
+          "content_references",
+          "docx_structure",
+          "pdf_signature",
+          "pdf_text",
+          "text_docx",
+          "quality_gate"
+        ],
+        "warnings": []
+      },
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "artifacts": [
+        "ЛР2/content.json",
+        "ЛР2/content_text.json",
+        "ЛР2/screenshots/",
+        "ЛР2/Отчет_ЛР2.docx",
+        "ЛР2/Отчет_ЛР2.pdf",
+        "ЛР2/text.docx",
+        "ЛР2/quality_gate.json"
+      ]
+    }
+  }
+}

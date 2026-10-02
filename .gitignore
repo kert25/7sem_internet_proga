@@ -3,3 +3,7 @@ Thumbs.db
 Desktop.ini
 # Временные файлы MS Word (~$отчет.docx)
 ~$*
+
+# Кэш Python
+__pycache__/
+*.py[cod]
