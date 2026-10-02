@@ -3,13 +3,67 @@
 <head>
     <meta charset="utf-8">
     <title>Моя первая страница</title>
+    <style>
+        :root {
+            --page-font: Arial, sans-serif;
+        }
+
+        .custom-font body,
+        .custom-font body * {
+            font-family: var(--page-font) !important;
+        }
+
+        .page-header {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 24px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            text-align: center;
+        }
+
+        .font-menu {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border: 1px solid #bdbdbd;
+            border-radius: 6px;
+            background-color: #f5f5f5;
+        }
+
+        .font-menu label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Заголовок h1 по центру. ФИО оформлено ссылкой на second.html (Задание 3), HTML выделен цветом -->
-    <h1 align="center">
-        Я, <a href="second.html">Лаукерт Кирилл Максимович</a>, <span style="color: #d32f2f;">HTML</span>
-    </h1>
+    <header class="page-header">
+        <div class="font-menu">
+            <label for="font-selector">Шрифт:</label>
+            <select id="font-selector">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="'Courier New', monospace">Courier New</option>
+            </select>
+            <button type="button" id="apply-font">Применить</button>
+        </div>
+
+        <!-- ФИО оформлено ссылкой на second.html (Задание 3), HTML выделен цветом -->
+        <h1 align="center">
+            Я, <a href="second.html">Лаукерт Кирилл Максимович</a>, <span style="color: #d32f2f;">HTML</span>
+        </h1>
+    </header>
 
     <!-- Общий заголовок h2 для текста -->
     <h2>Архитектура современных вычислительных систем</h2>
@@ -129,5 +183,14 @@
         </tr>
     </table>
 
+    <script>
+        const fontSelector = document.getElementById('font-selector');
+        const applyFontButton = document.getElementById('apply-font');
+
+        applyFontButton.addEventListener('click', () => {
+            document.documentElement.style.setProperty('--page-font', fontSelector.value);
+            document.documentElement.classList.add('custom-font');
+        });
+    </script>
 </body>
 </html>
