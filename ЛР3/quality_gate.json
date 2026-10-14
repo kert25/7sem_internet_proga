@@ -3,7 +3,7 @@
   "lab": 3,
   "report_number": 3,
   "status": "passed",
-  "checked_at": "2026-10-14T14:08:19Z",
+  "checked_at": "2026-10-14T14:45:30Z",
   "checks": [
     "content_references",
     "artifacts",
@@ -21,10 +21,10 @@
     "ЛР3/content.json": "11b4a4c8a71d980ae5b241d8913db2b70b19449a517837dc653624e1a18204d5",
     "ЛР3/content_short.json": "1d38ce5c96f6abedd2fb0e0b7ac90e1805721295d20b4b1dab6b3fb6100af3a7",
     "ЛР3/content_text.json": "b7a2285077d500ae984f6d4ae1c22ccf0cd734d156873040fbf5d639b097fd83",
-    "ЛР3/text.docx": "fab4ff093a0e6120f05c086020baf8bb6274662276dba380c7347bac3561e7f3",
-    "ЛР3/Отчет_ЛР3.docx": "c529880925133a307f0aa366f10d588e60547b123ed067366684248f107a319c",
-    "ЛР3/Отчет_ЛР3.pdf": "9b10064920aca50662fd7c5995712d0059cec6b2fbf1a380211f6169d5c4f7c7",
-    "ЛР3/Отчет_ЛР3_краткий.docx": "10f54b160ca078ac56761afb7c16c0fd768e2097282cab9a0c7c6b90a6dc0625",
-    "ЛР3/Отчет_ЛР3_краткий.pdf": "476bba6e4c5ebf43da5d4b397199a626be1710a209fa09d0036a7512264b41fc"
+    "ЛР3/text.docx": "3b4f587fdbf6b64088af9ad343b1e9c31a14a676d24e3eee8f18d9850f29094a",
+    "ЛР3/Отчет_ЛР3.docx": "634db8c42024f3353c03a253480e727a97f05c3f437d2889524a98b57d274a68",
+    "ЛР3/Отчет_ЛР3.pdf": "5bdf016e03b307afd311cc81cd185ad069c0b93aa901d918d207b9dab32ba92e",
+    "ЛР3/Отчет_ЛР3_краткий.docx": "ae3d67e2b0d4232f7ee6dec0c7aa2c87bef720e53c890d706c27bcca93cce28b",
+    "ЛР3/Отчет_ЛР3_краткий.pdf": "a4a0bc9656f285d0b4177b8bc65a99e0efe1c19481f9d43e4941a759f17135c7"
   }
 }
