@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №3: Знакомство с HTML5, мультимедиа, геолокация и холст Canvas">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>ЛР3 — Знакомство с HTML5, мультимедиа, геолокация, Canvas</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .intro-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 18px;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+        .card p {
+            font-size: 14px;
+            color: #475569;
+            flex-grow: 1;
+        }
+        .card a.btn {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .card a.btn:hover {
+            background-color: #1d4ed8;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (mark)</a></li>
+                <li><a href="task2.html">Задание 2 (video/audio)</a></li>
+                <li><a href="task3.html">Задание 3 (geolocation)</a></li>
+                <li><a href="task4.html">Задание 4 (canvas)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Тема: Знакомство с HTML5. Элементы video и audio. Геолокация. Элемент canvas</h2>
+
+        <div class="intro-box">
+            <p><strong>Цель работы:</strong> научиться подключать на веб-страницу аудио и видео файлы, определять местоположение пользователя с помощью HTML5 Geolocation API, а также изучить возможности рисования и создания графических сцен на веб-странице с использованием элемента <code>&lt;canvas&gt;</code>.</p>
+            <p><strong>Студент:</strong> Лаукерт Кирилл Максимович (гр. 220032-11)</p>
+            <p><strong>Вариант выполнения:</strong> 9</p>
+        </div>
+
+        <h3>Перечень выполненных заданий</h3>
+        <div class="cards-grid">
+            <div class="card">
+                <div>
+                    <h3>Задание 1. Тег &lt;mark&gt;</h3>
+                    <p>Создание веб-страницы с центрированным заголовком «Я, ФИО, изучаю HTML5» и семантическим выделением фамилии, имени и отчества тегом <code>&lt;mark&gt;</code>.</p>
+                </div>
+                <a href="task1.html" class="btn">Открыть Задание 1 &rarr;</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>Задание 2. Мультимедиа (Video & Audio)</h3>
+                    <p>Встраивание аудио- и видеофайлов с помощью нативных HTML5-элементов <code>&lt;video&gt;</code> и <code>&lt;audio&gt;</code>, настройка элементов управления <code>controls</code> и обзор атрибутов.</p>
+                </div>
+                <a href="task2.html" class="btn">Открыть Задание 2 &rarr;</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>Задание 3. Геолокация</h3>
+                    <p>Интерактивное считывание географических координат (широта, долгота, точность, высота, время) через <code>navigator.geolocation.getCurrentPosition()</code> с обработкой ошибок и интеграцией с картой.</p>
+                </div>
+                <a href="task3.html" class="btn">Открыть Задание 3 &rarr;</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>Задание 4. Холст &lt;canvas&gt;</h3>
+                    <p>Отрисовка графической композиции (домик, ландшафт, солнце, облака, забор, дерево) с использованием примитивов, градиентных заливок, эффектов теней и авторской подписи.</p>
+                </div>
+                <a href="task4.html" class="btn">Открыть Задание 4 &rarr;</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №3. Задание 3: Определение местоположения с помощью HTML5 Geolocation">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 3 — HTML5 Геолокация</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .btn-geo {
+            background-color: #2563eb;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+            transition: background-color 0.2s;
+        }
+        .btn-geo:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-mock {
+            background-color: #64748b;
+            color: #ffffff;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btn-mock:hover {
+            background-color: #475569;
+        }
+        .coords-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 20px;
+            min-height: 120px;
+        }
+        .coords-box h3 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+        .prop-item {
+            padding: 6px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .prop-item:last-child {
+            border-bottom: none;
+        }
+        .prop-name {
+            font-weight: 600;
+            color: #334155;
+        }
+        .prop-val {
+            font-family: Consolas, monospace;
+            color: #0f766e;
+            font-weight: bold;
+        }
+        .status-msg {
+            font-style: italic;
+            color: #64748b;
+        }
+        .error-msg {
+            color: #b91c1c;
+            font-weight: 600;
+        }
+        .map-link {
+            display: inline-block;
+            margin-top: 14px;
+            background-color: #059669;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .map-link:hover {
+            background-color: #047857;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (mark)</a></li>
+                <li><a href="task2.html">Задание 2 (video/audio)</a></li>
+                <li><a href="task3.html" class="active">Задание 3 (geolocation)</a></li>
+                <li><a href="task4.html">Задание 4 (canvas)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 3. Определение координат с помощью геолокации</h2>
+        <p>
+            HTML5 Geolocation API позволяет клиентскому веб-приложению с согласия пользователя
+            запрашивать текущие географические координаты устройства через объект
+            <code>navigator.geolocation</code>.
+        </p>
+
+        <p>Для считывания координат нажмите на кнопку:</p>
+        <div>
+            <button class="btn-geo" id="btnGetCoords" onclick="getCoordinates()">Определить координаты</button>
+            <button class="btn-mock" id="btnMockCoords" onclick="showDemoCoordinates()">Тестовые координаты (ТулГУ)</button>
+        </div>
+
+        <div class="coords-box" id="resultBox">
+            <h3>Результаты позиционирования:</h3>
+            <p class="status-msg" id="statusMsg">Нажмите кнопку «Определить координаты» для отправки запроса в браузер...</p>
+            <div id="coordsContainer" style="display: none;"></div>
+        </div>
+
+        <section style="margin-top: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px;">
+            <h3>Теоретические сведения</h3>
+            <p>
+                Основной метод API: <code>navigator.geolocation.getCurrentPosition(success_callback, error_callback, options)</code>.
+            </p>
+            <ul>
+                <li><code>coords.latitude</code> — географическая широта (в градусах от -90 до 90);</li>
+                <li><code>coords.longitude</code> — географическая долгота (в градусах от -180 до 180);</li>
+                <li><code>coords.accuracy</code> — радиус погрешности измерений в метрах;</li>
+                <li><code>coords.altitude</code> — высота над уровнем моря (в метрах);</li>
+                <li><code>timestamp</code> — метка времени фиксации координат.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+
+    <script>
+        function getCoordinates() {
+            var status = document.getElementById("statusMsg");
+            var container = document.getElementById("coordsContainer");
+            container.style.display = "none";
+            container.innerHTML = "";
+
+            if (!navigator.geolocation) {
+                status.innerHTML = "<span class='error-msg'>Ошибка: Geolocation API не поддерживается данным браузером.</span>";
+                return;
+            }
+
+            status.innerHTML = "Запрос координат у браузера / операционной системы... Пожалуйста, разрешите доступ к местоположению.";
+
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 8000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(showCoordinates, showError, options);
+        }
+
+        function showCoordinates(position) {
+            renderCoords(
+                position.coords.latitude,
+                position.coords.longitude,
+                position.coords.accuracy,
+                position.coords.altitude,
+                new Date(position.timestamp).toLocaleString("ru-RU")
+            );
+        }
+
+        function showDemoCoordinates() {
+            // Координаты 2-го учебного корпуса ТулГУ (пр. Ленина, 92)
+            renderCoords(54.181804, 37.595514, 15, 185, new Date().toLocaleString("ru-RU"), " (Тестовые данные: ТулГУ)");
+        }
+
+        function renderCoords(lat, lon, accuracy, altitude, timeStr, note) {
+            var status = document.getElementById("statusMsg");
+            var container = document.getElementById("coordsContainer");
+
+            status.innerHTML = "Координаты успешно получены!" + (note || "");
+
+            var altText = (altitude !== null && altitude !== undefined) ? altitude + " м" : "Не определена";
+            var accText = (accuracy !== null && accuracy !== undefined) ? accuracy + " м" : "Не определена";
+
+            var html = "";
+            html += "<div class='prop-item'><span class='prop-name'>Широта (latitude):</span><span class='prop-val'>" + lat + "°</span></div>";
+            html += "<div class='prop-item'><span class='prop-name'>Долгота (longitude):</span><span class='prop-val'>" + lon + "°</span></div>";
+            html += "<div class='prop-item'><span class='prop-name'>Точность (accuracy):</span><span class='prop-val'>" + accText + "</span></div>";
+            html += "<div class='prop-item'><span class='prop-name'>Высота (altitude):</span><span class='prop-val'>" + altText + "</span></div>";
+            html += "<div class='prop-item'><span class='prop-name'>Время фиксации:</span><span class='prop-val'>" + timeStr + "</span></div>";
+
+            var mapUrl = "https://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lon + "#map=16/" + lat + "/" + lon;
+            html += "<a class='map-link' href='" + mapUrl + "' target='_blank' rel='noopener noreferrer'>Посмотреть точку на OpenStreetMap</a>";
+
+            container.innerHTML = html;
+            container.style.display = "block";
+        }
+
+        function showError(error) {
+            var status = document.getElementById("statusMsg");
+            var message = "Неизвестная ошибка";
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    message = "Пользователь или браузер отклонил запрос на определение местоположения.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    message = "Информация о местоположении недоступна (нет сигнала GPS / сети).";
+                    break;
+                case error.TIMEOUT:
+                    message = "Время ожидания ответа на запрос координат истекло.";
+                    break;
+            }
+            status.innerHTML = "<span class='error-msg'>Код ошибки " + error.code + ": " + message + "</span><br><small>Вы можете нажать кнопку «Тестовые координаты (ТулГУ)» для демонстрации работы интерфейса.</small>";
+        }
+    </script>
+</body>
+</html>

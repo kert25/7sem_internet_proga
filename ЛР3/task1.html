@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №3. Задание 1: Изучение HTML5 и тега mark">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 1 — Знакомство с HTML5</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .task-title {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0;
+            color: #111827;
+        }
+        mark {
+            background-color: #fde047;
+            color: #854d0e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        section {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html" class="active">Задание 1 (mark)</a></li>
+                <li><a href="task2.html">Задание 2 (video/audio)</a></li>
+                <li><a href="task3.html">Задание 3 (geolocation)</a></li>
+                <li><a href="task4.html">Задание 4 (canvas)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Формулировка задания 1: заголовок в центре страницы с подсветкой ФИО через тег <mark> -->
+        <h1 class="task-title">Я, <mark>Лаукерт Кирилл Максимович</mark>, изучаю HTML5</h1>
+
+        <section>
+            <h2>Описание выполненного задания</h2>
+            <p>
+                В соответствии с заданием 1 методических указаний создана веб-страница с заголовком по центру:
+                <strong>«Я, ФИО, изучаю HTML5»</strong>.
+            </p>
+            <p>
+                Для акцентирования и подсветки фамилии, имени и отчества студента использован тег <code>&lt;mark&gt;</code>,
+                введённый в стандарте HTML5. Тег <code>&lt;mark&gt;</code> представляет собой фрагмент текста, выделенный
+                в справочных целях из-за его актуальности или важности в текущем контексте (по умолчанию отображается
+                с желтым фоном маркера).
+            </p>
+        </section>
+
+        <section>
+            <h2>Семантические особенности HTML5</h2>
+            <ul>
+                <li><strong>Структурные элементы:</strong> страница оформлена с применением тегов <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code> и <code>&lt;footer&gt;</code>.</li>
+                <li><strong>Метаданные:</strong> кодировка UTF-8 и адаптивная область видимости <code>viewport</code> для корректного отображения на мобильных и десктопных устройствах.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

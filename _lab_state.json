@@ -77,6 +77,45 @@
         "ЛР2/text.docx",
         "ЛР2/quality_gate.json"
       ]
+    },
+    "3": {
+      "status": "completed",
+      "directory": "ЛР3",
+      "methodical_guide": "ЛР3/Лабораторная работа 3 _HTML5 Видео_аудио.pdf",
+      "report_number": 3,
+      "theme": "Знакомство с HTML5. Элементы video и audio. Геолокация. Элемент canvas",
+      "variant": "9",
+      "next_step": "Завершено и подтверждено пользователем.",
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "artifacts": [
+        "ЛР3/content.json",
+        "ЛР3/content_short.json",
+        "ЛР3/content_text.json",
+        "ЛР3/media/",
+        "ЛР3/quality_gate.json",
+        "ЛР3/screenshots/",
+        "ЛР3/text.docx",
+        "ЛР3/Отчет_ЛР3.docx",
+        "ЛР3/Отчет_ЛР3.pdf",
+        "ЛР3/Отчет_ЛР3_краткий.docx",
+        "ЛР3/Отчет_ЛР3_краткий.pdf"
+      ],
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-10-14T14:08:19Z",
+        "checks": [
+          "content_references",
+          "artifacts",
+          "report_docx",
+          "report_pdf",
+          "text_docx"
+        ],
+        "warnings": []
+      }
     }
   }
 }

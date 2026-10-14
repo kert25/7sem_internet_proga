@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №3. Задание 2: Вставка аудио и видео файлов в HTML5">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 2 — Аудио и видео в HTML5</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .media-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #000000;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 10px;
+        }
+        .media-desc {
+            text-align: left;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #e2e8f0;
+            font-weight: 600;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (mark)</a></li>
+                <li><a href="task2.html" class="active">Задание 2 (video/audio)</a></li>
+                <li><a href="task3.html">Задание 3 (geolocation)</a></li>
+                <li><a href="task4.html">Задание 4 (canvas)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 2. Подключение медиафайлов (video и audio)</h2>
+        <p>
+            В спецификации HTML5 для воспроизведения мультимедиа без сторонних плагинов
+            (таких как Adobe Flash) введены встроенные элементы <code>&lt;video&gt;</code> и
+            <code>&lt;audio&gt;</code>.
+        </p>
+
+        <!-- Блок видеоплеера -->
+        <div class="media-card">
+            <h3>Встроенный видеоплеер (&lt;video&gt;)</h3>
+            <video width="480" height="270" controls preload="metadata">
+                <source src="media/rabbit320.mp4" type="video/mp4">
+                Ваш браузер не поддерживает встроенный HTML5 тег video.
+            </video>
+            <div class="media-desc">
+                <p><strong>Параметры плеера:</strong></p>
+                <ul>
+                    <li><code>src="media/rabbit320.mp4"</code> — путь к видеофайлу в формате MP4 (H.264).</li>
+                    <li><code>controls</code> — включение стандартной панели управления (воспроизведение, пауза, перемотка, громкость, полноэкранный режим).</li>
+                    <li><code>width="480" height="270"</code> — габариты проигрывателя на странице.</li>
+                    <li><code>preload="metadata"</code> — предварительная загрузка метаданных (длительность, первый кадр).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Блок аудиоплеера -->
+        <div class="media-card">
+            <h3>Встроенный аудиоплеер (&lt;audio&gt;)</h3>
+            <audio controls preload="metadata">
+                <source src="media/viper.mp3" type="audio/mpeg">
+                Ваш браузер не поддерживает встроенный HTML5 тег audio.
+            </audio>
+            <div class="media-desc">
+                <p><strong>Параметры плеера:</strong></p>
+                <ul>
+                    <li><code>src="media/viper.mp3"</code> — путь к аудиофайлу в формате MP3.</li>
+                    <li><code>controls</code> — отображение кнопок запуска, ползунка позиции и регулятора громкости.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Таблица основных атрибутов -->
+        <section>
+            <h3>Сводная таблица основных атрибутов элементов video и audio</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Атрибут</th>
+                        <th>Элементы</th>
+                        <th>Назначение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>src</code></td>
+                        <td>video, audio</td>
+                        <td>URL-адрес медиаресурса для воспроизведения.</td>
+                    </tr>
+                    <tr>
+                        <td><code>controls</code></td>
+                        <td>video, audio</td>
+                        <td>Отображение встроенной панели управления воспроизведением.</td>
+                    </tr>
+                    <tr>
+                        <td><code>autoplay</code></td>
+                        <td>video, audio</td>
+                        <td>Автоматический старт воспроизведения после загрузки страницы (в современных браузерах для видео часто требует muted).</td>
+                    </tr>
+                    <tr>
+                        <td><code>loop</code></td>
+                        <td>video, audio</td>
+                        <td>Зацикливание воспроизведения по окончании трека.</td>
+                    </tr>
+                    <tr>
+                        <td><code>muted</code></td>
+                        <td>video, audio</td>
+                        <td>Отключение звука по умолчанию.</td>
+                    </tr>
+                    <tr>
+                        <td><code>poster</code></td>
+                        <td>video</td>
+                        <td>Изображение-заставка, отображаемое до нажатия кнопки воспроизведения.</td>
+                    </tr>
+                    <tr>
+                        <td><code>width / height</code></td>
+                        <td>video</td>
+                        <td>Ширина и высота области отображения видео в пикселях.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

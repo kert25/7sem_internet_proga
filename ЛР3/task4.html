@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №3. Задание 4: Рисование на HTML5 Canvas с градиентами, тенями и подписью">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 4 — Графика на HTML5 Canvas</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .canvas-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #2563eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            max-width: 100%;
+            height: auto;
+        }
+        .controls-panel {
+            margin-top: 12px;
+        }
+        .btn-action {
+            background-color: #2563eb;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 6px;
+        }
+        .btn-action:hover {
+            background-color: #1d4ed8;
+        }
+        section {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (mark)</a></li>
+                <li><a href="task2.html">Задание 2 (video/audio)</a></li>
+                <li><a href="task3.html">Задание 3 (geolocation)</a></li>
+                <li><a href="task4.html" class="active">Задание 4 (canvas)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 4. Рисование на элементе &lt;canvas&gt;</h2>
+        <p>
+            В соответствии с методическими указаниями на холсте <code>&lt;canvas&gt;</code>
+            нарисован домик с элементами окружающего ландшафта (солнце, облака, забор, дерево).
+            В работе применены:
+        </p>
+        <ul>
+            <li><strong>Простые геометрические фигуры:</strong> прямоугольники (<code>fillRect</code>, <code>strokeRect</code>, <code>rect</code>) и окружности/дуги (<code>arc</code>);</li>
+            <li><strong>Составные пути (контуры):</strong> <code>beginPath</code>, <code>moveTo</code>, <code>lineTo</code>, <code>closePath</code>;</li>
+            <li><strong>Линейные градиенты:</strong> <code>createLinearGradient</code> с контрольными точками <code>addColorStop</code> (небо, земля, крыша);</li>
+            <li><strong>Тени:</strong> <code>shadowOffsetX</code>, <code>shadowOffsetY</code>, <code>shadowBlur</code>, <code>shadowColor</code> для придания объёма стенам и подписи;</li>
+            <li><strong>Текстовая подпись:</strong> метод <code>fillText</code> с указанием шрифта <code>font</code> (ФИО автора работы).</li>
+        </ul>
+
+        <div class="canvas-container">
+            <canvas id="draw" width="800" height="520">
+                Ваш браузер не поддерживает элемент HTML5 canvas.
+            </canvas>
+            <div class="controls-panel">
+                <button class="btn-action" onclick="drawScene()">Перерисовать сцену</button>
+            </div>
+        </div>
+
+        <section>
+            <h3>Ключевые фрагменты программного кода рисования</h3>
+            <p>
+                Инициализация контекста двухмерной графики:
+                <code>const ctx = document.getElementById('draw').getContext('2d');</code>.
+            </p>
+            <p>
+                Для создания градиента неба применён метод:
+                <code>const sky = ctx.createLinearGradient(0, 0, 0, 320);</code> с переходом от лазурного цвета к светло-голубому у горизонта.
+                Крыша домика нарисована треугольным контуром через последовательность <code>moveTo</code> и <code>lineTo</code> с тёмно-красным градиентом.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+
+    <script>
+        function drawScene() {
+            const canvas = document.getElementById("draw");
+            if (!canvas || !canvas.getContext) return;
+            const ctx = canvas.getContext("2d");
+
+            // Сброс теней и трансформирования
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.shadowColor = "transparent";
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // 1. Очистка холста
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 2. Небо с линейным градиентом
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, 340);
+            skyGrad.addColorStop(0.0, "#38bdf8");
+            skyGrad.addColorStop(0.7, "#7dd3fc");
+            skyGrad.addColorStop(1.0, "#e0f2fe");
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, 800, 340);
+
+            // 3. Солнце с лучами
+            ctx.save();
+            ctx.fillStyle = "#facc15";
+            ctx.beginPath();
+            ctx.arc(100, 80, 42, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Лучи солнца
+            ctx.strokeStyle = "#eab308";
+            ctx.lineWidth = 3;
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * Math.PI) / 6;
+                const x1 = 100 + Math.cos(angle) * 48;
+                const y1 = 80 + Math.sin(angle) * 48;
+                const x2 = 100 + Math.cos(angle) * 64;
+                const y2 = 80 + Math.sin(angle) * 64;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+            // 4. Облака (составные окружности)
+            function drawCloud(cx, cy, scale) {
+                ctx.save();
+                ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+                ctx.beginPath();
+                ctx.arc(cx, cy, 24 * scale, 0, Math.PI * 2);
+                ctx.arc(cx + 25 * scale, cy - 10 * scale, 30 * scale, 0, Math.PI * 2);
+                ctx.arc(cx + 55 * scale, cy - 5 * scale, 26 * scale, 0, Math.PI * 2);
+                ctx.arc(cx + 75 * scale, cy + 5 * scale, 20 * scale, 0, Math.PI * 2);
+                ctx.arc(cx + 35 * scale, cy + 12 * scale, 24 * scale, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+            drawCloud(240, 70, 1.0);
+            drawCloud(540, 90, 0.85);
+
+            // 5. Земля / зелёный холм (градиент)
+            const groundGrad = ctx.createLinearGradient(0, 320, 0, 520);
+            groundGrad.addColorStop(0.0, "#4ade80");
+            groundGrad.addColorStop(0.5, "#22c55e");
+            groundGrad.addColorStop(1.0, "#15803d");
+            ctx.fillStyle = groundGrad;
+            ctx.fillRect(0, 320, 800, 200);
+
+            // 6. Дерево слева от дома
+            // Ствол
+            ctx.fillStyle = "#854d0e";
+            ctx.fillRect(110, 280, 26, 110);
+            // Крона (составные зеленые круги)
+            ctx.fillStyle = "#15803d";
+            ctx.beginPath();
+            ctx.arc(123, 270, 42, 0, Math.PI * 2);
+            ctx.arc(95, 240, 36, 0, Math.PI * 2);
+            ctx.arc(150, 240, 36, 0, Math.PI * 2);
+            ctx.arc(123, 205, 38, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 7. Труба на крыше домика + дым
+            ctx.fillStyle = "#78350f";
+            ctx.fillRect(430, 150, 28, 55);
+            ctx.strokeStyle = "#451a03";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(430, 150, 28, 55);
+
+            // Колечки дыма
+            ctx.fillStyle = "rgba(226, 232, 240, 0.7)";
+            ctx.beginPath();
+            ctx.arc(444, 130, 10, 0, Math.PI * 2);
+            ctx.arc(456, 105, 14, 0, Math.PI * 2);
+            ctx.arc(472, 75, 18, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 8. Стены дома с тенью
+            ctx.save();
+            ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
+            ctx.shadowBlur = 14;
+            ctx.shadowOffsetX = 8;
+            ctx.shadowOffsetY = 8;
+
+            ctx.fillStyle = "#d97706"; // Тёплый цвет стен (дерево / кирпич)
+            ctx.fillRect(260, 220, 280, 170);
+            ctx.restore();
+
+            // Контур стен
+            ctx.strokeStyle = "#92400e";
+            ctx.lineWidth = 3;
+            ctx.strokeRect(260, 220, 280, 170);
+
+            // Горизонтальные декоративные планки стен
+            ctx.strokeStyle = "rgba(146, 64, 14, 0.4)";
+            ctx.lineWidth = 1;
+            for (let y = 250; y < 390; y += 22) {
+                ctx.beginPath();
+                ctx.moveTo(260, y);
+                ctx.lineTo(540, y);
+                ctx.stroke();
+            }
+
+            // 9. Крыша (треугольник с градиентом)
+            ctx.save();
+            ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
+
+            const roofGrad = ctx.createLinearGradient(240, 120, 560, 220);
+            roofGrad.addColorStop(0.0, "#dc2626");
+            roofGrad.addColorStop(1.0, "#991b1b");
+            ctx.fillStyle = roofGrad;
+
+            ctx.beginPath();
+            ctx.moveTo(240, 220);
+            ctx.lineTo(400, 110);
+            ctx.lineTo(560, 220);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            ctx.strokeStyle = "#7f1d1d";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Чердачное круглое окно
+            ctx.fillStyle = "#fef08a";
+            ctx.beginPath();
+            ctx.arc(400, 168, 18, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#7f1d1d";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(400, 150);
+            ctx.lineTo(400, 186);
+            ctx.moveTo(382, 168);
+            ctx.lineTo(418, 168);
+            ctx.stroke();
+
+            // 10. Окно на первом этаже
+            ctx.fillStyle = "#fef9c3"; // Тёплый свет в окне
+            ctx.fillRect(410, 255, 85, 75);
+            ctx.strokeStyle = "#451a03";
+            ctx.lineWidth = 3;
+            ctx.strokeRect(410, 255, 85, 75);
+
+            // Оконная рама (крестовина)
+            ctx.strokeStyle = "#78350f";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(410, 290);
+            ctx.lineTo(495, 290);
+            ctx.moveTo(452, 255);
+            ctx.lineTo(452, 330);
+            ctx.stroke();
+
+            // Подоконник
+            ctx.fillStyle = "#92400e";
+            ctx.fillRect(405, 330, 95, 8);
+
+            // 11. Дверь с ручкой
+            ctx.fillStyle = "#78350f";
+            ctx.fillRect(295, 275, 70, 115);
+            ctx.strokeStyle = "#451a03";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(295, 275, 70, 115);
+
+            // Филенки двери
+            ctx.strokeStyle = "#92400e";
+            ctx.strokeRect(305, 285, 50, 40);
+            ctx.strokeRect(305, 335, 50, 45);
+
+            // Ручка двери
+            ctx.fillStyle = "#facc15";
+            ctx.beginPath();
+            ctx.arc(352, 338, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Крыльцо/порожек
+            ctx.fillStyle = "#64748b";
+            ctx.fillRect(285, 390, 90, 10);
+
+            // 12. Деревянный забор справа от дома
+            ctx.fillStyle = "#b45309";
+            ctx.strokeStyle = "#78350f";
+            ctx.lineWidth = 1.5;
+            for (let x = 560; x < 760; x += 22) {
+                ctx.beginPath();
+                ctx.moveTo(x, 380);
+                ctx.lineTo(x, 310);
+                ctx.lineTo(x + 8, 298);
+                ctx.lineTo(x + 16, 310);
+                ctx.lineTo(x + 16, 380);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+            // Поперечные перекладины забора
+            ctx.fillRect(555, 325, 210, 6);
+            ctx.fillRect(555, 355, 210, 6);
+
+            // 13. Тропинка от дома
+            ctx.fillStyle = "#d6d3d1";
+            ctx.beginPath();
+            ctx.moveTo(310, 400);
+            ctx.lineTo(350, 400);
+            ctx.lineTo(410, 520);
+            ctx.lineTo(250, 520);
+            ctx.closePath();
+            ctx.fill();
+
+            // 14. Подпись автора с тенью
+            ctx.save();
+            ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            ctx.font = "bold 20px Verdana, sans-serif";
+            ctx.fillStyle = "#0f172a";
+            ctx.fillText("Автор работы: Лаукерт Кирилл Максимович (гр. 220032-11)", 30, 495);
+            ctx.restore();
+        }
+
+        // Автоматическая отрисовка при загрузке документа
+        window.addEventListener("DOMContentLoaded", drawScene);
+    </script>
+</body>
+</html>
