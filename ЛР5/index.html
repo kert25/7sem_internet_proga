@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Лабораторная работа № 5: Форма и обработка данных — ТулГУ ИПМКН">
+  <title>ЛР № 5 — Форма и обработка данных</title>
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-hover: #3730a3;
+      --primary-light: #e0e7ff;
+      --accent: #06b6d4;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --radius: 12px;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text-main);
+      background-color: var(--bg-page);
+      padding: 24px 16px 48px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* Шапка работы */
+    header.header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #c7d2fe;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 14px;
+      font-size: 0.88rem;
+    }
+
+    .meta-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Карточка с формой */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Стилизация формы */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px 24px;
+      background: #fafafa;
+    }
+
+    legend {
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: var(--primary);
+      padding: 0 10px;
+      background: #fafafa;
+      border-radius: 4px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .req {
+      color: var(--danger);
+      font-weight: bold;
+      margin-left: 3px;
+    }
+
+    .help-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Поля ввода */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 13px;
+      font-size: 0.94rem;
+      font-family: inherit;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.15);
+    }
+
+    /* Валидационные стили браузера */
+    input:not(:placeholder-shown):invalid,
+    select:invalid {
+      border-color: var(--danger);
+    }
+
+    input:not(:placeholder-shown):valid {
+      border-color: var(--success);
+    }
+
+    /* Радиокнопки и флажки */
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .choice-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .choice-label input[type="radio"],
+    .choice-label input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Ползунок и color picker */
+    .range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    output {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+      min-width: 55px;
+      text-align: center;
+    }
+
+    .color-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      width: 44px;
+      height: 38px;
+      cursor: pointer;
+      background: transparent;
+      padding: 2px;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border-radius: 6px;
+      border: none;
+    }
+
+    /* Кнопки формы */
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-reset {
+      background: transparent;
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .btn-reset:hover {
+      background: var(--danger-bg);
+    }
+
+    /* Панель результатов обработки */
+    .result-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .alert {
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+
+    .alert-success {
+      background: var(--success-bg);
+      color: #14532d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .alert-warning {
+      background: var(--warning-bg);
+      color: #78350f;
+      border: 1px solid #fde68a;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .result-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: #ffffff;
+    }
+
+    .result-key {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .result-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* Секция сырого запроса */
+    .raw-box {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin-top: 12px;
+    }
+
+    /* Блок валидации и стандартов */
+    .validation-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 20px;
+      font-size: 0.88rem;
+    }
+
+    .validation-box ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .validation-box li {
+      margin-bottom: 4px;
+    }
+
+    footer.footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 680px) {
+      .form-grid, .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 20px;
+      }
+      .form-actions {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+    /* Режимы отображения для скриншотов */
+    body.mode-basic {
+      padding: 12px 16px 24px;
+    }
+    body.mode-basic header.header {
+      padding: 18px 24px;
+      margin-bottom: 16px;
+    }
+    body.mode-basic .card {
+      padding: 20px 24px;
+    }
+    body.mode-basic fieldset {
+      padding: 14px 18px;
+    }
+    body.mode-basic fieldset:nth-of-type(2),
+    body.mode-basic .form-actions,
+    body.mode-basic .result-section {
+      display: none !important;
+    }
+
+    body.mode-html5 header.header,
+    body.mode-html5 .card-subtitle,
+    body.mode-html5 fieldset:first-of-type,
+    body.mode-html5 .result-section {
+      display: none !important;
+    }
+
+    body.mode-submitted header.header,
+    body.mode-submitted section.card:first-of-type {
+      display: none !important;
+    }
+    body.mode-submitted .result-grid {
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    body.mode-submitted .result-card {
+      padding: 10px 14px;
+    }
+
+    body.mode-invalid .validation-error-panel {
+      display: block !important;
+    }
+
+    .validation-error-panel {
+      display: none;
+      background: var(--danger-bg);
+      border: 1px solid #f87171;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      color: #991b1b;
+      font-size: 0.9rem;
+    }
+
+    .validation-error-panel h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .validation-error-panel ul {
+      margin-left: 20px;
+    }
+
+    .validation-error-panel li {
+      margin-bottom: 4px;
+    }
+
+    .force-invalid {
+      border-color: var(--danger) !important;
+      background-color: #fef2f2 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Шапка документа -->
+    <header class="header">
+      <div class="header-badge">Лабораторная работа № 5 • ТулГУ ИПМКН</div>
+      <h1>Форма и обработка данных</h1>
+      <p>Разработка адаптивной формы с элементами HTML5, нативной валидацией и клиентской обработкой данных анкеты студентов группы.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Студент:</strong> Лаукерт К.М.</div>
+        <div class="meta-item"><strong>Группа:</strong> 220032-11</div>
+        <div class="meta-item"><strong>Вариант:</strong> 9</div>
+        <div class="meta-item"><strong>Преподаватель:</strong> Сафронова М.А.</div>
+        <div class="meta-item"><strong>Год:</strong> 2026</div>
+      </div>
+    </header>
+
+    <!-- Основная карточка с формой -->
+    <section class="card">
+      <h2 class="card-title">
+        <span>📋</span> Анкета студента группы
+      </h2>
+      <p class="card-subtitle">
+        Заполните все необходимые поля анкеты. Форма демонстрирует работу базовых элементов HTML, современных типов input HTML5, атрибутов валидации и перехват данных обработчиком.
+      </p>
+
+      <form id="studentForm" method="post" action="process_form.php" autocomplete="on">
+        
+        <!-- Панель визуализации ошибок валидации для режима demo -->
+        <div class="validation-error-panel" id="valErrorPanel">
+          <h3><span>⚠️</span> Ошибки проверки формы (HTML5 Constraint Validation API)</h3>
+          <p>Форма отклонена браузером до устранения следующих несоответствий правилам валидации:</p>
+          <ul>
+            <li><strong>Имя (ФИО студента):</strong> Поле обязательно для заполнения (ограничение <code>required</code>, флаг <code>valueMissing</code>).</li>
+            <li><strong>E-mail адрес:</strong> Введено значение неверного формата (ограничение <code>type="email"</code>, флаг <code>typeMismatch</code>).</li>
+            <li><strong>Номер телефона:</strong> Значение не соответствует регулярному выражению <code>pattern="\+7-\d{3}-\d{3}-\d{4}"</code> (флаг <code>patternMismatch</code>).</li>
+          </ul>
+        </div>
+
+        <!-- Задание 1: Базовые анкетные данные по образцу из методички -->
+        <fieldset>
+          <legend>1. Анкетные данные (базовые поля по образцу методички)</legend>
+          
+          <div class="form-grid">
+            <!-- Имя -->
+            <div class="form-group full-width">
+              <label for="student_name">Имя (ФИО студента):<span class="req">*</span></label>
+              <input type="text" id="student_name" name="student_name" required placeholder="Евгений или Лаукерт Кирилл" autofocus autocomplete="name">
+              <span class="help-text">Текстовое поле ввода (атрибут required)</span>
+            </div>
+
+            <!-- Пол (Radio) -->
+            <div class="form-group">
+              <label>Пол:<span class="req">*</span></label>
+              <div class="radio-group">
+                <label class="choice-label">
+                  <input type="radio" name="gender" value="Мужской" checked required>
+                  Мужской
+                </label>
+                <label class="choice-label">
+                  <input type="radio" name="gender" value="Женский" required>
+                  Женский
+                </label>
+              </div>
+              <span class="help-text">Радиокнопки с общим атрибутом name</span>
+            </div>
+
+            <!-- Образование (Select) -->
+            <div class="form-group">
+              <label for="education">Образование:<span class="req">*</span></label>
+              <select id="education" name="education" required>
+                <option value="Среднее или ниже" selected>Среднее или ниже</option>
+                <option value="Среднее профессиональное">Среднее профессиональное</option>
+                <option value="Неоконченное высшее">Неоконченное высшее</option>
+                <option value="Высшее образование">Высшее образование</option>
+              </select>
+              <span class="help-text">Выпадающий список выбора степени образования</span>
+            </div>
+
+            <!-- Языки программирования (Checkbox) -->
+            <div class="form-group full-width">
+              <label>Какие языки программирования Вы знаете:</label>
+              <div class="checkbox-group">
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="PHP" checked> PHP
+                </label>
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="C++" checked> C++
+                </label>
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="Java"> Java
+                </label>
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="JavaScript" checked> JavaScript
+                </label>
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="Python" checked> Python
+                </label>
+                <label class="choice-label">
+                  <input type="checkbox" name="languages" value="SQL"> SQL
+                </label>
+              </div>
+              <span class="help-text">Множественный выбор с помощью флажков (checkbox)</span>
+            </div>
+
+            <!-- Комментарий (Textarea) -->
+            <div class="form-group full-width">
+              <label for="comment">Ваш комментарий:</label>
+              <textarea id="comment" name="comment" rows="3" placeholder="Спасибо, это тест. Ваши пожелания или примечания...">Спасибо, это тест</textarea>
+              <span class="help-text">Многострочное поле ввода (textarea)</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Задание 2: Современные элементы и атрибуты ввода HTML5 -->
+        <fieldset>
+          <legend>2. Новые элементы ввода и атрибуты HTML5</legend>
+
+          <div class="form-grid">
+            <!-- Дата рождения (date) -->
+            <div class="form-group">
+              <label for="birthdate">Дата рождения:<span class="req">*</span></label>
+              <input type="date" id="birthdate" name="birthdate" required min="1970-01-01" max="2010-12-31" value="2004-05-15">
+              <span class="help-text">Элемент input type="date" с атрибутами min/max</span>
+            </div>
+
+            <!-- Электронная почта (email) -->
+            <div class="form-group">
+              <label for="email">E-mail адрес:<span class="req">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="student@tulsu.ru" value="laukert@tulsu.ru" autocomplete="email">
+              <span class="help-text">Проверка формата email по стандарту HTML5</span>
+            </div>
+
+            <!-- Телефон (tel + pattern) -->
+            <div class="form-group">
+              <label for="phone">Номер телефона:<span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" required placeholder="+7-999-123-4567" pattern="\+7-\d{3}-\d{3}-\d{4}" value="+7-920-123-4567">
+              <span class="help-text">Шаблон pattern: +7-XXX-XXX-XXXX</span>
+            </div>
+
+            <!-- Академическая группа (datalist) -->
+            <div class="form-group">
+              <label for="group_input">Академическая группа:<span class="req">*</span></label>
+              <input type="text" id="group_input" name="group" list="group_options" required placeholder="Выберите или введите" value="220032-11">
+              <datalist id="group_options">
+                <option value="220032-11">
+                <option value="220032-12">
+                <option value="220031-11">
+                <option value="220033-11">
+              </datalist>
+              <span class="help-text">Связка input c элементом datalist</span>
+            </div>
+
+            <!-- Курс обучения (number) -->
+            <div class="form-group">
+              <label for="course">Курс обучения:<span class="req">*</span></label>
+              <input type="number" id="course" name="course" min="1" max="6" step="1" value="4" required>
+              <span class="help-text">Числовой ввод (min=1, max=6, step=1)</span>
+            </div>
+
+            <!-- Ссылка на портфолио / GitHub (url) -->
+            <div class="form-group">
+              <label for="portfolio_url">Профиль / GitHub (URL):</label>
+              <input type="url" id="portfolio_url" name="portfolio_url" placeholder="https://github.com/username" value="https://github.com/laukert-km">
+              <span class="help-text">Валидация протокола и структуры URL-адреса</span>
+            </div>
+
+            <!-- Ползунок готовности (range + output) -->
+            <div class="form-group">
+              <label for="readiness">Уровень готовности к защите:</label>
+              <div class="range-wrapper">
+                <input type="range" id="readiness" name="readiness" min="0" max="100" step="5" value="95" oninput="rangeOutput.value = this.value + '%'">
+                <output id="rangeOutput" for="readiness">95%</output>
+              </div>
+              <span class="help-text">Элемент range синхронизирован с output</span>
+            </div>
+
+            <!-- Цвет темы профиля (color) -->
+            <div class="form-group">
+              <label for="theme_color">Любимый цвет темы:</label>
+              <div class="color-wrapper">
+                <input type="color" id="theme_color" name="theme_color" value="#4338ca">
+                <span id="colorHex" style="font-weight: 600; font-family: monospace;">#4338ca</span>
+              </div>
+              <span class="help-text">Выбор цвета через HTML5-пипетку</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Кнопки управления формой -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btnSubmit">
+            📤 Отправить анкету
+          </button>
+          
+          <button type="submit" class="btn btn-secondary" formnovalidate id="btnNoValidate" title="Отправка данных без проверки валидации HTML5">
+            ⚡ Отправить без валидации (formnovalidate)
+          </button>
+
+          <button type="reset" class="btn btn-reset" id="btnReset">
+            🔄 Сбросить форму
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Секция результатов клиентской обработки данных формы -->
+    <section class="card result-section" id="resultSection">
+      <h2 class="card-title">
+        <span>✅</span> Результат обработки данных формы
+      </h2>
+      <p class="card-subtitle">
+        Данные формы успешно перехвачены клиентским сценарием, разобраны и подготовлены к отправке на сервер.
+      </p>
+
+      <div id="statusAlert" class="alert alert-success">
+        <strong>Статус:</strong> Форма прошла валидацию HTML5 и успешно обработана.
+      </div>
+
+      <div class="result-grid" id="resultGrid">
+        <!-- Генерируется динамически через JS -->
+      </div>
+
+      <div style="margin-top: 16px;">
+        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+          Сырой HTTP Payload (application/x-www-form-urlencoded):
+        </label>
+        <div class="raw-box" id="rawPayload"></div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+          JSON представление обработанных данных:
+        </label>
+        <div class="raw-box" id="jsonPayload"></div>
+      </div>
+    </section>
+
+    <!-- Информационный блок о стандартах и валидации -->
+    <div class="validation-box">
+      <strong>Реализация и проверка валидности:</strong>
+      <ul>
+        <li><strong>Теги разметки:</strong> <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code>, <code>&lt;legend&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;datalist&gt;</code>, <code>&lt;output&gt;</code>, <code>&lt;button&gt;</code>.</li>
+        <li><strong>Типы ввода HTML5:</strong> <code>text</code>, <code>radio</code>, <code>checkbox</code>, <code>date</code>, <code>email</code>, <code>tel</code>, <code>number</code>, <code>range</code>, <code>color</code>, <code>url</code>.</li>
+        <li><strong>Атрибуты формы и валидации:</strong> <code>required</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>step</code>, <code>placeholder</code>, <code>autofocus</code>, <code>autocomplete</code>, <code>formnovalidate</code>.</li>
+        <li><strong>Обработка данных:</strong> Перехват события <code>submit</code>, валидация через <code>checkValidity()</code>, структурирование <code>FormData</code> и формирование payload.</li>
+      </ul>
+    </div>
+
+    <footer class="footer">
+      Лабораторная работа № 5 • Тульский государственный университет • Кафедра ВТ / ИПМКН • 2026
+    </footer>
+  </div>
+
+  <script>
+    // Синхронизация выбора цвета
+    const colorInput = document.getElementById('theme_color');
+    const colorHex = document.getElementById('colorHex');
+    colorInput.addEventListener('input', (e) => {
+      colorHex.textContent = e.target.value;
+    });
+
+    // Обработка формы
+    const studentForm = document.getElementById('studentForm');
+    const resultSection = document.getElementById('resultSection');
+    const statusAlert = document.getElementById('statusAlert');
+    const resultGrid = document.getElementById('resultGrid');
+    const rawPayload = document.getElementById('rawPayload');
+    const jsonPayload = document.getElementById('jsonPayload');
+
+    function processSubmission(isNoValidate = false) {
+      if (isNoValidate) {
+        statusAlert.className = 'alert alert-warning';
+        statusAlert.innerHTML = '<strong>Внимание!</strong> Отправка формы произведена в обход валидации благодаря атрибуту <code>formnovalidate</code>.';
+      } else {
+        statusAlert.className = 'alert alert-success';
+        statusAlert.innerHTML = '<strong>Успех:</strong> Данные формы проверены и успешно обработаны! Все ограничения и форматы HTML5 соблюдены.';
+      }
+
+      // Собираем данные формы
+      const formData = new FormData(studentForm);
+      const dataObj = {};
+      const languages = [];
+
+      for (let [key, val] of formData.entries()) {
+        if (key === 'languages') {
+          languages.push(val);
+        } else {
+          dataObj[key] = val;
+        }
+      }
+      dataObj['languages'] = languages;
+
+      // Строим карточки результата
+      const labelsMap = {
+        'student_name': 'ФИО студента',
+        'gender': 'Пол',
+        'education': 'Образование',
+        'languages': 'Языки программирования',
+        'comment': 'Комментарий',
+        'birthdate': 'Дата рождения',
+        'email': 'E-mail адрес',
+        'phone': 'Номер телефона',
+        'group': 'Группа',
+        'course': 'Курс',
+        'portfolio_url': 'Ссылка на профиль',
+        'readiness': 'Готовность к защите',
+        'theme_color': 'Цвет профиля'
+      };
+
+      resultGrid.innerHTML = '';
+      for (let key in labelsMap) {
+        let displayVal = dataObj[key];
+        if (key === 'languages') {
+          if (languages.length > 0) {
+            displayVal = languages.map(l => `<span class="badge-tag">${l}</span>`).join(' ');
+          } else {
+            displayVal = '<em>Не выбрано</em>';
+          }
+        } else if (key === 'readiness') {
+          displayVal = displayVal ? displayVal + '%' : '—';
+        } else if (key === 'theme_color') {
+          displayVal = `<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:${displayVal};vertical-align:middle;margin-right:6px;"></span>${displayVal}`;
+        } else if (!displayVal) {
+          displayVal = '<em>(не указано)</em>';
+        }
+
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="result-key">${labelsMap[key]}</div>
+          <div class="result-value">${displayVal}</div>
+        `;
+        resultGrid.appendChild(card);
+      }
+
+      // Формируем application/x-www-form-urlencoded
+      const urlSearchParams = new URLSearchParams();
+      for (let [key, val] of formData.entries()) {
+        urlSearchParams.append(key, val);
+      }
+      rawPayload.textContent = urlSearchParams.toString();
+
+      // Формируем JSON
+      jsonPayload.textContent = JSON.stringify(dataObj, null, 2);
+
+      // Показываем блок результатов
+      resultSection.style.display = 'block';
+    }
+
+    studentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const submitter = e.submitter;
+      const isNoValidate = submitter && submitter.hasAttribute('formnovalidate');
+      processSubmission(isNoValidate);
+      resultSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Очистка результатов при сбросе формы
+    studentForm.addEventListener('reset', function() {
+      setTimeout(() => {
+        document.getElementById('rangeOutput').value = document.getElementById('readiness').value + '%';
+        colorHex.textContent = colorInput.value;
+        resultSection.style.display = 'none';
+      }, 50);
+    });
+
+    // Управление режимами через URL-параметры (для скриншотов и демонстрации)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode');
+
+      if (mode) {
+        document.body.classList.add('mode-' + mode);
+      }
+
+      if (mode === 'submitted') {
+        document.getElementById('student_name').value = 'Лаукерт Кирилл Максимович';
+        processSubmission(false);
+      } else if (mode === 'invalid') {
+        const nameInput = document.getElementById('student_name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+
+        nameInput.value = '';
+        nameInput.classList.add('force-invalid');
+
+        emailInput.value = 'invalid_email_format';
+        emailInput.classList.add('force-invalid');
+
+        phoneInput.value = '12345';
+        phoneInput.classList.add('force-invalid');
+      }
+    });
+  </script>
+</body>
+</html>

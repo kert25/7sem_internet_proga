@@ -1,0 +1,132 @@
+[
+  {
+    "h": "Цель работы"
+  },
+  {
+    "p": "Изучить принципы построения и механизмы функционирования веб-форм в HTML5; освоить применение базовых и специализированных элементов ввода данных, элементов группировки и вывода; исследовать работу нативной валидации форм средствами браузера и реализовать обработку полученных данных на стороне клиента."
+  },
+  {
+    "h": "Задание 1. Разработка HTML-формы для ввода анкетных данных студентов группы"
+  },
+  {
+    "p": "Формулировка задания. Разработать форму HTML, предназначенную для ввода анкетных данных о студентах группы (по образцу из методических указаний: имя, пол, образование, изученные языки программирования, комментарий, кнопки отправки и сброса, группировка полей с использованием элементов fieldset и legend)."
+  },
+  {
+    "p": "Ход выполнения задания. На веб-странице ЛР5/index.html создана HTML-форма, инкапсулированная в тег form с атрибутами method=\"post\" и action=\"process_form.php\". Для логической группировки анкетных данных применён элемент fieldset с заголовком legend («1. Анкетные данные (базовые поля по образцу методички)»). Базовая анкета содержит следующие элементы управления:"
+  },
+  {
+    "p": "1. Текстовое поле имени и фамилии студента (input type=\"text\" name=\"student_name\") с атрибутами required, placeholder и autofocus для автоматической установки курсора при загрузке страницы."
+  },
+  {
+    "p": "2. Переключатели пола (input type=\"radio\" name=\"gender\") со значениями «Мужской» и «Женский». Объединение переключателей в единую взаимоисключающую группу реализовано с помощью одинакового атрибута name."
+  },
+  {
+    "p": "3. Выпадающий список уровня образования (select name=\"education\") с вариантами «Среднее или ниже», «Среднее профессиональное», «Неоконченное высшее» и «Высшее образование»."
+  },
+  {
+    "p": "4. Флажки множественного выбора изученных языков программирования (input type=\"checkbox\" name=\"languages\"): PHP, C++, Java, JavaScript, Python, SQL."
+  },
+  {
+    "p": "5. Многострочная текстовая область для дополнительного комментария студента (textarea name=\"comment\" rows=\"3\"). Все элементы ввода ассоциированы с текстовыми метками label для обеспечения доступности интерфейса."
+  },
+  {
+    "p": "Фрагмент разметки базовой формы анкеты:"
+  },
+  {
+    "code": "<!-- Базовая группа анкетных данных по образцу из методички -->\n<fieldset>\n  <legend>1. Анкетные данные (базовые поля по образцу методички)</legend>\n  <div class=\"form-group full-width\">\n    <label for=\"student_name\">Имя (ФИО студента):<span class=\"req\">*</span></label>\n    <input type=\"text\" id=\"student_name\" name=\"student_name\" required\n           placeholder=\"Евгений или Лаукерт Кирилл\" autofocus autocomplete=\"name\">\n  </div>\n  <div class=\"form-group\">\n    <label>Пол:<span class=\"req\">*</span></label>\n    <div class=\"radio-group\">\n      <label><input type=\"radio\" name=\"gender\" value=\"Мужской\" checked required> Мужской</label>\n      <label><input type=\"radio\" name=\"gender\" value=\"Женский\" required> Женский</label>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"education\">Образование:<span class=\"req\">*</span></label>\n    <select id=\"education\" name=\"education\" required>\n      <option value=\"Среднее или ниже\" selected>Среднее или ниже</option>\n      <option value=\"Среднее профессиональное\">Среднее профессиональное</option>\n      <option value=\"Неоконченное высшее\">Неоконченное высшее</option>\n      <option value=\"Высшее образование\">Высшее образование</option>\n    </select>\n  </div>\n  <div class=\"form-group full-width\">\n    <label>Какие языки программирования Вы знаете:</label>\n    <div class=\"checkbox-group\">\n      <label><input type=\"checkbox\" name=\"languages\" value=\"PHP\" checked> PHP</label>\n      <label><input type=\"checkbox\" name=\"languages\" value=\"C++\" checked> C++</label>\n      <label><input type=\"checkbox\" name=\"languages\" value=\"Java\"> Java</label>\n      <label><input type=\"checkbox\" name=\"languages\" value=\"JavaScript\" checked> JavaScript</label>\n      <label><input type=\"checkbox\" name=\"languages\" value=\"Python\" checked> Python</label>\n    </div>\n  </div>\n  <div class=\"form-group full-width\">\n    <label for=\"comment\">Ваш комментарий:</label>\n    <textarea id=\"comment\" name=\"comment\" rows=\"3\">Спасибо, это тест</textarea>\n  </div>\n</fieldset>"
+  },
+  {
+    "img": "screenshots/1_basic_form.png",
+    "caption": "Рисунок 1 — Внешний вид базовой анкетной формы по образцу методических указаний"
+  },
+  {
+    "pb": true
+  },
+  {
+    "h": "Задание 2. Добавление современных элементов и атрибутов HTML5"
+  },
+  {
+    "p": "Формулировка задания. Добавить к форме поля ввода данных стандарта HTML5 (дата рождения, адрес электронной почты, телефон с регулярным выражением, числовой ввод, выбор цвета, ползунок с элементом output, автодополнение datalist и управляющие атрибуты)."
+  },
+  {
+    "p": "Ход выполнения задания. Во втором блоке fieldset («2. Новые элементы ввода и атрибуты HTML5») реализованы современные элементы управления:"
+  },
+  {
+    "p": "1. Дата рождения (input type=\"date\" name=\"birthdate\"): заданы границы допустимых дат с помощью атрибутов min=\"1970-01-01\" и max=\"2010-12-31\"."
+  },
+  {
+    "p": "2. Адрес электронной почты (input type=\"email\" name=\"email\"): обеспечивает проверку синтаксиса e-mail средствами браузера; подключён атрибут autocomplete=\"email\"."
+  },
+  {
+    "p": "3. Номер телефона (input type=\"tel\" name=\"phone\"): валидация формата номера обеспечивается регулярным выражением в атрибуте pattern=\"\\+7-\\d{3}-\\d{3}-\\d{4}\" (формат +7-XXX-XXX-XXXX)."
+  },
+  {
+    "p": "4. Академическая группа с элементом datalist (input type=\"text\" name=\"group\" list=\"group_options\"): пользователю предоставляется список готовых академических групп института (220032-11, 220032-12 и др.) с возможностью ручного ввода произвольного значения."
+  },
+  {
+    "p": "5. Курс обучения (input type=\"number\" name=\"course\"): заданы ограничения диапазона min=\"1\", max=\"6\" и шаг изменения step=\"1\"."
+  },
+  {
+    "p": "6. Ссылка на портфолио или профиль GitHub (input type=\"url\" name=\"portfolio_url\"): осуществляет проверку корректности интернет-адреса."
+  },
+  {
+    "p": "7. Интерактивный ползунок готовности к защите (input type=\"range\" name=\"readiness\" min=\"0\" max=\"100\" step=\"5\"): текущее числовое значение динамически отображается в элементе output с помощью обработчика события oninput."
+  },
+  {
+    "p": "8. Выбор цвета темы профиля (input type=\"color\" name=\"theme_color\"): предоставляет нативную палитру операционной системы для выбора цвета в шестнадцатеричном формате HEX."
+  },
+  {
+    "p": "9. Кнопки управления: кнопка отправки анкеты («Отправить анкету»), кнопка отправки с отключением валидации («Отправить без валидации») с атрибутом formnovalidate и кнопка сброса значений формы (button type=\"reset\")."
+  },
+  {
+    "p": "Фрагмент разметки специализированных элементов HTML5:"
+  },
+  {
+    "code": "<!-- Новые элементы HTML5 и атрибуты валидации -->\n<div class=\"form-group\">\n  <label for=\"birthdate\">Дата рождения:<span class=\"req\">*</span></label>\n  <input type=\"date\" id=\"birthdate\" name=\"birthdate\" required min=\"1970-01-01\" max=\"2010-12-31\">\n</div>\n<div class=\"form-group\">\n  <label for=\"email\">E-mail адрес:<span class=\"req\">*</span></label>\n  <input type=\"email\" id=\"email\" name=\"email\" required placeholder=\"student@tulsu.ru\">\n</div>\n<div class=\"form-group\">\n  <label for=\"phone\">Номер телефона:<span class=\"req\">*</span></label>\n  <input type=\"tel\" id=\"phone\" name=\"phone\" required pattern=\"\\+7-\\d{3}-\\d{3}-\\d{4}\">\n</div>\n<div class=\"form-group\">\n  <label for=\"group_input\">Академическая группа:<span class=\"req\">*</span></label>\n  <input type=\"text\" id=\"group_input\" name=\"group\" list=\"group_options\" required>\n  <datalist id=\"group_options\">\n    <option value=\"220032-11\">\n    <option value=\"220032-12\">\n  </datalist>\n</div>\n<div class=\"form-group\">\n  <label for=\"readiness\">Уровень готовности к защите:</label>\n  <div class=\"range-wrapper\">\n    <input type=\"range\" id=\"readiness\" name=\"readiness\" min=\"0\" max=\"100\" value=\"95\"\n           oninput=\"rangeOutput.value = this.value + '%'\">\n    <output id=\"rangeOutput\" for=\"readiness\">95%</output>\n  </div>\n</div>\n<div class=\"form-actions\">\n  <button type=\"submit\" class=\"btn btn-primary\">📤 Отправить анкету</button>\n  <button type=\"submit\" class=\"btn btn-secondary\" formnovalidate>⚡ Отправить без валидации</button>\n  <button type=\"reset\" class=\"btn btn-reset\">🔄 Сбросить форму</button>\n</div>"
+  },
+  {
+    "img": "screenshots/2_html5_controls.png",
+    "caption": "Рисунок 2 — Дополнительные элементы ввода и управляющие элементы стандарта HTML5"
+  },
+  {
+    "pb": true
+  },
+  {
+    "h": "Задание 3. Проверка на валидность и обработка данных формы"
+  },
+  {
+    "p": "Формулировка задания. Проверить на валидность и в работе полученный программный код. Продемонстрировать работу нативной валидации HTML5 и обработку отправленных данных формы."
+  },
+  {
+    "p": "Ход выполнения задания. Проведена комплексная проверка валидности разметки и логики функционирования формы:"
+  },
+  {
+    "p": "1. Механизм обработки данных. Для демонстрации извлечения и сериализации переданных данных формы разработан JavaScript-обработчик события submit. При отправке формы обработчик извлекает поля через интерфейс FormData, разбирает множественные параметры (массив выбранных языков программирования), генерирует наглядные информационные карточки по каждому полю, а также строит сырой HTTP Payload в формате application/x-www-form-urlencoded и структурированное JSON-представление."
+  },
+  {
+    "p": "2. Проверка валидации HTML5. При попытке отправки формы с незаполненными обязательными полями или некорректным синтаксисом браузер блокирует отправку и сигнализирует об ошибке в соответствии с HTML5 Constraint Validation API: для пустого поля срабатывает ограничение required (флаг valueMissing), для ошибочного e-mail — проверка типа (флаг typeMismatch), для номера телефона — проверка шаблона регулярного выражения (флаг patternMismatch). Для наглядности некорректные поля подсвечиваются красной рамкой, а на странице отображается панель ошибок валидации."
+  },
+  {
+    "p": "3. Атрибут formnovalidate. Проверено действие кнопки отправки с атрибутом formnovalidate: при её нажатии встроенная валидация браузера игнорируется, и данные передаются обработчику с выводом предупреждающего сообщения о пропуске проверки."
+  },
+  {
+    "p": "Фрагмент клиентского сценария обработки данных формы:"
+  },
+  {
+    "code": "// Обработчик отправки и сериализации данных формы\nstudentForm.addEventListener('submit', function(e) {\n  e.preventDefault();\n  const isNoValidate = e.submitter && e.submitter.hasAttribute('formnovalidate');\n  \n  const formData = new FormData(this);\n  const dataObj = {};\n  const languages = [];\n  \n  for (let [key, val] of formData.entries()) {\n    if (key === 'languages') languages.push(val);\n    else dataObj[key] = val;\n  }\n  dataObj['languages'] = languages;\n  \n  // Сериализация в application/x-www-form-urlencoded\n  const urlParams = new URLSearchParams(formData);\n  rawPayload.textContent = urlParams.toString();\n  \n  // Сериализация в JSON\n  jsonPayload.textContent = JSON.stringify(dataObj, null, 2);\n  resultSection.style.display = 'block';\n});"
+  },
+  {
+    "img": "screenshots/3_data_processing.png",
+    "caption": "Рисунок 3 — Результат интерактивной обработки данных анкеты, HTTP payload и JSON"
+  },
+  {
+    "img": "screenshots/4_validation_demo.png",
+    "caption": "Рисунок 4 — Демонстрация работы валидации HTML5 при некорректном заполнении полей"
+  },
+  {
+    "h": "Вывод"
+  },
+  {
+    "p": "В ходе выполнения лабораторной работы разработана интерактивная веб-страница с анкетной формой, объединяющей базовые элементы HTML и специализированные элементы спецификации HTML5. Практически освоено применение полей ввода date, email, tel, number, range, color, url, выпадающего списка select, переключателей radio, флажков checkbox, многострочной области textarea, а также вспомогательных элементов datalist, output, fieldset и legend. Реализована клиентская валидация данных средствами HTML5 Constraint Validation API и интерактивная обработка данных с получением структурированного представления в форматах URL-encoded и JSON. Исходный код страницы проверен на валидность и сохранён в файле ЛР5/index.html."
+  }
+]

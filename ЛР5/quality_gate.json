@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "lab": 5,
+  "report_number": 5,
+  "status": "passed",
+  "checked_at": "2026-10-23T12:48:19Z",
+  "checks": [
+    "content_references",
+    "artifacts",
+    "report_docx",
+    "report_pdf",
+    "text_docx"
+  ],
+  "files": [
+    "ЛР5/Отчет_ЛР5.docx",
+    "ЛР5/Отчет_ЛР5.pdf",
+    "ЛР5/text.docx"
+  ],
+  "sha256": {
+    "_context.json": "924727ac64ec5bb730c508e08df24cd505a1b0cfa8e707b365854416bb26c452",
+    "ЛР5/content.json": "9cfa214214ae8d0a1cd71213637d061eaf74d1508078b9bd464cb71780ff9fd4",
+    "ЛР5/text.docx": "6d4b87f077794110c9e066479be9a0e548b795d6546e9f30f8f2d9b0547bb86d",
+    "ЛР5/Лабораторная работа 5 _HTML5 Формы и обработка данных.pdf": "0cb589fbfe3324112aec75abe56bf451e29f889d0f617469b75e918994115714",
+    "ЛР5/Отчет_ЛР5.docx": "a03e0b93f0fd3ff18d987bfb0a6b3fd5be3cbe0c8c6613b310ecf79eb4c8d3ff",
+    "ЛР5/Отчет_ЛР5.pdf": "0d214630f08cbee1a22ae4b17a803bdcb6116df66e879ca2fadef5acc6114957"
+  }
+}

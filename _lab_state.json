@@ -116,6 +116,74 @@
         ],
         "warnings": []
       }
+    },
+    "4": {
+      "status": "ready_for_review",
+      "directory": "ЛР4",
+      "methodical_guide": "ЛР4/Лабораторная работа 4 _HTML5 Использование новых элементов и атрибутов в html5 формах.pdf",
+      "report_number": 4,
+      "theme": "Использование новых элементов и атрибутов в html5 формах",
+      "variant": "9",
+      "next_step": "Пользователь проверяет сайт и отчёт перед подтверждением завершения.",
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-10-16T07:01:17Z",
+        "checks": [
+          "content_references",
+          "artifacts",
+          "report_docx",
+          "report_pdf",
+          "text_docx"
+        ],
+        "warnings": []
+      },
+      "artifacts": [
+        "ЛР4/content.json",
+        "ЛР4/content_text.json",
+        "ЛР4/img/",
+        "ЛР4/index.html",
+        "ЛР4/screenshots/",
+        "ЛР4/Лабораторная работа 4 _HTML5 Использование новых элементов и атрибутов в html5 формах.pdf",
+        "ЛР4/Отчет_ЛР4.docx",
+        "ЛР4/Отчет_ЛР4.pdf",
+        "ЛР4/text.docx",
+        "ЛР4/quality_gate.json"
+      ]
+    },
+    "5": {
+      "status": "in_progress",
+      "directory": "ЛР5",
+      "methodical_guide": "ЛР5/Лабораторная работа 5 _HTML5 Формы и обработка данных.pdf",
+      "report_number": 5,
+      "theme": "Форма и обработка данных",
+      "variant": "9",
+      "next_step": "Разработка веб-страницы формы и обработчика данных",
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "artifacts": [
+        "ЛР5/Лабораторная работа 5 _HTML5 Формы и обработка данных.pdf",
+        "ЛР5/quality_gate.json"
+      ],
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-10-23T12:48:19Z",
+        "checks": [
+          "content_references",
+          "artifacts",
+          "report_docx",
+          "report_pdf",
+          "text_docx"
+        ],
+        "warnings": []
+      }
     }
   }
 }
