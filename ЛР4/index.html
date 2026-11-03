@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Лабораторная работа № 4 по HTML5-формам">
+  <title>ЛР №4 — HTML5 Forms</title>
+  <style>
+    :root { --accent:#6d5dfc; --accent-dark:color-mix(in srgb,var(--accent) 78%,#000); --accent-soft:color-mix(in srgb,var(--accent) 14%,#fff); --ink:#18213d; --muted:#66708b; --surface:#fff; --line:#e5e8f3; --canvas:#f5f7ff; --success:#147a5d; --shadow:0 18px 45px rgba(43,49,104,.12); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; color:var(--ink); background:radial-gradient(circle at top right,#e6e4ff 0,transparent 32rem),var(--canvas); font:16px/1.55 Inter,"Segoe UI",Arial,sans-serif; }
+    .page { max-width:1240px; margin:0 auto; padding:28px 20px 48px; }
+    .hero { position:relative; overflow:hidden; padding:clamp(28px,5vw,56px); border-radius:28px; color:#fff; background:linear-gradient(125deg,#252250,var(--accent)); box-shadow:var(--shadow); }
+    .hero::after { position:absolute; top:-110px; right:-65px; width:280px; height:280px; border:42px solid rgba(255,255,255,.12); border-radius:50%; content:""; }
+    .eyebrow { margin:0 0 12px; color:#d9d6ff; font-size:.8rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { max-width:720px; margin:0; font-size:clamp(2rem,5vw,3.75rem); line-height:1.06; letter-spacing:-.04em; }
+    .hero p { max-width:660px; margin:20px 0 0; color:#f0efff; font-size:1.08rem; }
+    .hero-meta,.nav-links,.button-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .hero-meta { margin-top:26px; }
+    .hero-meta span { padding:7px 12px; border:1px solid rgba(255,255,255,.22); border-radius:999px; background:rgba(255,255,255,.1); font-size:.9rem; }
+    nav { display:flex; align-items:center; gap:22px; margin:22px 0; padding:14px 18px; border:1px solid var(--line); border-radius:20px; background:rgba(255,255,255,.84); box-shadow:0 8px 25px rgba(33,43,95,.06); backdrop-filter:blur(8px); }
+    .author { display:flex; flex:0 0 auto; align-items:center; gap:10px; margin:0; }
+    .author img { width:50px; height:50px; border:3px solid #ddd9ff; border-radius:15px; object-fit:cover; }
+    .author figcaption { display:grid; line-height:1.2; font-size:.78rem; color:var(--muted); }
+    .author strong { color:var(--ink); font-size:.9rem; }
+    .nav-links { flex:1; justify-content:flex-end; align-items:center; margin-left:auto; }
+    .nav-links a { display:block; padding:7px 11px; border-radius:10px; color:var(--muted); text-decoration:none; font-size:.88rem; font-weight:700; }
+    .nav-links a:hover { color:var(--accent); background:#f0efff; }
+    main { display:grid; gap:22px; }
+    .intro,.form-card,footer { border:1px solid var(--line); border-radius:24px; background:var(--surface); box-shadow:0 10px 28px rgba(33,43,95,.06); }
+    .intro { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; padding:24px; }
+    .intro-badge { display:grid; width:62px; height:62px; place-items:center; border-radius:18px; color:var(--accent); background:#eeecff; font-size:1.75rem; font-weight:900; }
+    .intro h2,.form-head h2 { margin:0; font-size:1.35rem; letter-spacing:-.02em; }
+    .intro p,.form-head p { margin:5px 0 0; color:var(--muted); }
+    .form-card { padding:clamp(18px,4vw,34px); }
+    .form-head { display:flex; justify-content:space-between; gap:20px; margin-bottom:24px; }
+    .form-head mark { align-self:flex-start; padding:6px 10px; border-radius:999px; color:var(--accent-dark); background:var(--accent-soft); font-size:.8rem; font-weight:800; white-space:nowrap; }
+    form { display:grid; gap:18px; }
+    fieldset { min-width:0; margin:0; padding:22px; border:1px solid var(--line); border-radius:18px; background:#fbfcff; }
+    legend { padding:0 8px; color:var(--accent); font-size:.9rem; font-weight:850; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .field { display:grid; gap:6px; }
+    .field.wide { grid-column:1/-1; }
+    label { font-size:.9rem; font-weight:750; }
+    .hint { color:var(--muted); font-size:.76rem; }
+    input { width:100%; min-height:43px; padding:10px 12px; border:1px solid #d7dceb; border-radius:11px; color:var(--ink); background:#fff; font:inherit; transition:.18s; }
+    input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent); }
+    input:not(:placeholder-shown):invalid { border-color:#d44f63; }
+    input[type="color"] { max-width:100%; padding:4px; cursor:pointer; }
+    input[type="range"] { min-height:auto; padding:0; accent-color:var(--accent); }
+    .range-line,.score-line { display:flex; align-items:center; gap:12px; }
+    .range-line input { flex:1; }
+    output { display:inline-block; min-width:72px; padding:7px 10px; border-radius:10px; color:var(--accent-dark); background:var(--accent-soft); font-weight:850; text-align:center; }
+    .score-line input { width:92px; }
+    .button-row { margin-top:2px; }
+    button { min-height:43px; padding:9px 15px; border:1px solid transparent; border-radius:11px; cursor:pointer; font:700 .9rem/1 Inter,"Segoe UI",Arial,sans-serif; transition:.18s; }
+    .primary { color:#fff; background:var(--accent); box-shadow:0 8px 16px color-mix(in srgb,var(--accent) 28%,transparent); }
+    .primary:hover { background:var(--accent-dark); transform:translateY(-1px); }
+    .secondary { color:var(--ink); border-color:#d7dceb; background:#fff; }
+    .secondary:hover { border-color:var(--accent); color:var(--accent); }
+    .skip { color:#9a5b04; border-color:#f3c474; background:#fff9e8; }
+    #form-status { display:none; padding:14px 16px; border-radius:13px; color:var(--success); background:#edfbf5; border:1px solid #aee5cc; }
+    #form-status.visible { display:block; }
+    aside { padding:20px; border:1px dashed #afa7ff; border-radius:18px; background:#f7f6ff; }
+    aside h3 { margin:0 0 5px; font-size:1rem; }
+    aside p { margin:0 0 14px; color:var(--muted); font-size:.9rem; }
+    footer { display:grid; grid-template-columns:1.25fr 1fr; gap:24px; margin-top:22px; padding:26px; color:#edf0ff; border:0; background:#202042; }
+    footer h2 { margin:0; color:#fff; font-size:1.2rem; }
+    footer p { margin:8px 0 0; color:#bfc3df; }
+    .footer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .footer-item { padding:12px; border-radius:13px; background:rgba(255,255,255,.08); }
+    .footer-item small { display:block; color:#bfc3df; }
+    .footer-item a,.footer-item span { color:#fff; font-weight:700; text-decoration:none; overflow-wrap:anywhere; }
+    .sync-note { grid-column:1/-1; padding-top:6px; color:#bfc3df; font-size:.8rem; }
+    code { padding:1px 5px; border-radius:5px; color:#5548d6; background:#f0efff; font-family:Consolas,monospace; font-size:.9em; }
+    footer code { color:#d7d3ff; background:rgba(255,255,255,.1); }
+    @media (max-width:760px) { nav { align-items:flex-start; flex-direction:column; } .nav-links { justify-content:flex-start; margin-left:0; } .grid,footer { grid-template-columns:1fr; } .field.wide { grid-column:auto; } .form-head { flex-direction:column; } .footer-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Заголовочная область страницы. -->
+    <header class="hero">
+      <p class="eyebrow">Интернет-программирование · Лабораторная работа № 4</p>
+      <h1>HTML5 Forms<br>в современном интерфейсе</h1>
+      <p>Интерактивная анкета студента демонстрирует новые типы полей, встроенную валидацию и семантическую структуру HTML5.</p>
+      <div class="hero-meta">ТулГУ · ИПМКН · Вариант 9 · 2026</div>
+    </header>
+
+    <!-- Навигация с фотографией и подписью автора (задание 3). -->
+    <nav aria-label="Навигация по странице">
+      <figure class="author">
+        <img src="img/avatar.jpg" alt="Аватар автора">
+        <figcaption>Лаукерт Кирилл · 220032-11 · 4 курс</figcaption>
+      </figure>
+      <div class="nav-links">
+        <a href="#contacts">Контакты</a>
+        <a href="#progress">Шкалы</a>
+        <a href="#schedule">Дата и время</a>
+        <a href="#extras">Дополнительно</a>
+        <a href="#author-footer">Footer</a>
+      </div>
+    </nav>
+
+    <!-- Основное содержимое и HTML5-форма (задание 1). -->
+    <main>
+      <section class="intro" aria-labelledby="goal-title">
+        <div class="intro-badge">4</div>
+        <div><h2 id="goal-title">Цель работы</h2><p>Применить HTML5-элементы и атрибуты форм, а также семантические теги header, nav, main, section, aside и footer.</p></div>
+      </section>
+
+      <section class="form-card" aria-labelledby="form-title">
+        <div class="form-head"><div><h2 id="form-title">Анкета готовности к защите</h2><p>Поля с отметкой * проверяются средствами браузера.</p></div><mark>HTML5 validation</mark></div>
+        <form id="student-form" novalidate onsubmit="return submitForm(event)">
+          <fieldset id="contacts">
+            <legend>01 · Контакты и поиск</legend>
+            <div class="grid">
+              <div class="field"><label for="full-name">ФИО *</label><input id="full-name" name="fullName" required placeholder="Фамилия Имя Отчество" value="Лаукерт Кирилл Максимович"><span class="hint">required и placeholder</span></div>
+              <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" required autofocus placeholder="name@tulsu.ru" value="kirill.laukert@tulsu.ru"><span class="hint">type="email" и autofocus</span></div>
+              <div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" required pattern="[+]?[0-9 ()-]{11,}" placeholder="+7 (999) 123-45-67" value="+7 (999) 123-45-67"><span class="hint">type="tel" и pattern</span></div>
+              <div class="field"><label for="portfolio">Портфолио</label><input id="portfolio" name="portfolio" type="url" placeholder="https://example.ru" value="https://tulsu.ru"><span class="hint">type="url"</span></div>
+              <div class="field"><label for="search">Поиск материала</label><input id="search" name="search" type="search" placeholder="Например, HTML5 forms"><span class="hint">type="search"</span></div>
+              <div class="field"><label for="additional-emails">Дополнительные email</label><input id="additional-emails" name="additionalEmails" type="email" multiple placeholder="first@mail.ru, second@mail.ru"><span class="hint">type="email" и multiple</span></div>
+            </div>
+          </fieldset>
+
+          <fieldset id="progress">
+            <legend>02 · Числа, шкалы и результат</legend>
+            <div class="grid">
+              <div class="field"><label for="course">Курс обучения *</label><input id="course" name="course" type="number" min="1" max="6" step="1" value="4" required><span class="hint">min, max и step</span></div>
+              <div class="field"><label for="target-score">Целевой балл</label><input id="target-score" name="targetScore" type="number" min="60" max="100" step="5" value="100"><span class="hint">Числовая валидация</span></div>
+              <div class="field wide"><label for="readiness">Готовность к защите</label><div class="range-line"><input id="readiness" name="readiness" type="range" min="0" max="100" step="5" value="90"><output id="readiness-output" for="readiness">90%</output></div><span class="hint">range связан с output через атрибут for</span></div>
+              <div class="field wide"><label>Расчёт результата</label><div class="score-line"><input id="theory" type="number" min="0" max="50" value="45" aria-label="Баллы за теорию"><span>+</span><input id="practice" type="number" min="0" max="50" value="50" aria-label="Баллы за практику"><span>=</span><output id="total" for="theory practice">95 / 100</output></div><span class="hint">Два поля number и вычисляемый output</span></div>
+            </div>
+          </fieldset>
+
+          <fieldset id="schedule">
+            <legend>03 · Дата и время</legend>
+            <div class="grid">
+              <div class="field"><label for="deadline">Дата сдачи</label><input id="deadline" name="deadline" type="date" value="2026-10-15"><span class="hint">type="date"</span></div>
+              <div class="field"><label for="defense-time">Время защиты</label><input id="defense-time" name="defenseTime" type="time" value="16:45"><span class="hint">type="time"</span></div>
+              <div class="field"><label for="consultation">Консультация</label><input id="consultation" name="consultation" type="datetime-local" value="2026-10-16T12:00"><span class="hint">type="datetime-local"</span></div>
+              <div class="field"><label for="utc-consultation">Дата и время UTC</label><input id="utc-consultation" name="utcConsultation" type="datetime" value="2026-10-16T09:00Z"><span class="hint">type="datetime" из задания; современный браузер отображает его как текстовое поле</span></div>
+              <div class="field"><label for="study-month">Учебный месяц</label><input id="study-month" name="studyMonth" type="month" value="2026-10"><span class="hint">type="month"</span></div>
+              <div class="field"><label for="study-week">Учебная неделя</label><input id="study-week" name="studyWeek" type="week" value="2026-W42"><span class="hint">type="week"</span></div>
+            </div>
+          </fieldset>
+
+          <fieldset id="extras">
+            <legend>04 · Подсказки и настройки</legend>
+            <div class="grid">
+              <div class="field"><label for="department">Кафедра</label><input id="department" name="department" list="departments" placeholder="Начните ввод"><datalist id="departments"><option value="Кафедра вычислительной техники"><option value="Кафедра автоматизированных систем управления"><option value="Кафедра информационной безопасности"><option value="Кафедра прикладной математики и информатики"></datalist><span class="hint">input с подсказками datalist</span></div>
+              <div class="field"><label for="accent">Акцентный цвет</label><input id="accent" name="accent" type="color" value="#6d5dfc"><span class="hint">type="color" меняет цвет интерфейса</span></div>
+              <div class="field"><label for="keygen-demo">Генератор ключей</label><keygen id="keygen-demo" name="securityKey" challenge="tulsu-lab4"><span class="hint">keygen — элемент из исходной спецификации HTML5; в современных браузерах устарел</span></div>
+            </div>
+          </fieldset>
+
+          <div class="button-row"><button class="primary" type="submit">Проверить и отправить</button><button class="skip" type="submit" formnovalidate>Отправить без валидации</button><button class="secondary" type="reset">Сбросить</button><button class="secondary" type="button" id="fill-button">Заполнить примером</button></div>
+          <div id="form-status" role="status"></div>
+        </form>
+
+        <aside>
+          <h3>Внешнее поле с атрибутом form</h3>
+          <p>Это поле связано с идентификатором формы и отправляется вместе с ней.</p>
+          <div class="field"><label for="comment">Заметка для преподавателя</label><input id="comment" name="comment" form="student-form" placeholder="Это поле отправится вместе с формой"></div>
+        </aside>
+      </section>
+    </main>
+
+    <!-- Footer с данными автора, получаемыми из элементов формы (задание 2). -->
+    <footer id="author-footer">
+      <div><h2>Семантический блок footer</h2><p>Контактные данные ниже синхронизируются с соответствующими полями формы во время ввода.</p></div>
+      <div class="footer-grid">
+        <div class="footer-item"><small>Автор</small><span id="footer-name">Лаукерт Кирилл Максимович</span></div>
+        <div class="footer-item"><small>Курс и группа</small><span id="footer-course">4 курс · 220032-11</span></div>
+        <div class="footer-item"><small>Телефон из формы</small><a id="footer-phone-link" href="tel:+79991234567"><span id="footer-phone">+7 (999) 123-45-67</span></a></div>
+        <div class="footer-item"><small>Email из формы</small><a id="footer-email-link" href="mailto:kirill.laukert@tulsu.ru"><span id="footer-email">kirill.laukert@tulsu.ru</span></a></div>
+      </div>
+      <div class="sync-note">● Данные в <code>footer</code> обновляются обработчиком события <code>input</code>.</div>
+    </footer>
+  </div>
+
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const fields = { name: $('#full-name'), email: $('#email'), phone: $('#phone'), course: $('#course') };
+    const footer = { name: $('#footer-name'), email: $('#footer-email'), phone: $('#footer-phone'), course: $('#footer-course') };
+
+    // Синхронизация данных автора в footer с полями формы.
+    function syncFooter() {
+      const name = fields.name.value.trim() || 'Лаукерт Кирилл Максимович';
+      const email = fields.email.value.trim() || 'не указан';
+      const phone = fields.phone.value.trim() || 'не указан';
+      footer.name.textContent = name;
+      footer.email.textContent = email;
+      footer.phone.textContent = phone;
+      footer.course.textContent = `${fields.course.value || 4} курс · 220032-11`;
+      $('#footer-email-link').href = `mailto:${email}`;
+      $('#footer-phone-link').href = `tel:${phone.replace(/[^+\d]/g, '')}`;
+    }
+
+    // Обновление результатов, выводимых элементами output.
+    function updateReadiness() { $('#readiness-output').value = `${$('#readiness').value}%`; }
+    function updateTotal() { $('#total').value = `${Number($('#theory').value || 0) + Number($('#practice').value || 0)} / 100`; }
+    function submitForm(event) {
+      event.preventDefault();
+      const form = $('#student-form');
+      if (event.submitter && !event.submitter.formNoValidate && !form.checkValidity()) { form.reportValidity(); return false; }
+      $('#form-status').classList.add('visible');
+      $('#form-status').innerHTML = '<strong>Готово.</strong> Данные формы обработаны, а контакты синхронизированы с блоком footer.';
+      syncFooter();
+      return false;
+    }
+
+    Object.values(fields).forEach((field) => field.addEventListener('input', syncFooter));
+    $('#readiness').addEventListener('input', updateReadiness);
+    $('#theory').addEventListener('input', updateTotal);
+    $('#practice').addEventListener('input', updateTotal);
+    $('#accent').addEventListener('input', (event) => document.documentElement.style.setProperty('--accent', event.target.value));
+    $('#fill-button').addEventListener('click', () => { fields.name.value = 'Лаукерт Кирилл Максимович'; fields.email.value = 'kirill.laukert@tulsu.ru'; fields.phone.value = '+7 (999) 123-45-67'; fields.course.value = 4; $('#readiness').value = 100; updateReadiness(); syncFooter(); });
+    $('#student-form').addEventListener('reset', () => setTimeout(() => { syncFooter(); updateReadiness(); updateTotal(); }, 0));
+
+    syncFooter(); updateReadiness(); updateTotal();
+  </script>
+</body>
+</html>

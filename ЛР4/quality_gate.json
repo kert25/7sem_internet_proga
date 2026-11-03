@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "lab": 4,
+  "report_number": 4,
+  "status": "passed",
+  "checked_at": "2026-10-16T07:01:17Z",
+  "checks": [
+    "content_references",
+    "artifacts",
+    "report_docx",
+    "report_pdf",
+    "text_docx"
+  ],
+  "files": [
+    "ЛР4/Отчет_ЛР4.docx",
+    "ЛР4/Отчет_ЛР4.pdf",
+    "ЛР4/text.docx"
+  ],
+  "sha256": {
+    "_context.json": "924727ac64ec5bb730c508e08df24cd505a1b0cfa8e707b365854416bb26c452",
+    "ЛР4/content.json": "0f5e0e5cb29ff0526e33ece9c08d7fbba77469799ff9dbb729e6e9c1cdc00fbd",
+    "ЛР4/content_text.json": "7e11f3cd481e10e04418253bcb0acdf71b876fb7063ca642966d74cfd1f35b43",
+    "ЛР4/index.html": "acea29ca659dc42c5ce76680b619748888d733870de2cb8178f38da07104527d",
+    "ЛР4/text.docx": "e49b730ac8058d4c161f0466aaf8ba259484cacb85ffa9e6b31b40bc31d9c5e3",
+    "ЛР4/Лабораторная работа 4 _HTML5 Использование новых элементов и атрибутов в html5 формах.pdf": "8914a9a432cc2b8ae7751d9ec4bad90d9b3c7faa7020b2d4d3053259cedfa98a",
+    "ЛР4/Отчет_ЛР4.docx": "66e1c39436661afab1a43806a23f2f119e0ac581ecad4bba628b5e38743f126a",
+    "ЛР4/Отчет_ЛР4.pdf": "398b36777545f89fa0128177c01d1b508c8ff2f678d08afb0fcfce56c635b1f0"
+  }
+}
