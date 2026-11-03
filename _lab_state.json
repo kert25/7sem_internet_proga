@@ -184,6 +184,59 @@
         ],
         "warnings": []
       }
+    },
+    "6": {
+      "status": "ready_for_review",
+      "directory": "ЛР6",
+      "methodical_guide": "ЛР6/Лабораторная работа 6 _HTML_CSS_Блоковая модель.pdf",
+      "report_number": 6,
+      "theme": "Блоковая модель",
+      "variant": "9",
+      "notes": [
+        "Список ссылок на главной странице ведёт на страницы предыдущих работ: ../ЛР1/1.1.html, ../ЛР2/works.html, ../ЛР3/index.html.",
+        "Три варианта размещения блоков сохранены отдельными файлами layout1.html (поток и margin), layout2.html (float), layout3.html (позиционирование).",
+        "Скрываемые фрагменты кодового слова помечены атрибутом data-word, чтобы показать оба свойства на одной странице без дублирования id."
+      ],
+      "next_step": "Пользователь проверяет страницы и отчёт перед подтверждением завершения.",
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf"
+      },
+      "artifacts": [
+        "ЛР6/content.json",
+        "ЛР6/content_short.json",
+        "ЛР6/content_text.json",
+        "ЛР6/index.html",
+        "ЛР6/task1.html",
+        "ЛР6/task2.html",
+        "ЛР6/task3.html",
+        "ЛР6/layout1.html",
+        "ЛР6/layout2.html",
+        "ЛР6/layout3.html",
+        "ЛР6/screenshots/",
+        "ЛР6/Лабораторная работа 6 _HTML_CSS_Блоковая модель.pdf",
+        "ЛР6/Отчет_ЛР6.docx",
+        "ЛР6/Отчет_ЛР6.pdf",
+        "ЛР6/Отчет_ЛР6_краткий.docx",
+        "ЛР6/Отчет_ЛР6_краткий.pdf",
+        "ЛР6/text.docx",
+        "ЛР6/quality_gate.json"
+      ],
+      "verification": {
+        "status": "passed",
+        "checked_at": "2026-11-03T18:10:07Z",
+        "checks": [
+          "content_references",
+          "artifacts",
+          "report_docx",
+          "report_pdf",
+          "text_docx",
+          "report_structure",
+          "execution_evidence"
+        ],
+        "warnings": []
+      }
     }
   }
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №6: размещение блоков в нормальном потоке с помощью margin">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Размещение 1 — нормальный поток и margin</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        /* ============ Вариант 1: нормальный поток + margin ============ */
+        .stage {
+            background-color: #e2e8f0;       /* подложка контейнера: показывает внешние отступы */
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 16px;
+        }
+        .flow-box {
+            width: 60%;
+            margin: 0 auto;                  /* автоматические отступы слева и справа = центрирование */
+            padding: 14px 18px;
+            border: 4px solid #2563eb;
+            background-color: #eff6ff;
+            text-align: center;
+            font-weight: 600;
+        }
+        .flow-box--left {
+            width: 80%;
+            margin: 26px 0 26px 0;           /* прижат к левому краю: правый отступ не задан */
+            border-color: #b91c1c;
+            background-color: #fef2f2;
+        }
+        .flow-box--offset {
+            width: 50%;
+            margin: 26px auto 0 120px;       /* смещён вправо на 120 px, вертикальное центрирование нет */
+            border-color: #15803d;
+            background-color: #f0fdf4;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №6. Размещение 1</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (отступы)</a></li>
+                <li><a href="task2.html">Задание 2 (границы)</a></li>
+                <li><a href="task3.html">Задание 3 (visibility / display)</a></li>
+                <li><a href="layout1.html" class="active">Размещение 1</a></li>
+                <li><a href="layout2.html">Размещение 2</a></li>
+                <li><a href="layout3.html">Размещение 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Вариант 1. Размещение в нормальном потоке с помощью margin</h2>
+        <p>
+            Свойство <code>position</code> не задано, поэтому блоки имеют статическое
+            позиционирование (<code>position: static</code>) и располагаются в нормальном потоке
+            документа друг под другом. Их положение регулируется только внешними отступами:
+            <code>margin: 0 auto</code> центрирует блок с заданной шириной, а односторонние
+            отступы сдвигают его вправо или оставляют прижатым к краю контейнера.
+        </p>
+
+        <div class="stage">
+            <div class="flow-box">Блок 1. margin: 0 auto — по центру</div>
+            <div class="flow-box flow-box--left">Блок 2. margin: 26px 0 — прижат влево</div>
+            <div class="flow-box flow-box--offset">Блок 3. margin: 26px auto 0 120px — смещён вправо</div>
+        </div>
+
+        <p>
+            Свойства <code>top</code>, <code>left</code>, <code>right</code> и <code>bottom</code>
+            на статически позиционированные элементы не действуют — в этом можно убедиться,
+            добавив их к любому из блоков: положение не изменится.
+        </p>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

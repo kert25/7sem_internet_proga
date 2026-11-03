@@ -231,14 +231,17 @@
             // Ствол
             ctx.fillStyle = "#854d0e";
             ctx.fillRect(110, 280, 26, 110);
-            // Крона (составные зеленые круги)
+            // Крона: сплошная основа и перекрывающиеся круги без просветов
             ctx.fillStyle = "#15803d";
             ctx.beginPath();
-            ctx.arc(123, 270, 42, 0, Math.PI * 2);
-            ctx.arc(95, 240, 36, 0, Math.PI * 2);
-            ctx.arc(150, 240, 36, 0, Math.PI * 2);
-            ctx.arc(123, 205, 38, 0, Math.PI * 2);
+            ctx.ellipse(123, 245, 58, 65, 0, 0, Math.PI * 2);
             ctx.fill();
+
+            [[123, 270, 42], [95, 240, 36], [150, 240, 36], [123, 205, 38]].forEach(function(part) {
+                ctx.beginPath();
+                ctx.arc(part[0], part[1], part[2], 0, Math.PI * 2);
+                ctx.fill();
+            });
 
             // 7. Труба на крыше домика + дым
             ctx.fillStyle = "#78350f";

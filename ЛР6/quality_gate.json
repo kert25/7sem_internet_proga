@@ -1,0 +1,41 @@
+{
+  "schema_version": 3,
+  "lab": 6,
+  "report_number": 6,
+  "status": "passed",
+  "checked_at": "2026-11-03T18:10:07Z",
+  "checks": [
+    "content_references",
+    "artifacts",
+    "report_docx",
+    "report_pdf",
+    "text_docx",
+    "report_structure",
+    "execution_evidence"
+  ],
+  "warnings": [],
+  "files": [
+    "ЛР6/Отчет_ЛР6.docx",
+    "ЛР6/Отчет_ЛР6.pdf",
+    "ЛР6/text.docx"
+  ],
+  "sha256": {
+    "_context.json": "924727ac64ec5bb730c508e08df24cd505a1b0cfa8e707b365854416bb26c452",
+    "ЛР6/content.json": "e9cf0629ce913ffd7cba5c3f3a5c3a2e379dd6e8af13f214941d958e72998cbf",
+    "ЛР6/content_short.json": "75a931ac78584250fdca43b0980475b7f35b30e9d26b7a9c0e23c4372973c5fe",
+    "ЛР6/content_text.json": "7636e76e1afed852528e856fee44f48edc569b52264677b14fa4e5c1821214e7",
+    "ЛР6/index.html": "045d76d8fdef836ec42b2a44da7cb9466b73580a05be273d40640da74e7f34f5",
+    "ЛР6/layout1.html": "f3c9570b07be6aa8316c1af0033a097c8844169d5f5600215d23c15374e369c1",
+    "ЛР6/layout2.html": "4286c58ef90a5545af11ebee642204ff754a1d13026fce7a89d8974241e1d3a5",
+    "ЛР6/layout3.html": "55558933ea16c76bbeee9ce58163ed89eb91c3e569b5f0e4d96ba5ace1b11b16",
+    "ЛР6/task1.html": "82d7b4b9da5402f10c5e8bcdd572159f888ce652ef18cc67b1dc3458d3a90f39",
+    "ЛР6/task2.html": "f53b4f5157431922a0e0ee68292bed1ac5201e03a9723be537bdb44b75acdd1c",
+    "ЛР6/task3.html": "309d0c465dacf6e3c3320a28f099b2b9c3baa6e7fa4c7208d12d287b2ee67f24",
+    "ЛР6/text.docx": "dc4f8fe6536b4cc3ff09ab87bc30d5e2ace557ddcf18bf0409c0a7e8e9df0fd1",
+    "ЛР6/Лабораторная работа 6 _HTML_CSS_Блоковая модель.pdf": "6a21cc267b3aa44fc9758ae473d9788bd9124ae2949deed357576d8cefc841ab",
+    "ЛР6/Отчет_ЛР6.docx": "5046e66ad9d724ef55b634df3e91c6187b0830a3671437e4dc6a29d81bb06561",
+    "ЛР6/Отчет_ЛР6.pdf": "049acb342cb61a1eca6ac912752f4e589cfcfd6da890b2b5b32d3d1275ef4738",
+    "ЛР6/Отчет_ЛР6_краткий.docx": "143acf79a644a51b203260de4f5e61f59fb12aaaf40d37972977c66bcedb31a5",
+    "ЛР6/Отчет_ЛР6_краткий.pdf": "d40cce8bc7e044f45a4d7f3a565e8e8f4b58846b30b0074c5c038d6f14aa7a29"
+  }
+}

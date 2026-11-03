@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №6, задание 3: сокрытие элементов свойствами visibility: hidden и display: none">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 3 — visibility: hidden и display: none</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #eff6ff;
+        }
+
+        /* ================= Задание 3: сокрытие элементов ================= */
+        /* Символы кодового слова оформлены как в примере методички */
+        .codeword span {
+            font-size: 1.6em;
+            font-family: Verdana, sans-serif;
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        /* Панель, в которой используется visibility: hidden */
+        .panel {
+            border: 2px dashed #94a3b8;
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+        }
+        .panel h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        /* Вариант 1: элементы скрыты, но занимаемое место сохраняется */
+        #variant-visibility [data-word] {
+            visibility: hidden;
+        }
+
+        /* Вариант 2: элементы удалены из потока — место не сохраняется */
+        #variant-display [data-word] {
+            display: none;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №6. Задание 3</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (отступы)</a></li>
+                <li><a href="task2.html">Задание 2 (границы)</a></li>
+                <li><a href="task3.html" class="active">Задание 3 (visibility / display)</a></li>
+                <li><a href="layout1.html">Размещение 1</a></li>
+                <li><a href="layout2.html">Размещение 2</a></li>
+                <li><a href="layout3.html">Размещение 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 3. Кодовое слово и разница между visibility: hidden и display: none</h2>
+        <p>
+            <b>Для того, чтобы узнать кодовое слово, скройте элементы со следующими id:
+            code, winter, sky, frog, forest, cloud, hide.</b>
+        </p>
+        <p>
+            Одна и та же разметка показана дважды. Скрываемые фрагменты помечены атрибутом
+            <code>data-word</code>: это позволяет применить оба свойства к одинаковому набору
+            элементов и не дублировать идентификаторы на одной странице.
+        </p>
+
+        <div class="panel codeword" id="variant-visibility">
+            <h3>Вариант 1 — visibility: hidden</h3>
+            <p>
+                <span data-word>Б</span><span>А</span><span data-word>ДЖ</span><span>Л</span><span data-word>МЖ</span><span>Т</span><span data-word>Ь</span><span>А</span><span data-word>ЗП</span><span data-word>ШН</span><span>Й</span><span data-word>РО</span>
+            </p>
+            <p class="hint">Скрытые буквы не видны, но их место осталось — между видимыми символами сохраняются промежутки.</p>
+        </div>
+
+        <div class="panel codeword" id="variant-display">
+            <h3>Вариант 2 — display: none</h3>
+            <p>
+                <span data-word>Б</span><span>А</span><span data-word>ДЖ</span><span>Л</span><span data-word>МЖ</span><span>Т</span><span data-word>Ь</span><span>А</span><span data-word>ЗП</span><span data-word>ШН</span><span>Й</span><span data-word>РО</span>
+            </p>
+            <p class="hint">Скрытые буквы удалены из потока — оставшиеся символы сдвинулись и прижались друг к другу.</p>
+        </div>
+
+        <p>
+            В обоих вариантах остаются видимыми символы <strong>А, Л, Т, А, Й</strong>,
+            которые и образуют кодовое слово — <strong>«АЛТАЙ»</strong>.
+        </p>
+
+        <h3>Разница между свойствами</h3>
+        <table>
+            <tr>
+                <th>Свойство</th>
+                <th>Видимость</th>
+                <th>Место в потоке</th>
+                <th>Влияние на соседние элементы</th>
+            </tr>
+            <tr>
+                <td><code>visibility: hidden</code></td>
+                <td>элемент не отображается</td>
+                <td>сохраняется (размеры блока остаются)</td>
+                <td>соседние элементы не сдвигаются, на месте скрытого остаётся «дыра»</td>
+            </tr>
+            <tr>
+                <td><code>display: none</code></td>
+                <td>элемент не отображается</td>
+                <td>не сохраняется (элемент полностью исключается из потока)</td>
+                <td>соседние элементы занимают освободившееся место</td>
+            </tr>
+        </table>
+        <p>
+            Также различаются возможности переключения: у <code>display</code> помимо
+            <code>none</code> есть значения <code>block</code>, <code>inline</code>,
+            <code>inline-block</code> и <code>flex</code>, меняющие способ отображения элемента;
+            <code>visibility</code> отвечает только за видимость (<code>visible</code>,
+            <code>hidden</code>, <code>collapse</code>). Оба свойства не удаляют элемент из DOM:
+            он остаётся доступен из JavaScript и может быть показан снова.
+        </p>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

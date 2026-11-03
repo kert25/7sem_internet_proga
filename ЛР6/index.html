@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №6: блоковая модель CSS, отступы, границы и способы размещения элементов">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>ЛР6 — Блоковая модель CSS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+        }
+        section {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 18px;
+            margin-top: 24px;
+        }
+        section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .intro-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: 16px;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        /* --- Демонстрация блоковой модели: margin, border, padding, content --- */
+        .bm-canvas {
+            background-color: #cbd5e1;       /* подложка родителя: сквозь неё виден margin */
+            border: 1px solid #94a3b8;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        .bm-block {
+            margin: 40px;                    /* внешний отступ (margin) */
+            border: 12px solid #2563eb;      /* граница блока (border) */
+            background-color: #bbf7d0;       /* внутренний отступ (padding) */
+            padding: 24px;
+        }
+        .bm-block--alt {
+            margin: 24px 48px 24px 120px;
+            border: 8px dashed #b91c1c;
+            background-color: #fde68a;
+            padding: 8px 48px;
+        }
+        .bm-content {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .bm-legend {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 6px 16px;
+            font-size: 14px;
+        }
+        .bm-legend li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sw {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #64748b;
+            border-radius: 3px;
+            flex: 0 0 16px;
+        }
+        .sw-canvas  { background-color: #cbd5e1; }
+        .sw-border  { background-color: #2563eb; }
+        .sw-padding { background-color: #bbf7d0; }
+        .sw-content { background-color: #ffffff; }
+
+        /* --- Список выполненных заданий --- */
+        .works-list li {
+            margin-bottom: 6px;
+        }
+        .works-note {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №6. Блоковая модель</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (отступы)</a></li>
+                <li><a href="task2.html">Задание 2 (границы)</a></li>
+                <li><a href="task3.html">Задание 3 (visibility / display)</a></li>
+                <li><a href="layout1.html">Размещение 1</a></li>
+                <li><a href="layout2.html">Размещение 2</a></li>
+                <li><a href="layout3.html">Размещение 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Тема: Блоковая модель. Размещение элементов средствами HTML+CSS</h2>
+
+        <div class="intro-box">
+            <p><strong>Цель работы:</strong> познакомиться с блоковой моделью и изучить способы размещения элементов на web-странице с использованием HTML и CSS.</p>
+            <p><strong>Студент:</strong> Лаукерт Кирилл Максимович (гр. 220032-11)</p>
+            <p><strong>Вариант выполнения:</strong> 9</p>
+        </div>
+
+        <section>
+            <h2>1. Блоковая модель: составляющие и их видимость</h2>
+            <p>
+                Любой блочный элемент описывается четырьмя вложенными прямоугольниками:
+                <strong>содержимое</strong> (content), <strong>внутренний отступ</strong> (padding),
+                <strong>граница</strong> (border) и <strong>внешний отступ</strong> (margin).
+                Чтобы все составляющие модели были видны, для блока заданы одновременно
+                собственный фон (он закрашивает область padding), толстая граница и внешний отступ,
+                за пределами которого просвечивает подложка родительского элемента.
+            </p>
+
+            <div class="bm-canvas">
+                <div class="bm-block">
+                    <div class="bm-content">содержимое (content)</div>
+                </div>
+                <div class="bm-block bm-block--alt">
+                    <div class="bm-content">второй блок: другие отступы и границы</div>
+                </div>
+            </div>
+
+            <ul class="bm-legend">
+                <li><span class="sw sw-canvas"></span> margin: 40px — внешний отступ (цвет подложки родителя)</li>
+                <li><span class="sw sw-border"></span> border: 12px solid #2563eb — граница</li>
+                <li><span class="sw sw-padding"></span> padding: 24px — внутренний отступ</li>
+                <li><span class="sw sw-content"></span> content — содержимое блока</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Список выполненных заданий</h2>
+            <ul class="works-list">
+                <li><a href="../ЛР1/1.1.html">задание (лабораторная 1)</a> — страница «Природное явление: Полярное сияние»</li>
+                <li><a href="../ЛР2/works.html">задание (лабораторная 2)</a> — страница со списком работ персонального сайта</li>
+                <li><a href="../ЛР3/index.html">задание (лабораторная 3)</a> — страница с заданиями по HTML5 (video, audio, canvas)</li>
+                <li><a href="task1.html">задание 1 (лабораторная 6)</a> — внешние и внутренние отступы</li>
+                <li><a href="task2.html">задание 2 (лабораторная 6)</a> — оформление границ элементов</li>
+                <li><a href="task3.html">задание 3 (лабораторная 6)</a> — visibility: hidden и display: none</li>
+            </ul>
+            <p class="works-note">
+                Первые три пункта списка ведут на страницы заданий, выполненных в предыдущих
+                лабораторных работах; последние три — на страницы заданий текущей работы.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Способы размещения блоков</h2>
+            <p>
+                Помимо отступов положение блоков на странице задаётся способом позиционирования.
+                В работе выполнены три варианта размещения, каждый сохранён в отдельном файле:
+            </p>
+            <ul class="works-list">
+                <li><a href="layout1.html">Вариант 1 — нормальный поток и margin</a>: элементы располагаются друг под другом, центрирование выполняется свойством <code>margin: 0 auto</code>.</li>
+                <li><a href="layout2.html">Вариант 2 — обтекание float</a>: блоки прижимаются к левой и правой границе контейнера, текст их обтекает, поток очищается свойством <code>clear: both</code>.</li>
+                <li><a href="layout3.html">Вариант 3 — позиционирование</a>: <code>position: relative</code> для контейнера, <code>absolute</code> для вложенных блоков с наложением по <code>z-index</code> и <code>fixed</code> для закреплённой плашки.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

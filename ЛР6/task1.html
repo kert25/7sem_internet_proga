@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №6, задание 1: внешние и внутренние отступы блоковых элементов">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 1 — Внешние и внутренние отступы</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        caption {
+            font-weight: 600;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #eff6ff;
+        }
+
+        /* ======================= Задание 1: блоковая модель ======================= */
+        /* Изменены цвета, размеры и величины отступов по сравнению с примером методички */
+        #wrap {
+            margin: 0;
+            padding: 24px;                 /* было 20px */
+            min-height: 220px;             /* вместо height: 160px — блок подстраивается под содержимое */
+            background-color: #fde68a;     /* было yellow */
+            border: 4px double #b45309;    /* дополнительно: граница контейнера */
+        }
+        .ex1 {
+            border: 10px solid #b91c1c;    /* было 10px red solid */
+            margin-left: 60px;             /* было 50px */
+            margin-right: 20px;            /* было 10px */
+            padding: 18px 24px;            /* было 15px */
+            background-color: #15803d;     /* было green */
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .ex2 {
+            border: 5px solid #78350f;     /* было 5px brown solid */
+            margin-top: 40px;              /* было 30px */
+            margin-left: 210px;            /* было 250px */
+            margin-right: 90px;            /* было 70px */
+            padding: 22px;                 /* было 15px */
+            background-color: #1d4ed8;     /* было green */
+            color: #ffffff;
+            font-weight: 600;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №6. Задание 1</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html" class="active">Задание 1 (отступы)</a></li>
+                <li><a href="task2.html">Задание 2 (границы)</a></li>
+                <li><a href="task3.html">Задание 3 (visibility / display)</a></li>
+                <li><a href="layout1.html">Размещение 1</a></li>
+                <li><a href="layout2.html">Размещение 2</a></li>
+                <li><a href="layout3.html">Размещение 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 1. Изучение внутренних и внешних отступов</h2>
+        <p>
+            Для предварительного знакомства с блоковой моделью был рассмотрен HTML-документ из
+            методических указаний и его отображение браузером. В собственной работе изменены цвета
+            элементов, их размеры и величины отступов.
+        </p>
+
+        <!-- Демонстрация: контейнер #wrap, внутри два блока с разными отступами -->
+        <div id="wrap">
+            <div class="ex1">Содержимое первого элемента</div>
+            <div class="ex2">Содержимое второго элемента</div>
+        </div>
+
+        <table>
+            <caption>Изменённые параметры блоковой модели</caption>
+            <tr>
+                <th>Элемент</th>
+                <th>margin</th>
+                <th>border</th>
+                <th>padding</th>
+                <th>background-color</th>
+            </tr>
+            <tr>
+                <td><code>#wrap</code></td>
+                <td>0</td>
+                <td>4px double #b45309</td>
+                <td>24px</td>
+                <td>#fde68a</td>
+            </tr>
+            <tr>
+                <td><code>.ex1</code></td>
+                <td>0 20px 0 60px</td>
+                <td>10px solid #b91c1c</td>
+                <td>18px 24px</td>
+                <td>#15803d</td>
+            </tr>
+            <tr>
+                <td><code>.ex2</code></td>
+                <td>40px 90px 0 210px</td>
+                <td>5px solid #78350f</td>
+                <td>22px</td>
+                <td>#1d4ed8</td>
+            </tr>
+        </table>
+
+        <p>
+            На примере видно, что внешний отступ (margin) отодвигает блок от соседей и от границ
+            родителя, граница (border) рисуется вокруг внутреннего отступа, а внутренний отступ
+            (padding) увеличивает расстояние от границы до текста, причём закрашивается собственным
+            фоном элемента.
+        </p>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>

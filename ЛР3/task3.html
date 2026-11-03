@@ -209,12 +209,14 @@
                 return;
             }
 
-            status.innerHTML = "Запрос координат у браузера / операционной системы... Пожалуйста, разрешите доступ к местоположению.";
+            status.innerHTML = "Запрос координат у браузера / операционной системы... Пожалуйста, разрешите доступ к местоположению. Это может занять до 30 секунд.";
 
             var options = {
-                enableHighAccuracy: true,
-                timeout: 8000,
-                maximumAge: 0
+                // На ПК точность определяется по Wi‑Fi и сети: запрос GPS может
+                // не успеть завершиться за короткий тайм-аут.
+                enableHighAccuracy: false,
+                timeout: 30000,
+                maximumAge: 300000
             };
 
             navigator.geolocation.getCurrentPosition(showCoordinates, showError, options);
@@ -272,7 +274,7 @@
                     message = "Время ожидания ответа на запрос координат истекло.";
                     break;
             }
-            status.innerHTML = "<span class='error-msg'>Код ошибки " + error.code + ": " + message + "</span><br><small>Вы можете нажать кнопку «Тестовые координаты (ТулГУ)» для демонстрации работы интерфейса.</small>";
+            status.innerHTML = "<span class='error-msg'>Код ошибки " + error.code + ": " + message + "</span><br><small>Проверьте, что в Windows включены «Службы определения местоположения», а для Edge разрешён доступ к геоданным. После этого повторите запрос. Тестовые координаты используйте только для демонстрации интерфейса.</small>";
         }
     </script>
 </body>

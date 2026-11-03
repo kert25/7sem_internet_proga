@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Лабораторная работа №6, задание 2: оформление границ блоковых элементов">
+    <meta name="author" content="Лаукерт Кирилл Максимович">
+    <title>Задание 2 — Оформление границ элементов</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #1f2937;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 16px 24px;
+        }
+        header {
+            border-bottom: 3px solid #2563eb;
+            padding: 16px 0 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        nav a.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            cursor: default;
+        }
+        main {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        caption {
+            font-weight: 600;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #eff6ff;
+        }
+
+        /* ================= Задание 2: границы элементов ================= */
+        #par1, #par2, #par3, #par4, #par5, #par6, #par7 {
+            padding: 10px 14px;
+            margin: 16px 0;
+            background-color: #ffffff;
+        }
+
+        /* 1. Сплошная граница коричневого цвета */
+        #par1 {
+            border: 3px solid #8b4513;
+        }
+
+        /* 2. Сплошная граница красного цвета слева и справа */
+        #par2 {
+            border-left: 4px solid #d40000;
+            border-right: 4px solid #d40000;
+        }
+
+        /* 3. Сверху сплошная розовая, слева, справа и снизу — пунктирная голубая.
+              Использована краткая форма из четырёх значений: верх, право, низ, лево. */
+        #par3 {
+            border-width: 3px 2px 2px 2px;
+            border-style: solid dashed dashed dashed;
+            border-color: #ff69b4 #00bfff #00bfff #00bfff;
+        }
+
+        /* 4. Граница оранжевого цвета толщиной 1 пиксель */
+        #par4 {
+            border: 1px solid #ff8c00;
+        }
+
+        /* 5. Сверху и снизу сплошная красная толщиной 2 пикселя,
+              слева и справа пунктирная серая. Краткая форма из двух значений. */
+        #par5 {
+            border-width: 2px;
+            border-style: solid dashed;
+            border-color: #d40000 #808080;
+        }
+
+        /* 6. Двойная граница цвета #1435AD */
+        #par6 {
+            border: 5px double #1435ad;
+        }
+
+        /* 7. Сверху пунктирная #FF8100 толщиной 1 пиксель,
+              снизу сплошная #0B6124 толщиной 2 пикселя, боковых границ нет */
+        #par7 {
+            border-top: 1px dashed #ff8100;
+            border-bottom: 2px solid #0b6124;
+        }
+        footer {
+            border-top: 3px solid #2563eb;
+            margin-top: 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа №6. Задание 2</h1>
+        <p><small>Интернет-программирование | Преподаватель: доц. Сафронова М.А. | ТулГУ, 2026</small></p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Все задания</a></li>
+                <li><a href="task1.html">Задание 1 (отступы)</a></li>
+                <li><a href="task2.html" class="active">Задание 2 (границы)</a></li>
+                <li><a href="task3.html">Задание 3 (visibility / display)</a></li>
+                <li><a href="layout1.html">Размещение 1</a></li>
+                <li><a href="layout2.html">Размещение 2</a></li>
+                <li><a href="layout3.html">Размещение 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Задание 2. Оформление элементов согласно их описанию</h2>
+        <p>
+            Каждому абзацу назначена собственная граница: стиль (solid, dashed, double),
+            цвет и толщина заданы так, чтобы выполнялось описание из методических указаний.
+        </p>
+
+        <p id="par1">Я имею сплошную границу коричневого цвета.</p>
+        <p id="par2">Я имею сплошную границу красного цвета слева и справа.</p>
+        <p id="par3">Я имею сплошную границу розового цвета сверху, и пунктирную границу голубого цвета слева, справа и снизу.</p>
+        <p id="par4">Я имею границу оранжевого цвета толщиной 1 пиксель.</p>
+        <p id="par5">Я имею границу красного цвета толщиной 2 пикселя сверху и снизу и пунктирную границу серого цвета слева и справа.</p>
+        <p id="par6">Я имею двойную сплошную границу #1435AD цвета.</p>
+        <p id="par7">Я имею пунктирную границу #FF8100 цвета и толщиной 1 пиксель сверху и сплошную границу #0B6124 цвета толщиной 2 пикселя снизу.</p>
+
+        <table>
+            <caption>Применённые правила CSS</caption>
+            <tr>
+                <th>Элемент</th>
+                <th>Правило</th>
+                <th>Форма записи</th>
+            </tr>
+            <tr>
+                <td><code>#par1</code></td>
+                <td><code>border: 3px solid #8b4513;</code></td>
+                <td>сокращённая (все стороны одинаковы)</td>
+            </tr>
+            <tr>
+                <td><code>#par2</code></td>
+                <td><code>border-left / border-right: 4px solid #d40000;</code></td>
+                <td>отдельные стороны</td>
+            </tr>
+            <tr>
+                <td><code>#par3</code></td>
+                <td><code>border-style: solid dashed dashed dashed;</code></td>
+                <td>четыре значения (верх, право, низ, лево)</td>
+            </tr>
+            <tr>
+                <td><code>#par4</code></td>
+                <td><code>border: 1px solid #ff8c00;</code></td>
+                <td>толщина 1 px</td>
+            </tr>
+            <tr>
+                <td><code>#par5</code></td>
+                <td><code>border-style: solid dashed;</code></td>
+                <td>два значения (верх/низ, лево/право)</td>
+            </tr>
+            <tr>
+                <td><code>#par6</code></td>
+                <td><code>border: 5px double #1435ad;</code></td>
+                <td>стиль double</td>
+            </tr>
+            <tr>
+                <td><code>#par7</code></td>
+                <td><code>border-top</code> + <code>border-bottom</code></td>
+                <td>комбинация стилей на разных сторонах</td>
+            </tr>
+        </table>
+    </main>
+
+    <footer>
+        <p>Выполнил: студент гр. 220032-11 Лаукерт К.М. &copy; 2026</p>
+    </footer>
+</body>
+</html>
