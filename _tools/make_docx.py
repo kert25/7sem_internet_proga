@@ -1,19 +1,11 @@
 # -*- coding: utf-8 -*-
 """Универсальный сборщик отчётов .docx (чистый Python: zipfile + OOXML, без зависимостей).
 
-Оформление отчёта по ГОСТ 7.32-2017 / ГОСТ 2.105-2019:
-- Шрифт: Times New Roman 14 pt (основной текст, заголовки), 12 pt (подписи, таблицы),
-  Courier New 10 pt (листинги программ).
-- Основной текст: выравнивание по ширине (jc='both'), абзацный отступ (красная строка)
-  1,25 см (709 dxa), межстрочный интервал полуторный (line=360), отбивки 0 pt.
-- Заголовки: 14 pt полужирный с абзацным отступом 1,25 см, отбивка 12 pt сверху и 6 pt снизу,
-  свойство keepNext (не отрывать от текста), без точки в конце.
-- Рисунки и подписи: по центру, подпись 12 pt («Рисунок N — Название», без точки).
-- Листинги кода: моноширинный шрифт 10 pt, одинарный интервал, выравнивание влево без красной строки.
-- Поля страницы A4: левое 30 мм, правое 15 мм, верхнее 20 мм, нижнее 20 мм.
-- Нумерация страниц: сквозная арабскими цифрами по центру внизу страницы, без точки,
-  на титульном листе номер не отображается.
-- Титульный лист: типовой для вузов РФ, все данные из файла контекста (--context, по умолчанию _context.json).
+Не привязан ни к вузу, ни к дисциплине: все данные титульного листа берутся
+из файла контекста (--context, по умолчанию _context.json). Титульник — типовой
+для вузов РФ (Times New Roman 14 pt, A4, поля 2/1,5/2/3 см, разрыв страницы,
+номер страницы в колонтитуле, скрытый на титуле). Если титульник вашего вуза
+отличается структурно — адаптируйте title_page() под образец вуза.
 
 Использование:
     py make_docx.py --out Отчет_ЛР2.docx --num 2 --theme "Тема" \
@@ -37,12 +29,11 @@ content.json — всё, что не привязано к вузу) копир�
 в копии проекта (_tools/), в скилл не копируется.
 
 content.json — список элементов:
-    {"h":  "Заголовок раздела"}               — полужирный Times New Roman 14 pt, красная строка 1,25 см, интервал 1.5
-    {"p":  "текст"}                            — обычный абзац Times New Roman 14 pt, по ширине, отступ 1,25 см, 1.5 интервал
-    {"code": "текст программы"}                — листинг Courier New 10 pt, одинарный интервал, без отступа
+    {"h":  "Заголовок раздела"}               — полужирный Times New Roman 14 pt
+    {"p":  "текст"}                            — обычный абзац Times New Roman 16 pt
+    {"code": "текст программы"}                — листинг Courier New 12 pt
     {"codefile": "путь/к/файлу"}               — листинг из файла (UTF-8)
-    {"img": "путь.png", "caption": "Подпись"}  — рисунок по центру + подпись 12 pt («Рисунок N — ...»)
-    {"table": {"rows": [[...]], "widths": [dxa...], "header": true}} — таблица 12 pt
+    {"img": "путь.png", "caption": "Подпись"}  — рисунок по центру + подпись 12 pt
     {"pb": true}                               — разрыв страницы
 Относительные пути в content.json разрешаются от каталога самого content.json.
 """
@@ -56,7 +47,6 @@ PIC = "http://schemas.openxmlformats.org/drawingml/2006/picture"
 
 TNR = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'
 COURIER = '<w:rFonts w:ascii="Courier New" w:hAnsi="Courier New" w:cs="Courier New"/>'
-TABLE_WIDTH = 9355
 
 def esc(s):
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -69,43 +59,18 @@ def run(text, font=TNR, sz=28, b=False, br_type=None):
     br = '<w:br w:type="%s"/>' % br_type if br_type else ""
     return "<w:r>%s%s<w:t xml:space=\"preserve\">%s</w:t></w:r>" % (rpr, br, esc(text))
 
-def para(runs, jc=None, spacing=True, ind=None, first_line=None,
-         spacing_before=None, spacing_after=None, line=None, keep_next=False):
-    """Абзац: runs — строка XML run'ов или их список.
-
-    Поддерживает параметры оформления по ГОСТ 7.32 / ГОСТ 2.105:
-    - jc: выравнивание ('both' — по ширине, 'center' — по центру, 'left', 'right')
-    - first_line: абзацный отступ (красная строка) в dxa (709 dxa = 1,25 см)
-    - ind: кортеж (left, right) в dxa
-    - line: межстрочный интервал в dxa (240 = 1.0, 360 = 1.5)
-    - spacing_before / spacing_after: отбивки до и после абзаца в dxa (120 dxa = 6 pt, 240 dxa = 12 pt)
-    - keep_next: не отрывать абзац от следующего (для заголовков)
-    """
+def para(runs, jc=None, spacing=True, ind=None):
+    """Абзац: runs — строка XML run'ов или их список."""
     body = "".join(runs) if isinstance(runs, list) else runs
-    ppr = ["<w:pPr>"]
-    if keep_next:
-        ppr.append("<w:keepNext/>")
+    ppr = "<w:pPr>"
     if spacing:
-        sb = 120 if spacing_before is None else spacing_before
-        sa = 120 if spacing_after is None else spacing_after
-        ln = 240 if line is None else line
-        ppr.append('<w:spacing w:before="%d" w:after="%d" w:line="%d" w:lineRule="auto"/>' % (sb, sa, ln))
-    elif spacing_before is not None or spacing_after is not None or line is not None:
-        sb = 0 if spacing_before is None else spacing_before
-        sa = 0 if spacing_after is None else spacing_after
-        ln = 240 if line is None else line
-        ppr.append('<w:spacing w:before="%d" w:after="%d" w:line="%d" w:lineRule="auto"/>' % (sb, sa, ln))
-    ind_attrs = []
+        ppr += '<w:spacing w:before="120" w:after="120" w:line="240" w:lineRule="auto"/>'
     if ind:
-        ind_attrs.append('w:left="%d" w:right="%d"' % ind)
-    if first_line is not None:
-        ind_attrs.append('w:firstLine="%d"' % first_line)
-    if ind_attrs:
-        ppr.append('<w:ind %s/>' % " ".join(ind_attrs))
+        ppr += '<w:ind w:left="%d" w:right="%d"/>' % ind
     if jc:
-        ppr.append('<w:jc w:val="%s"/>' % jc)
-    ppr.append("</w:pPr>")
-    return "<w:p>%s%s</w:p>" % ("".join(ppr), body)
+        ppr += '<w:jc w:val="%s"/>' % jc
+    ppr += "</w:pPr>"
+    return "<w:p>%s%s</w:p>" % (ppr, body)
 
 # Обязательные поля файла контекста для титульного листа.
 TITLE_FIELDS = ("university", "discipline", "student", "group",
@@ -156,7 +121,7 @@ def title_page(num, theme, ctx):
     for _ in range(4):                                               # P15-P18
         p.append(para(run(""), jc="center"))
     p.append(para([run(done_left + " " * done_pad),                             # P19
-                   run("%s " % ctx.get("student_title", ctx["student"])), run(" ")], jc="both"))
+                   run("%s " % ctx["student"]), run(" ")], jc="both"))
     p.append(para(run(""), jc="both"))                                          # P20
     p.append(para([run(took_left + " " * took_pad),                             # P21
                    run("%s " % ctx["teacher"]), run(" ")], jc="both"))
@@ -167,43 +132,15 @@ def title_page(num, theme, ctx):
     return "".join(p)
 
 def heading(text):
-    """Заголовок раздела по ГОСТ 7.32:
-    - Times New Roman 14 pt полужирный (sz=28, b=True)
-    - абзацный отступ 1,25 см (first_line=709)
-    - выравнивание влево (jc='left')
-    - полуторный интервал (line=360)
-    - отбивки: 12 pt сверху (240 dxa), 6 pt снизу (120 dxa)
-    - keepNext: заголовок не отрывается от текста следующего абзаца
-    """
-    return para(run(text, sz=28, b=True), jc="left", first_line=709,
-                spacing_before=240, spacing_after=120, line=360, keep_next=True)
+    return para(run(text, b=True))
 
 def body_para(text):
-    """Основной текст по ГОСТ 7.32:
-    - Times New Roman 14 pt (sz=28)
-    - выравнивание по ширине (jc='both')
-    - абзацный отступ (красная строка) 1,25 см (first_line=709)
-    - полуторный межстрочный интервал (line=360)
-    - отбивки: 0 pt
-    """
-    lines = [p for p in text.split("\n") if p.strip()] if "\n" in text else [text]
-    return "".join(
-        para(run(line, sz=28), jc="both", first_line=709,
-             spacing_before=0, spacing_after=0, line=360)
-        for line in lines
-    )
+    return para(run(text, sz=32))
 
 def code_block(code):
-    """Листинг программы:
-    - моноширинный шрифт Courier New 10 pt (sz=20)
-    - одинарный межстрочный интервал (line=240)
-    - выравнивание по левому краю без красной строки (jc='left', first_line=None)
-    - нулевые отбивки между строками листинга (spacing_before=0, spacing_after=0)
-    """
     out = []
     for ln in code.rstrip("\n").split("\n"):
-        out.append(para(run(ln if ln else " ", font=COURIER, sz=20),
-                        jc="left", first_line=None, spacing_before=0, spacing_after=0, line=240))
+        out.append(para(run(ln if ln else " ", font=COURIER, sz=24)))
     return "".join(out)
 
 def image_xml(png_path, rid, img_id):
@@ -231,48 +168,6 @@ def image_xml(png_path, rid, img_id):
     ) % {"wp": WP, "a": A, "pic": PIC, "w": emu_w, "h": emu_h, "id": img_id, "rid": rid}
     return drawing, data
 
-
-def table_xml(spec):
-    """Возвращает OOXML-таблицу из {rows, widths?, header?}."""
-    rows = spec.get("rows")
-    if not isinstance(rows, list) or not rows or not all(isinstance(row, list) and row for row in rows):
-        raise ValueError("table.rows должен быть непустым списком непустых строк")
-    columns = len(rows[0])
-    if any(len(row) != columns for row in rows):
-        raise ValueError("все строки table.rows должны иметь одинаковое число ячеек")
-    widths = spec.get("widths")
-    if widths is None:
-        widths = [TABLE_WIDTH // columns] * columns
-        widths[-1] += TABLE_WIDTH - sum(widths)
-    if (not isinstance(widths, list) or len(widths) != columns or
-            any(not isinstance(width, int) or width <= 0 for width in widths)):
-        raise ValueError("table.widths должен содержать положительную ширину для каждой колонки")
-    if sum(widths) > TABLE_WIDTH:
-        raise ValueError("сумма table.widths не должна превышать %d dxa" % TABLE_WIDTH)
-    header = spec.get("header", True)
-    borders = ('<w:tblBorders><w:top w:val="single" w:sz="4" w:color="auto"/>'
-               '<w:left w:val="single" w:sz="4" w:color="auto"/>'
-               '<w:bottom w:val="single" w:sz="4" w:color="auto"/>'
-               '<w:right w:val="single" w:sz="4" w:color="auto"/>'
-               '<w:insideH w:val="single" w:sz="4" w:color="auto"/>'
-               '<w:insideV w:val="single" w:sz="4" w:color="auto"/></w:tblBorders>')
-    out = ['<w:tbl><w:tblPr><w:tblW w:w="%d" w:type="dxa"/>%s</w:tblPr>' %
-           (sum(widths), borders)]
-    out.append('<w:tblGrid>%s</w:tblGrid>' % ''.join(
-        '<w:gridCol w:w="%d"/>' % width for width in widths))
-    for row_index, row in enumerate(rows):
-        cells = []
-        for width, value in zip(widths, row):
-            paragraphs = []
-            for line in str(value).split("\n"):
-                paragraphs.append(para(run(line if line else " ", sz=24, b=bool(header and row_index == 0)),
-                                       jc="left", first_line=None, spacing_before=40, spacing_after=40, line=240))
-            shade = '<w:shd w:val="clear" w:fill="D9EAD3"/>' if header and row_index == 0 else ''
-            cells.append('<w:tc><w:tcPr><w:tcW w:w="%d" w:type="dxa"/>%s</w:tcPr>%s</w:tc>' %
-                         (width, shade, ''.join(paragraphs)))
-        out.append('<w:tr><w:trPr><w:cantSplit/></w:trPr>%s</w:tr>' % ''.join(cells))
-    return ''.join(out) + '</w:tbl>'
-
 CONTENT_TYPES = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
@@ -297,7 +192,7 @@ DOC_RELS = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 STYLES = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:styles xmlns:w="%(w)s">
 <w:docDefaults><w:rPrDefault><w:rPr>%(tnr)s<w:sz w:val="28"/><w:szCs w:val="28"/><w:lang w:val="ru-RU"/></w:rPr></w:rPrDefault>
-<w:pPrDefault><w:pPr><w:spacing w:before="0" w:after="0" w:line="360" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>
+<w:pPrDefault><w:pPr><w:spacing w:before="120" w:after="120" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>
 <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style>
 </w:styles>"""
 
@@ -306,40 +201,23 @@ FOOTER = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
     W,
     para('<w:r><w:fldChar w:fldCharType="begin"/></w:r>'
          '<w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r>'
-         '<w:r><w:fldChar w:fldCharType="end"/></w:r>',
-         jc="center", first_line=None, spacing_before=0, spacing_after=0, line=240))
+         '<w:r><w:fldChar w:fldCharType="end"/></w:r>', jc="center"))
 
 SECT_PR = ('<w:sectPr><w:footerReference w:type="default" r:id="rId2"/>'
            '<w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="850" '
            'w:bottom="1134" w:left="1701" w:header="708" w:footer="708" w:gutter="0"/>'
            '<w:titlePg/></w:sectPr>')
 
-def validate_content(content, num, theme, title):
-    """Validate report content and prevent a duplicate automatic report header."""
-    if not isinstance(content, list):
-        raise ValueError("content must be a JSON list")
-    if not all(isinstance(item, dict) for item in content):
-        raise ValueError("each content item must be a JSON object")
-    if not title or len(content) < 2:
-        return
-    automatic_title = "Лабораторная работа №%d" % num
-    automatic_theme = "по теме «%s»" % theme
-    if content[0].get("h") == automatic_title and content[1].get("h") in (theme, automatic_theme):
-        raise ValueError("content starts with a duplicate automatic report header; start with a substantive section")
-
 def build(out, num, theme, content, workdir, ctx=None, title=True):
-    validate_content(content, num, theme, title)
     def resolve(p):
         return os.path.normpath(os.path.join(workdir, p))
     paras = []
     if title:
         paras.append(title_page(num, theme, ctx))
-        # Шапка отчёта (вторая страница) по ГОСТ: 14 pt, полужирный, по центру
-        paras.append(para(run("Лабораторная работа №%d" % num, sz=28, b=True),
-                          jc="center", first_line=None, spacing_before=0, spacing_after=120, line=360))
-        paras.append(para(run("по теме «%s»" % theme, sz=28, b=True),
-                          jc="center", first_line=None, spacing_before=0, spacing_after=240, line=360))
-        paras.append(para(run(" ", sz=28), first_line=None, spacing_before=0, spacing_after=0, line=240))
+        # Шапка отчёта (вторая страница, как в образце)
+        paras.append(para(run("Лабораторная работа №%d" % num, sz=32, b=True), jc="center"))
+        paras.append(para(run("по теме «%s»" % theme, sz=32, b=True), jc="center"))
+        paras.append(para(run(" ", sz=32)))
     media, img_rels = {}, []
     rid_n = 100
     for item in content:
@@ -352,16 +230,12 @@ def build(out, num, theme, content, workdir, ctx=None, title=True):
                 paras.append(code_block(f.read()))
         elif "code" in item:
             paras.append(code_block(item["code"]))
-        elif "table" in item:
-            paras.append(table_xml(item["table"]))
         elif "img" in item:
             rid = "rIdImg%d" % rid_n
             drawing, data = image_xml(resolve(item["img"]), rid, rid_n)
-            paras.append(para(drawing, jc="center", first_line=None,
-                              spacing_before=120, spacing_after=60, line=240))
+            paras.append(para(drawing, jc="center"))
             if item.get("caption"):
-                paras.append(para(run(item["caption"], sz=24), jc="center", first_line=None,
-                                  spacing_before=60, spacing_after=120, line=240))
+                paras.append(para(run(item["caption"], sz=24), jc="center"))
             media["word/media/image%d.png" % rid_n] = data
             img_rels.append('<Relationship Id="%s" Type="http://schemas.openxmlformats.org'
                             '/officeDocument/2006/relationships/image" '
