@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Главная страница учебного сайта: работы по дисциплине «Интернет-программирование», оформленные единым стилевым файлом styles.css">
+    <title>Главная — учебный сайт Лаукерта Кирилла</title>
+    <!-- Единый стилевой файл сайта, разработанный в лабораторной работе № 7 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="site">
+
+    <header class="site-header" id="site-header">
+        <p class="site-brand">
+            Учебный сайт Лаукерта Кирилла
+            <small>Интернет-программирование · лабораторные работы 1–7</small>
+        </p>
+
+        <nav class="site-nav">
+            <a href="index.html" aria-current="page">Главная</a>
+            <a href="selectors.html">Селекторы CSS3</a>
+            <a href="../ЛР2/index.html">О себе</a>
+            <a href="#works">Работы</a>
+        </nav>
+    </header>
+
+    <main class="site-main" id="main-content">
+
+        <h1>Сайт на едином стилевом файле</h1>
+        <p class="site-lead">
+            Все страницы сайта, созданные в предыдущих лабораторных работах, подключены
+            к одному файлу <code>styles.css</code>. Оформление вынесено из разметки
+            во внешний файл стилей: цвет, шрифты, сетка, таблицы, ссылки и формы
+            описаны один раз и действуют на всех страницах.
+        </p>
+
+        <p class="site-note">
+            Файл <code>ЛР7/styles.css</code> разделён на пять частей: переменные сайта,
+            базовые стили документа, компоненты (шапка, навигация, карточки, подвал),
+            демонстрация всех типов селекторов CSS3 и правила адаптивности.
+        </p>
+
+        <h2 id="works">Работы, подключённые к styles.css</h2>
+        <ul class="site-cards">
+            <li class="site-card">
+                <span class="site-tag">ЛР 1</span>
+                <h3>Знакомство с HTML</h3>
+                <p>Структура документа, списки, таблицы, элементы <code>span</code> и <code>div</code>.</p>
+                <a href="../ЛР1/1.1.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 2</span>
+                <h3>Гиперссылки</h3>
+                <p>Относительные и абсолютные ссылки, якоря, ссылки на файлы и почту.</p>
+                <a href="../ЛР2/index.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 3</span>
+                <h3>HTML5: video, audio, canvas</h3>
+                <p>Встраиваемые медиа, геолокация и рисование на холсте.</p>
+                <a href="../ЛР3/index.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 4</span>
+                <h3>Новые элементы форм</h3>
+                <p>Типы полей HTML5, атрибуты валидации и подсказки.</p>
+                <a href="../ЛР4/index.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 5</span>
+                <h3>Формы и обработка данных</h3>
+                <p>Сбор данных формы и их обработка на стороне клиента.</p>
+                <a href="../ЛР5/index.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 6</span>
+                <h3>Блоковая модель</h3>
+                <p>Отступы, границы, обтекание и позиционирование блоков.</p>
+                <a href="../ЛР6/index.html">Открыть страницу</a>
+            </li>
+            <li class="site-card">
+                <span class="site-tag">ЛР 7</span>
+                <h3>Селекторы CSS3</h3>
+                <p>Демонстрация селекторов элементов, классов, идентификаторов и их комбинаций.</p>
+                <a href="selectors.html">Открыть страницу</a>
+            </li>
+        </ul>
+
+        <h2>Как страницы подключены к файлу</h2>
+        <p>
+            В элементе <code>head</code> каждой страницы стоит одна и та же строка.
+            Она загружает внешний файл стилей до собственных правил страницы, поэтому
+            правила страницы могут переопределить общее оформление.
+        </p>
+        <p><a class="site-button" href="selectors.html">Посмотреть селекторы</a></p>
+
+    </main>
+
+    <footer class="site-footer" id="site-footer">
+        <p>
+            Лабораторная работа № 7 «Основы работы с CSS3» · дисциплина
+            «Интернет-программирование» · Лаукерт К. М., группа 220032-11
+        </p>
+    </footer>
+
+</body>
+</html>

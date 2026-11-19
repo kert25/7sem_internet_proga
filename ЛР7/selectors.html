@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Демонстрация селекторов CSS3: элементов, классов, идентификаторов, потомков, дочерних и смежных элементов, атрибутов, псевдоклассов и псевдоэлементов">
+    <title>Селекторы CSS3 — учебный сайт Лаукерта Кирилла</title>
+    <!-- Тот же единый стилевой файл, что и у остальных страниц сайта -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="site">
+
+    <header class="site-header" id="site-header">
+        <p class="site-brand">
+            Учебный сайт Лаукерта Кирилла
+            <small>Интернет-программирование · лабораторная работа № 7</small>
+        </p>
+
+        <nav class="site-nav">
+            <a href="index.html">Главная</a>
+            <a href="selectors.html" aria-current="page">Селекторы CSS3</a>
+            <a href="../ЛР2/index.html">О себе</a>
+            <a href="index.html#works">Работы</a>
+        </nav>
+    </header>
+
+    <main class="site-main" id="main-content">
+
+        <h1>Селекторы CSS3</h1>
+        <p class="site-lead">
+            Каждая карточка показывает один тип селектора: сверху указан сам селектор,
+            ниже — элемент, к которому он применён. Все правила записаны в файле
+            <code>styles.css</code>, поэтому оформление здесь не дублируется разметкой.
+        </p>
+
+        <p class="site-note">
+            Если у элемента совпадают несколько правил, действует правило большей
+            специфичности: селектор тега — 1 балл, класс и псевдокласс — 10,
+            идентификатор — 100, встроенный стиль <code>style</code> — 1000.
+        </p>
+
+        <div class="demo-grid">
+
+            <article class="demo-card">
+                <p class="demo-label">селектор элемента · blockquote</p>
+                <blockquote>
+                    Это правило задано селектором элемента <code>blockquote</code>:
+                    оно действует на все цитаты сайта, даже если у них нет классов.
+                </blockquote>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">селекторы классов · .demo-chip</p>
+                <p>
+                    <span class="demo-chip">.demo-chip</span>
+                    <span class="demo-chip demo-chip--alt">.demo-chip--alt</span>
+                </p>
+                <p>Второй класс-модификатор меняет цвет того же элемента.</p>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">селектор идентификатора · #demo-target</p>
+                <p id="demo-target">Единственный элемент страницы с id="demo-target".</p>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">селектор потомка · .demo-tree p</p>
+                <div class="demo-tree">
+                    <p>Абзац первого уровня вложенности.</p>
+                    <div>
+                        <p>Абзац второго уровня — тоже потомок, стиль сохранён.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">селектор дочернего элемента · .demo-child &gt; p</p>
+                <div class="demo-child">
+                    <p>Абзац первого уровня — стилизован.</p>
+                    <div>
+                        <p>Абзац второго уровня — не дочерний, стиль не применён.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">смежные элементы · h4 + p и h4 ~ p</p>
+                <div class="demo-siblings">
+                    <h4>Заголовок блока</h4>
+                    <p>Изменён и знаком «+», и знаком «~»: он соседний и первый после заголовка.</p>
+                    <p>Изменён только знаком «~»: он соседний, но не первый.</p>
+                </div>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">селекторы атрибутов · a[href^="https"]</p>
+                <p>
+                    <a class="demo-link" href="https://developer.mozilla.org/ru/docs/Web/CSS">Внешняя ссылка</a><br>
+                    <a class="demo-link" href="#demo-target">Внутренняя ссылка</a>
+                </p>
+                <p>У внешней ссылки появился знак «↗» из псевдоэлемента.</p>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">псевдоклассы · :nth-child, :first-child, :not, :hover, :focus</p>
+                <ul class="demo-list">
+                    <li>первый элемент (:first-child)</li>
+                    <li>чётный элемент</li>
+                    <li>нечётный элемент (:nth-child(odd))</li>
+                    <li>последний элемент (:not(:last-child) не действует)</li>
+                </ul>
+                <p><a class="demo-hover" href="#demo-target">Наведите курсор на эту ссылку</a></p>
+                <p><input class="demo-focus" type="text" placeholder="Установите фокус в это поле"></p>
+            </article>
+
+            <article class="demo-card">
+                <p class="demo-label">псевдоэлементы · ::before, ::after, ::first-letter</p>
+                <p class="demo-flag">Этот абзац окружён текстом из псевдоэлементов.</p>
+                <p class="demo-dropcap">Первая буква этого абзаца увеличена псевдоэлементом ::first-letter.</p>
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer class="site-footer" id="site-footer">
+        <p>
+            Стили страницы взяты из файла <code>styles.css</code>; правила для каждого
+            селектора описаны в разделе 4 этого файла.
+        </p>
+    </footer>
+
+</body>
+</html>

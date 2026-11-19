@@ -1,0 +1,195 @@
+[
+  {
+    "h": "Цель работы"
+  },
+  {
+    "p": "Научиться применять CSS3 при создании веб-страниц: освоить способы подключения таблиц стилей, механизм каскада и наследования, селекторы разных видов и вынести оформление сайта в отдельный стилевой файл."
+  },
+  {
+    "h": "Задание 1. Разработка стилевого файла и его подключение к страницам сайта"
+  },
+  {
+    "p": "Формулировка задания. Разработать валидный стилевой файл для сайта и подключить его к страницам, созданным ранее."
+  },
+  {
+    "p": "Ход выполнения задания. Оформление сайта вынесено из разметки в отдельный файл styles.css (474 строки с комментариями). Файл состоит из пяти частей: переменные сайта, базовые стили документа, стили компонентов (шапка сайта, навигация, карточки, подвал), демонстрация типов селекторов и правила адаптивности. Внешний файл выбран потому, что одно и то же оформление применяется ко всем страницам сразу, не дублируется в разметке и кэшируется браузером; методичка называет этот способ предпочтительным в HTML5."
+  },
+  {
+    "p": "Все цвета, радиусы и гарнитуры собраны в одном месте — пользовательских свойствах на корневом элементе :root и доступны через функцию var(). Одно изменение переменной меняет оформление всего сайта."
+  },
+  {
+    "p": "Базовые правила документа записаны через :where(). У этого псевдокласса нулевой вес, поэтому любое собственное правило страницы, созданной в лабораторных работах 1–6, оказывается приоритетнее: общий файл не ломает готовые вёрстки, а задаёт оформление только там, где страница ничего не определила. Компоненты оформлены классами с префиксом .site-, чтобы не совпасть с классами прежних работ."
+  },
+  {
+    "p": "Файл подключён к 25 страницам шести предыдущих работ. В элементе head каждой страницы стоит одна и та же строка:"
+  },
+  {
+    "code": "    <!-- Единый стилевой файл сайта, подключённый в лабораторной работе № 7 -->\n    <link rel=\"stylesheet\" href=\"../ЛР7/styles.css\">"
+  },
+  {
+    "p": "Подключение размещено перед элементом style самой страницы. Порядок важен: при равной специфичности применяется правило, записанное в документе позже, поэтому собственное оформление страницы перекрывает общее, а не наоборот."
+  },
+  {
+    "p": "Фрагмент файла styles.css с переменными сайта и базовыми стилями документа:"
+  },
+  {
+    "code": "/* --------------------------------------------------------------------------\n   1. Переменные\n   Пользовательские свойства объявлены на корневом элементе :root и доступны\n   во всём файле через функцию var(). Одно изменение здесь меняет оформление\n   всех страниц сайта.\n   -------------------------------------------------------------------------- */\n:root {\n    --brand: #4f46e5;\n    --brand-dark: #3730a3;\n    --brand-soft: #eef2ff;\n    --ink: #1f2937;\n    --muted: #5b6472;\n    --line: #d8dee9;\n    --surface: #ffffff;\n    --canvas: #f4f6fb;\n    --radius: 12px;\n    --shadow: 0 10px 24px rgba(31, 41, 55, 0.10);\n    --font-text: \"Segoe UI\", Verdana, Arial, sans-serif;\n    --font-code: \"Consolas\", \"Courier New\", monospace;\n}\n\n\n/* --------------------------------------------------------------------------\n   2. Базовые стили документа\n   Селекторы элементов обёрнуты в :where(). У него нулевой вес, поэтому\n   собственные правила страниц, созданных в ЛР1–ЛР6, оказываются\n   приоритетнее и не ломаются: файл задаёт оформление по умолчанию только там,\n   где сама страница ничего не определила.\n   -------------------------------------------------------------------------- */\n:where(body) {\n    background-color: var(--canvas);\n    color: var(--ink);\n    font-family: var(--font-text);\n    font-size: 16px;\n    line-height: 1.55;\n}"
+  },
+  {
+    "p": "Валидность файла проверена валидатором W3C CSS Validator (jigsaw.w3.org, профиль CSS3, загрузка файла через API). Результат: 0 ошибок и 4 предупреждения о том, что значения пользовательских свойств не проверяются статически."
+  },
+  {
+    "h": "Результат выполнения"
+  },
+  {
+    "img": "screenshots/index.png",
+    "caption": "Главная страница сайта на едином стилевом файле styles.css: шапка, навигация, карточки работ и подвал оформлены компонентами файла",
+    "width_cm": 13,
+    "key": "e_index"
+  },
+  {
+    "pb": true
+  },
+  {
+    "h": "Задание 2. Селекторы элементов, классов и идентификаторов"
+  },
+  {
+    "p": "Формулировка задания. Предусмотреть в коде селекторы элементов, классы, идентификаторы."
+  },
+  {
+    "p": "Ход выполнения задания. В файле styles.css применены все базовые виды селекторов и их комбинации. Селекторы элементов задают оформление по умолчанию (blockquote, table, th, td, code, abbr, mark), классы оформляют компоненты сайта и демонстрационные блоки, идентификаторы выделяют единственные на странице элементы: #site-header, #main-content, #demo-target, #site-footer. Кроме базовых видов использованы селекторы потомков, дочерних и смежных элементов, атрибутов, псевдоклассов и псевдоэлементов."
+  },
+  {
+    "p": "Виды селекторов, применённые в работе, и их вес (специфичность):"
+  },
+  {
+    "table": {
+      "caption": "Селекторы, применённые в файле styles.css",
+      "rows": [
+        [
+          "Вид селектора",
+          "Пример из styles.css",
+          "Вес",
+          "Что выбирает"
+        ],
+        [
+          "Элемента",
+          "blockquote { ... }",
+          "1",
+          "все элементы blockquote сайта"
+        ],
+        [
+          "Класса",
+          ".site-card { ... }",
+          "10",
+          "все элементы с class=\"site-card\""
+        ],
+        [
+          "Идентификатора",
+          "#demo-target { ... }",
+          "100",
+          "единственный элемент с id=\"demo-target\""
+        ],
+        [
+          "Потомка",
+          ".demo-tree p { ... }",
+          "11",
+          "абзацы на любой глубине внутри блока"
+        ],
+        [
+          "Дочернего элемента",
+          ".demo-child > p { ... }",
+          "11",
+          "только абзацы первого уровня вложенности"
+        ],
+        [
+          "Смежного (+)",
+          ".demo-siblings h4 + p { ... }",
+          "2",
+          "первый абзац сразу после заголовка"
+        ],
+        [
+          "Соседнего (~)",
+          ".demo-siblings h4 ~ p { ... }",
+          "2",
+          "все абзацы после заголовка"
+        ],
+        [
+          "Атрибута",
+          ".demo-link[href^=\"https\"] { ... }",
+          "20",
+          "ссылки, адрес которых начинается с https"
+        ],
+        [
+          "Псевдокласса",
+          ".demo-list li:nth-child(odd) { ... }",
+          "21",
+          "нечётные пункты списка"
+        ],
+        [
+          "Псевдоэлемента",
+          ".demo-dropcap::first-letter { ... }",
+          "11",
+          "первая буква абзаца"
+        ]
+      ]
+    }
+  },
+  {
+    "p": "Фрагмент файла с селекторами элемента, класса и идентификатора, а также с составными селекторами — потомком, дочерним элементом, смежными элементами и селектором атрибута:"
+  },
+  {
+    "code": "/* 4.1. Селектор элемента: правило действует на все элементы blockquote сайта */\nblockquote {\n    margin: 0;\n    padding: 12px 16px;\n    border-left: 4px solid var(--brand);\n    background-color: var(--brand-soft);\n    color: #312e81;\n    font-style: italic;\n}\n\n/* 4.2. Селектор класса: применяется к элементам с атрибутом class */\n.demo-chip {\n    display: inline-block;\n    padding: 5px 12px;\n    border-radius: 999px;\n    background-color: #e0e7ff;\n    color: #312e81;\n    font-size: 0.85rem;\n    font-weight: 600;\n}\n\n.demo-chip--alt {\n    background-color: #fce7f3;\n    color: #9d174d;\n}\n\n/* 4.3. Селектор идентификатора: применяется к единственному элементу с id */\n#demo-target {\n    margin: 0;\n    padding: 10px 14px;\n    border: 2px dashed var(--brand);\n    border-radius: 8px;\n    background-color: #eef2ff;\n    font-weight: 600;\n}\n\n/* 4.4. Селектор потомка: любые p внутри .demo-tree, на любом уровне */\n.demo-tree p {\n    margin: 0 0 6px;\n    padding: 6px 10px;\n    background-color: #dcfce7;\n}\n\n/* 4.5. Селектор дочернего элемента: только p первого уровня внутри .demo-child */\n.demo-child > p {\n    margin: 0 0 6px;\n    padding: 6px 10px;\n    background-color: #fef3c7;\n}\n\n/* 4.6. Селекторы смежных элементов одного уровня */\n.demo-siblings h4 {\n    margin: 0 0 6px;\n    font-size: 0.95rem;\n}\n\n/* знак + — только первый соседний абзац сразу после заголовка */\n.demo-siblings h4 + p {\n    padding: 6px 10px;\n    background-color: #fee2e2;\n}\n\n/* знак ~ — все соседние абзацы после заголовка */\n.demo-siblings h4 ~ p {\n    border-bottom: 2px solid #ef4444;\n}\n\n/* 4.7. Селекторы атрибутов: значение атрибута href проверяется по началу */\n.demo-link[href^=\"https\"] {\n    font-weight: 700;\n}\n\n.demo-link[href^=\"https\"]::after {\n    content: \" ↗\";\n}\n\n.demo-link[href^=\"#\"] {\n    color: #0f766e;\n}"
+  },
+  {
+    "p": "Для наглядной проверки каждого вида селектора создана страница selectors.html. Каждая карточка страницы показывает сам селектор и элемент, к которому он применён, поэтому видно, например, что селектор потомка действует на любом уровне вложенности, а селектор дочернего элемента — только на первом."
+  },
+  {
+    "h": "Результат выполнения"
+  },
+  {
+    "img": "screenshots/selectors.png",
+    "caption": "Страница selectors.html: девять карточек с демонстрацией селекторов элемента, классов, идентификатора, потомков, дочерних и смежных элементов, атрибутов, псевдоклассов и псевдоэлементов",
+    "width_cm": 13,
+    "key": "e_selectors"
+  },
+  {
+    "pb": true
+  },
+  {
+    "h": "Результат подключения файла к страницам предыдущих работ"
+  },
+  {
+    "p": "Страница, созданная в лабораторной работе 1, до подключения не содержала ни одного правила CSS и отображалась оформлением браузера по умолчанию. После подключения styles.css она получила общую гарнитуру и цвет текста, оформление заголовков, ссылок, таблиц, а также моноширинный шрифт для элементов code, kbd, samp и var."
+  },
+  {
+    "img": "screenshots/styled_page.png",
+    "caption": "Страница ЛР1 (1.1.html), оформленная общим файлом styles.css: заголовки, ссылки, таблицы и моноширинные элементы получили стили из внешнего файла",
+    "width_cm": 11,
+    "key": "e_styled"
+  },
+  {
+    "h": "Вывод"
+  },
+  {
+    "p": "В ходе работы оформление сайта вынесено во внешний стилевой файл styles.css, который подключён к 25 страницам, созданным в лабораторных работах 1–6, и к двум страницам самой работы. Освоены способы подключения стилей (атрибут style, элемент style, внешний файл) и их приоритет, механизм каскада и наследования, пользовательские свойства var(), правило :where() с нулевым весом и адаптивные медиазапросы. В файле применены селекторы элементов, классов и идентификаторов, а также селекторы потомков, дочерних и смежных элементов, атрибутов, псевдоклассов и псевдоэлементов."
+  },
+  {
+    "pb": true
+  },
+  {
+    "h": "ПРИЛОЖЕНИЕ 1"
+  },
+  {
+    "p": "Текст файла styles.css, разделы 1–3: переменные, базовые стили документа и компоненты сайта"
+  },
+  {
+    "code": "/* ==========================================================================\n   styles.css — единый стилевой файл учебного сайта\n   Лабораторная работа № 7 «Основы работы с CSS3»\n\n   Файл подключается ко всем страницам, созданным в лабораторных работах 1–6,\n   и к страницам самой седьмой работы:\n       из папок ЛР1–ЛР6  —  <link rel=\"stylesheet\" href=\"../ЛР7/styles.css\">\n       внутри папки ЛР7  —  <link rel=\"stylesheet\" href=\"styles.css\">\n\n   Разделы файла:\n       1. Переменные (пользовательские свойства)\n       2. Базовые стили документа\n       3. Стили сайта: шапка, навигация, карточки, подвал\n       4. Демонстрация типов селекторов\n       5. Адаптивность и печать\n   ========================================================================== */\n\n\n/* --------------------------------------------------------------------------\n   1. Переменные\n   Пользовательские свойства объявлены на корневом элементе :root и доступны\n   во всём файле через функцию var(). Одно изменение здесь меняет оформление\n   всех страниц сайта.\n   -------------------------------------------------------------------------- */\n:root {\n    --brand: #4f46e5;\n    --brand-dark: #3730a3;\n    --brand-soft: #eef2ff;\n    --ink: #1f2937;\n    --muted: #5b6472;\n    --line: #d8dee9;\n    --surface: #ffffff;\n    --canvas: #f4f6fb;\n    --radius: 12px;\n    --shadow: 0 10px 24px rgba(31, 41, 55, 0.10);\n    --font-text: \"Segoe UI\", Verdana, Arial, sans-serif;\n    --font-code: \"Consolas\", \"Courier New\", monospace;\n}\n\n\n/* --------------------------------------------------------------------------\n   2. Базовые стили документа\n   Селекторы элементов обёрнуты в :where(). У него нулевой вес, поэтому\n   собственные правила страниц, созданных в ЛР1–ЛР6, оказываются\n   приоритетнее и не ломаются: файл задаёт оформление по умолчанию только там,\n   где сама страница ничего не определила.\n   -------------------------------------------------------------------------- */\n:where(body) {\n    background-color: var(--canvas);\n    color: var(--ink);\n    font-family: var(--font-text);\n    font-size: 16px;\n    line-height: 1.55;\n}\n\n:where(h1, h2, h3, h4) {\n    color: #1e1b4b;\n    line-height: 1.25;\n}\n\n:where(a) {\n    color: var(--brand);\n    text-underline-offset: 3px;\n}\n\n:where(a:hover) {\n    color: var(--brand-dark);\n}\n\n:where(table) {\n    border-collapse: collapse;\n}\n\n:where(th, td) {\n    padding: 6px 10px;\n    border: 1px solid var(--line);\n    text-align: left;\n}\n\n:where(th) {\n    background-color: var(--brand-soft);\n}\n\n:where(code, kbd, samp, var) {\n    font-family: var(--font-code);\n}\n\n:where(code) {\n    padding: 1px 5px;\n    border-radius: 4px;\n    background-color: #f1f5f9;\n}\n\n:where(abbr[title]) {\n    text-decoration: underline dotted;\n    cursor: help;\n}\n\n:where(mark) {\n    background-color: #fde68a;\n}\n\n/* Псевдоэлемент ::selection не оборачивается в :where(): спецификация\n   запрещает псевдоэлементы внутри :where(), такое правило не действует. */\n::selection {\n    color: #ffffff;\n    background-color: var(--brand);\n}\n\n\n/* --------------------------------------------------------------------------\n   3. Стили сайта\n   Компоненты оформлены селекторами классов с префиксом .site-, чтобы не\n   пересекаться с классами прежних работ (.card, .header, .footer и т. п.).\n   -------------------------------------------------------------------------- */\n\n/* Страницы ЛР7 занимают всю ширину окна: внешний отступ body у них снят.\n   У прежних страниц отступ браузера по умолчанию сохранён. */\n.site {\n    margin: 0;\n}\n\n/* Шапка сайта: селектор класса .site-header */\n.site-header {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n    justify-content: space-between;\n    gap: 18px;\n    padding: 18px clamp(16px, 4vw, 40px);\n    background-image: linear-gradient(120deg, #1e1b4b, var(--brand));\n    color: #ffffff;\n}\n\n.site-brand {\n    margin: 0;\n    font-size: 1.15rem;\n    font-weight: 700;\n    letter-spacing: 0.02em;\n}\n\n.site-brand small {\n    display: block;\n    font-size: 0.78rem;\n    font-weight: 400;\n    opacity: 0.82;\n}\n\n/* Навигация: вложенные ссылки — селектор потомка и псевдокласс :hover */\n.site-nav {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 6px;\n}\n\n.site-nav a {\n    padding: 8px 14px;\n    border-radius: 999px;\n    color: #e0e7ff;\n    font-size: 0.92rem;\n    text-decoration: none;\n}\n\n.site-nav a:hover,\n.site-nav a:focus-visible {\n    background-color: rgba(255, 255, 255, 0.18);\n    color: #ffffff;\n}\n\n.site-nav a[aria-current=\"page\"] {\n    background-color: #ffffff;\n    color: var(--brand-dark);\n}\n\n.site-main {\n    max-width: 1080px;\n    margin: 0 auto;\n    padding: 30px clamp(16px, 4vw, 32px) 56px;\n}\n\n.site-lead {\n    max-width: 70ch;\n    margin: 0 0 8px;\n    color: var(--muted);\n    font-size: 1.05rem;\n}\n\n/* Список карточек: сетка из автоматически подбираемых колонок */\n.site-cards {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n    gap: 18px;\n    margin: 26px 0;\n    padding: 0;\n    list-style: none;\n}\n\n.site-card {\n    display: flex;\n    flex-direction: column;\n    gap: 8px;\n    padding: 20px;\n    border: 1px solid var(--line);\n    border-radius: var(--radius);\n    background-color: var(--surface);\n    box-shadow: var(--shadow);\n}\n\n.site-card h3 {\n    margin: 0;\n    font-size: 1.05rem;\n}\n\n.site-card p {\n    margin: 0;\n    color: var(--muted);\n    font-size: 0.92rem;\n}\n\n.site-card a {\n    margin-top: auto;\n    font-weight: 700;\n    text-decoration: none;\n}\n\n.site-tag {\n    align-self: flex-start;\n    padding: 2px 10px;\n    border-radius: 999px;\n    background-color: var(--brand-soft);\n    color: var(--brand-dark);\n    font-size: 0.72rem;\n    font-weight: 700;\n    letter-spacing: 0.06em;\n    text-transform: uppercase;\n}\n\n.site-note {\n    margin: 22px 0;\n    padding: 14px 18px;\n    border-left: 4px solid var(--brand);\n    border-radius: 0 var(--radius) var(--radius) 0;\n    background-color: var(--brand-soft);\n    color: #312e81;\n}\n\n.site-button {\n    display: inline-block;\n    padding: 9px 18px;\n    border-radius: 999px;\n    background-color: var(--brand);\n    color: #ffffff;\n    font-weight: 700;\n    text-decoration: none;\n}\n\n.site-button:hover {\n    background-color: var(--brand-dark);\n    color: #ffffff;\n}\n\n.site-footer {\n    padding: 22px clamp(16px, 4vw, 40px);\n    border-top: 4px solid var(--brand);\n    background-color: #1e1b4b;\n    color: #c7d2fe;\n    font-size: 0.92rem;\n}\n\n.site-footer a {\n    color: #ffffff;\n}\n\n"
+  },
+  {
+    "p": "Текст файла styles.css, раздел 5: правила адаптивности и печати (раздел 4 с демонстрацией селекторов приведён в тексте работы)"
+  },
+  {
+    "code": "/* --------------------------------------------------------------------------\n   5. Адаптивность и печать\n   -------------------------------------------------------------------------- */\n@media (max-width: 720px) {\n    .site-header {\n        flex-direction: column;\n        align-items: flex-start;\n    }\n\n    .demo-grid {\n        grid-template-columns: 1fr;\n    }\n}\n\n@media print {\n    .site-header {\n        background: none;\n        color: #000000;\n    }\n\n    .site-nav {\n        display: none;\n    }\n}"
+  }
+]

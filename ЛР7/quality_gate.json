@@ -1,0 +1,74 @@
+{
+  "schema_version": 4,
+  "lab": 7,
+  "report_number": 7,
+  "status": "passed",
+  "checked_at": "2026-11-19T14:29:34Z",
+  "checks": [
+    "content_references",
+    "artifacts",
+    "report_docx",
+    "report_pdf",
+    "text_docx",
+    "report_structure",
+    "execution_evidence",
+    "evidence_binding"
+  ],
+  "warnings": [],
+  "files": [
+    "ЛР7/Отчет_ЛР7.docx",
+    "ЛР7/Отчет_ЛР7.pdf",
+    "ЛР7/text.docx"
+  ],
+  "sha256": {
+    "_context.json": "caee7694c67469ded34c0b11be2477b28df568a5609c9e25b2fc4151e8a6478f",
+    "ЛР7/content.json": "b7a7e200ea8104ce1e1592f3e267686ff9265e96de8539d9d4354e1cbeebb324",
+    "ЛР7/screenshots/index.png": "e8e4e037a3fb8b21a2c051dc3387918b52c75a2a1e50891162a4add51e2fc357",
+    "ЛР7/screenshots/selectors.png": "6fd9d71e0ec5683a1b5bc4cdb22a0c19a9cbca6d86aa9cb3082c74e7c43484b4",
+    "ЛР7/screenshots/styled_page.png": "ff7fb14b1b27cc8614e53375bfad26b2d3f5354f4fbdd3a0216cc6ec961a3624",
+    "ЛР7/text.docx": "6b5ba11eb7b2bd52104e3ebd9ec1f171bb6929ff45a0b2d03a6f102ced5a3436",
+    "ЛР7/Отчет_ЛР7.docx": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31",
+    "ЛР7/Отчет_ЛР7.pdf": "af242ae642568878f414f030951a6b6fc017ff9c75e2e7fe3e0bbab069b3c3f4"
+  },
+  "artifacts": [
+    "ЛР7/check_css.py",
+    "ЛР7/content_text.json",
+    "ЛР7/css-validator.json",
+    "ЛР7/index.html",
+    "ЛР7/screenshots",
+    "ЛР7/selectors.html",
+    "ЛР7/styles.css",
+    "ЛР7/Лабораторная работа 7 _Основы работы с CSS3.pdf"
+  ],
+  "evidence": [
+    {
+      "path": "ЛР7/screenshots/index.png",
+      "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31"
+    },
+    {
+      "path": "ЛР7/screenshots/selectors.png",
+      "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31"
+    },
+    {
+      "path": "ЛР7/screenshots/styled_page.png",
+      "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31"
+    }
+  ],
+  "gate": {
+    "min_sections": 3,
+    "min_paragraphs": 2,
+    "min_text_chars": 300,
+    "min_tables": 1,
+    "min_text_pairs": 6,
+    "min_answer_chars": 200
+  },
+  "report_size": {
+    "min_pages": 2,
+    "max_pages": 15
+  },
+  "report_check": {
+    "command": "py ЛР7/check_css.py",
+    "exit_code": 0,
+    "duration_s": 0.4
+  }
+}

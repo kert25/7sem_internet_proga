@@ -118,7 +118,7 @@
       }
     },
     "4": {
-      "status": "ready_for_review",
+      "status": "completed",
       "directory": "ЛР4",
       "methodical_guide": "ЛР4/Лабораторная работа 4 _HTML5 Использование новых элементов и атрибутов в html5 формах.pdf",
       "report_number": 4,
@@ -156,7 +156,7 @@
       ]
     },
     "5": {
-      "status": "in_progress",
+      "status": "completed",
       "directory": "ЛР5",
       "methodical_guide": "ЛР5/Лабораторная работа 5 _HTML5 Формы и обработка данных.pdf",
       "report_number": 5,
@@ -186,7 +186,7 @@
       }
     },
     "6": {
-      "status": "ready_for_review",
+      "status": "completed",
       "directory": "ЛР6",
       "methodical_guide": "ЛР6/Лабораторная работа 6 _HTML_CSS_Блоковая модель.pdf",
       "report_number": 6,
@@ -237,6 +237,75 @@
         ],
         "warnings": []
       }
+    },
+    "7": {
+      "status": "completed",
+      "directory": "ЛР7",
+      "methodical_guide": "ЛР7/Лабораторная работа 7 _Основы работы с CSS3.pdf",
+      "report_number": 7,
+      "theme": "Основы работы с CSS3",
+      "report_size": {
+        "printing": true,
+        "min_pages": 2,
+        "max_pages": 15
+      },
+      "gate": {
+        "min_sections": 3,
+        "min_paragraphs": 2,
+        "min_text_chars": 300,
+        "min_tables": 1,
+        "min_text_pairs": 6
+      },
+      "next_step": "Завершено и подтверждено пользователем.",
+      "commands": {
+        "report_check": "py ЛР7/check_css.py"
+      },
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf",
+        "capture_cdp": "bundled:capture_cdp"
+      },
+      "evidence": [
+        {
+          "path": "ЛР7/screenshots/index.png",
+          "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31",
+          "added_at": "2026-11-19T14:24:03Z"
+        },
+        {
+          "path": "ЛР7/screenshots/selectors.png",
+          "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31",
+          "added_at": "2026-11-19T14:24:03Z"
+        },
+        {
+          "path": "ЛР7/screenshots/styled_page.png",
+          "docx_sha256": "cd09d5e816883bb57bd1f18fe532ece255d7ed53b8ebe914b5e395b9beda4a31",
+          "added_at": "2026-11-19T14:24:03Z"
+        }
+      ],
+      "artifacts": [
+        "ЛР7/screenshots/index.png",
+        "ЛР7/screenshots/selectors.png",
+        "ЛР7/screenshots/styled_page.png",
+        "ЛР7/Лабораторная работа 7 _Основы работы с CSS3.pdf",
+        "ЛР7/styles.css",
+        "ЛР7/index.html",
+        "ЛР7/selectors.html",
+        "ЛР7/check_css.py",
+        "ЛР7/css-validator.json",
+        "ЛР7/content.json",
+        "ЛР7/content_text.json",
+        "ЛР7/screenshots",
+        "ЛР7/Отчет_ЛР7.docx",
+        "ЛР7/Отчет_ЛР7.pdf",
+        "ЛР7/text.docx",
+        "ЛР7/quality_gate.json"
+      ],
+      "notes": [
+        "Единый styles.css подключён к 25 страницам ЛР1-ЛР6 строкой ../ЛР7/styles.css перед их <style>; базовые правила в :where() с нулевым весом не меняют вёрстку прежних работ.",
+        "В приложении к отчёту раздел 4 styles.css (демонстрация селекторов) не дублируется целиком: его правила приведены в тексте работы, раздел 5 — в приложении.",
+        "Отчёт занимает ровно 15 страниц PDF (лимит 15): при любой правке текста пересчитывать страницы через py -c pymupdf."
+      ]
     }
   }
 }
