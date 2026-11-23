@@ -1,0 +1,275 @@
+/* ==========================================================================
+   portfolio.css — страница «Мой макет»: визитка учебного сайта
+   Задание 4 лабораторной работы № 8 (собственный макет).
+
+   Приём макетирования: одномерные раскладки на Flexbox. Шапка закреплена
+   свойством position: sticky, первый экран собран из двух колонок
+   flex-контейнера, карточки работ переносятся на новую строку
+   свойством flex-wrap, а подвал прижимается к низу страницы, если
+   содержимого мало. Сетка карточек считается через flex-basis и gap,
+   поэтому она одинаково работает и на широком, и на узком экране.
+   ========================================================================== */
+
+/* 1. Каркас страницы: подвал прижат к низу -------------------------------- */
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 2. Закреплённая шапка с меню ------------------------------------------- */
+.portfolio-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 24px;
+    background-color: var(--dark);
+    border-bottom: 4px solid var(--dark-2);
+}
+
+.portfolio-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.portfolio-header__brand .topbar__logo {
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+}
+
+.portfolio-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.portfolio-nav a {
+    padding: 7px 12px;
+    border-radius: var(--radius);
+    color: #e8f2ef;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.portfolio-nav a:hover,
+.portfolio-nav a:focus {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* 3. Первый экран: две колонки на flex ----------------------------------- */
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 36px 24px 28px;
+}
+
+.hero__text {
+    flex: 1 1 340px;
+    min-width: 0;
+}
+
+.hero__title {
+    margin: 0 0 12px;
+    font-size: 32px;
+    line-height: 1.15;
+}
+
+.hero__lead {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.hero__button {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 11px 22px;
+    background-color: var(--red);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.hero__button:hover,
+.hero__button:focus {
+    background-color: #9d0c24;
+}
+
+.hero__figure {
+    flex: 1 1 320px;
+    min-width: 0;
+    margin: 0;
+}
+
+.hero__image {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.hero__caption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+}
+
+/* 4. Секции и карточки работ --------------------------------------------- */
+.portfolio-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px 28px;
+}
+
+.portfolio-section__title {
+    margin: 0 0 4px;
+    font-size: 22px;
+}
+
+.portfolio-section__lead {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.works {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.work {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 240px;
+    max-width: 340px;
+    padding: 14px 16px 16px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--dark);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.work:hover {
+    border-left-color: var(--red);
+}
+
+.work__tag {
+    align-self: flex-start;
+    margin-bottom: 8px;
+    padding: 2px 9px;
+    background-color: #e8f1f9;
+    border-radius: 999px;
+    color: var(--dark-2);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.work__title {
+    margin: 0 0 6px;
+    font-size: 16px;
+}
+
+.work__text {
+    flex-grow: 1;
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.work__link {
+    align-self: flex-start;
+    color: #0b5c8a;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+}
+
+/* 5. Полоса с техниками макетирования ------------------------------------ */
+.techniques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 1120px;
+    margin: 0 auto 30px;
+    padding: 0 24px;
+}
+
+.technique {
+    flex: 1 1 240px;
+    padding: 14px 16px;
+    background-color: #eef6f4;
+    border: 1px dashed #8fb9b0;
+    border-radius: var(--radius);
+}
+
+.technique__title {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.technique__text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* 6. Подвал --------------------------------------------------------------- */
+.portfolio-footer {
+    margin-top: auto;
+    padding: 16px 24px;
+    background-color: var(--dark-2);
+    color: #cfe3de;
+    font-size: 13px;
+    text-align: center;
+}
+
+.portfolio-footer p {
+    margin: 0;
+}
+
+/* 7. Адаптивность --------------------------------------------------------- */
+@media (max-width: 760px) {
+    .portfolio-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .hero {
+        padding-top: 24px;
+    }
+
+    .hero__title {
+        font-size: 26px;
+    }
+
+    .work {
+        max-width: none;
+    }
+}

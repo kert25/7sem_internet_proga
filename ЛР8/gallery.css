@@ -1,0 +1,141 @@
+/* ==========================================================================
+   gallery.css — страница «Галерея изображений»
+   Задание 3 лабораторной работы № 8.
+
+   Приём макетирования: сетка CSS Grid из трёх колонок с автоматическим
+   числом строк. Миниатюра — ссылка на полноразмерный файл, открываемый
+   в новой вкладке (target="_blank"). Единая высота миниатюр держится
+   свойством aspect-ratio и object-fit: cover, поэтому сетка не «рвётся»,
+   даже если исходные изображения разного размера.
+   ========================================================================== */
+
+/* 1. Оболочка ------------------------------------------------------------- */
+.gallery-shell {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 22px 24px 0;
+}
+
+.gallery-intro {
+    margin: 0 0 18px;
+    color: var(--muted);
+}
+
+/* 2. Сетка миниатюр ------------------------------------------------------- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 14px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* 3. Миниатюра как ссылка ------------------------------------------------- */
+.gallery-item__link {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background-color: #c6d8e8;
+}
+
+.gallery-item__link::after {
+    content: "Открыть в новой вкладке";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px 8px;
+    background-color: rgba(15, 58, 52, 0.82);
+    color: #ffffff;
+    font-size: 11px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+}
+
+.gallery-item__link:hover::after,
+.gallery-item__link:focus::after {
+    opacity: 1;
+}
+
+.gallery-item__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    transition: transform 0.2s ease-out;
+}
+
+.gallery-item__link:hover .gallery-item__image,
+.gallery-item__link:focus .gallery-item__image {
+    transform: scale(1.04);
+}
+
+.gallery-item__title {
+    margin: 10px 0 6px;
+    font-size: 15px;
+}
+
+.gallery-item__text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+/* 4. Полоса категорий внизу страницы ------------------------------------- */
+.categories {
+    max-width: 1160px;
+    margin: 22px auto 0;
+    padding: 12px 24px 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+.categories a {
+    color: var(--dark-2);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--line);
+}
+
+.categories a:hover {
+    border-bottom-color: var(--red);
+}
+
+.categories__sep {
+    margin: 0 8px;
+    color: #8aa2b2;
+}
+
+/* 5. Адаптивность --------------------------------------------------------- */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .gallery-shell,
+    .categories {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

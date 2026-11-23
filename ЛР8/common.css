@@ -1,0 +1,156 @@
+/* ==========================================================================
+   common.css — общие стили страниц лабораторной работы № 8
+   «Вёрстка и макетирование»
+
+   Файл подключается первым на всех четырёх страницах работы и задаёт
+   то, что у них общее: цветовые переменные, типографику, шапку с логотипом
+   и подвал. Раскладку каждой страницы задаёт её собственный файл
+   (menu-form.css, news.css, gallery.css, portfolio.css), подключённый
+   после этого: при равной специфичности применяется правило, записанное
+   позже.
+   ========================================================================== */
+
+/* 1. Переменные страниц --------------------------------------------------- */
+:root {
+    --dark: #164c44;              /* основной тёмно-зелёный шапки */
+    --dark-2: #0f3a34;            /* он же для наведения и подвала */
+    --red: #c8102e;               /* логотип и акцентные кнопки */
+    --paper: #dbe9f5;             /* фон страниц по эскизу */
+    --surface: #ffffff;
+    --line: #b7cbdc;
+    --text: #17232b;
+    --muted: #4d6472;
+    --radius: 6px;
+    --shadow: 0 6px 18px rgba(23, 35, 43, 0.10);
+    --font-text: Verdana, Arial, "Segoe UI", sans-serif;
+    --font-head: "Segoe UI", Arial, sans-serif;
+}
+
+/* 2. Базовые стили документа --------------------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--paper);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--paper);
+    color: var(--text);
+    font-family: var(--font-text);
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 10px;
+    font-family: var(--font-head);
+    line-height: 1.25;
+    color: var(--dark-2);
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+p {
+    margin: 0 0 12px;
+}
+
+a {
+    color: #0b5c8a;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #0b5c8a;
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Скрытый текст для скринридера */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 3. Шапка с логотипом ---------------------------------------------------- */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 24px;
+    background-color: var(--dark);
+    border-bottom: 4px solid var(--dark-2);
+}
+
+.topbar__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background-color: var(--red);
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.topbar__logo:hover,
+.topbar__logo:focus {
+    background-color: #9d0c24;
+}
+
+.topbar__title {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 17px;
+    letter-spacing: 0.2px;
+}
+
+/* 4. Подвал --------------------------------------------------------------- */
+.page-footer {
+    padding: 14px 24px;
+    background-color: var(--dark);
+    color: #d7e7e3;
+    font-size: 13px;
+}
+
+.page-footer p {
+    margin: 0;
+}
+
+.page-footer a {
+    color: #ffffff;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Галерея изображений: миниатюры открываются в новых вкладках, сетка CSS Grid, лабораторная работа № 8">
+    <title>Галерея изображений — лабораторная работа № 8</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <a class="topbar__logo" href="portfolio.html" title="На главную страницу работы">A</a>
+        <p class="topbar__title">Галерея изображений</p>
+    </header>
+
+    <main class="gallery-shell">
+
+        <p class="gallery-intro">
+            Шесть миниатюр расположены сеткой из трёх колонок. Каждая миниатюра — это
+            ссылка на полноразмерный файл с атрибутом <code>target="_blank"</code>:
+            щелчок открывает изображение в новой вкладке браузера, а текущая страница
+            остаётся на месте. Атрибут <code>rel="noopener noreferrer"</code> закрывает
+            новой вкладке доступ к объекту <code>window.opener</code>.
+        </p>
+
+        <ul class="gallery-grid">
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery1.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 1 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery1.png"
+                         width="900" height="600" alt="Учебная иллюстрация 1">
+                </a>
+                <h2 class="gallery-item__title">Изображение 1</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery2.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 2 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery2.png"
+                         width="900" height="600" alt="Учебная иллюстрация 2">
+                </a>
+                <h2 class="gallery-item__title">Изображение 2</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery3.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 3 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery3.png"
+                         width="900" height="600" alt="Учебная иллюстрация 3">
+                </a>
+                <h2 class="gallery-item__title">Изображение 3</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery4.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 4 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery4.png"
+                         width="900" height="600" alt="Учебная иллюстрация 4">
+                </a>
+                <h2 class="gallery-item__title">Изображение 4</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery5.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 5 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery5.png"
+                         width="900" height="600" alt="Учебная иллюстрация 5">
+                </a>
+                <h2 class="gallery-item__title">Изображение 5</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+            <li class="gallery-item">
+                <a class="gallery-item__link" href="img/gallery6.png"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Открыть изображение 6 в новой вкладке">
+                    <img class="gallery-item__image" src="img/gallery6.png"
+                         width="900" height="600" alt="Учебная иллюстрация 6">
+                </a>
+                <h2 class="gallery-item__title">Изображение 6</h2>
+                <p class="gallery-item__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in
+                    felis lacus. Nunc non lectus eu lacus pharetra.
+                </p>
+            </li>
+        </ul>
+
+    </main>
+
+    <nav class="categories" aria-label="Категории галереи">
+        <a href="gallery.html">Абстракция</a>
+        <span class="categories__sep" aria-hidden="true">::</span>
+        <a href="gallery.html">Геометрия и кольца</a>
+        <span class="categories__sep" aria-hidden="true">::</span>
+        <a href="gallery.html">Учебные иллюстрации к лабораторной работе № 8</a>
+    </nav>
+
+    <footer class="page-footer">
+        <p>
+            Лабораторная работа № 8 «Вёрстка и макетирование» · задание 3 ·
+            Лаукерт К. М., группа 220032-11
+        </p>
+    </footer>
+
+</body>
+</html>

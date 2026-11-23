@@ -1,0 +1,118 @@
+/* ==========================================================================
+   news.css — страница «Новости»: трёхколоночный макет
+   Задание 2 лабораторной работы № 8.
+
+   Приём макетирования: CSS Grid. Контейнер .news-grid задаёт три колонки
+   одинаковой ширины через grid-template-columns, а промежутки — через gap.
+   Колонки выравниваются по высоте автоматически, поэтому карточки
+   в соседних колонках не «пляшут». На узких экранах число колонок
+   уменьшается двумя медиазапросами.
+   ========================================================================== */
+
+/* 1. Оболочка ------------------------------------------------------------- */
+.news-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 22px 24px 42px;
+}
+
+.news-intro {
+    margin: 0 0 20px;
+    color: var(--muted);
+}
+
+/* 2. Сетка трёх колонок --------------------------------------------------- */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.news-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 3. Карточка новости ----------------------------------------------------- */
+.news-card {
+    padding: 16px 16px 18px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.news-card__title {
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--red);
+    font-size: 17px;
+}
+
+.news-card__image {
+    display: block;
+    width: 100%;
+    margin: 0 0 10px;
+    border-radius: var(--radius);
+}
+
+.news-card__text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.news-card__meta {
+    display: block;
+    margin-top: 8px;
+    color: #7b8f9c;
+    font-size: 11px;
+}
+
+/* Вариант карточки, где изображение стоит слева от текста --------------- */
+.news-note {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.news-note__image {
+    flex: 0 0 84px;
+    width: 84px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.news-note__title {
+    margin: 0 0 4px;
+    font-size: 14px;
+}
+
+.news-note__text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+/* 4. Адаптивность: две колонки, затем одна -------------------------------- */
+@media (max-width: 980px) {
+    .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+    .news-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .news-shell {
+        padding: 16px 16px 30px;
+    }
+}

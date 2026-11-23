@@ -1,0 +1,292 @@
+/* ==========================================================================
+   menu-form.css — страница «Меню и форма для комментариев»
+   Задание 1 лабораторной работы № 8.
+
+   Приём макетирования: двухколоночная вёрстка на механизме float.
+   Меню — плавающий блок слева, лента комментариев и форма обтекают его
+   справа за счёт margin-left. Панель соцсетей вынесена из потока
+   фиксированным позиционированием.
+   ========================================================================== */
+
+/* 1. Оболочка страницы и её очистка от обтекания -------------------------- */
+.shell {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 18px 90px 46px 24px;
+}
+
+.shell::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* 2. Меню: плавающий блок слева ------------------------------------------ */
+.sidebar {
+    float: left;
+    width: 228px;
+    margin: 0 28px 18px 0;
+    padding: 16px 0;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__title {
+    margin: 0 0 8px;
+    padding: 0 16px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.menu__link {
+    padding: 9px 16px;
+    border-left: 4px solid transparent;
+    color: var(--dark-2);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.menu__link:hover {
+    background-color: #eef5fb;
+    border-left-color: var(--red);
+}
+
+.menu__link[aria-current="page"] {
+    background-color: #e8f1f9;
+    border-left-color: var(--dark);
+    font-weight: 700;
+}
+
+.menu__more {
+    color: var(--muted);
+}
+
+/* 3. Основная колонка: обтекает меню справа ------------------------------ */
+.content {
+    margin-left: 256px;
+    padding: 18px 20px 22px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.content__lead {
+    color: var(--muted);
+}
+
+.content__image {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 6px 0 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+/* 4. Список комментариев с флажками -------------------------------------- */
+.comments {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.comments__item {
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    background-color: #f4f8fc;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+/* Выбранный для ответа комментарий подсвечивается по состоянию флажка:
+   селектор опирается на псевдокласс :checked и комбинатор соседних
+   элементов, поэтому подпись выделяется без JavaScript. */
+.comments__item:has(:checked) {
+    background-color: #fff6f6;
+    border-color: #e2a0ab;
+}
+
+.comments__check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.comments__check input {
+    margin: 3px 0 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--red);
+    flex: 0 0 auto;
+}
+
+.comments__author {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* 5. Форма нового комментария (fieldset + подписи сверху) ----------------- */
+.comment-form {
+    margin: 0;
+    padding: 16px;
+    background-color: #f9fbfd;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.comment-form fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.comment-form legend {
+    padding: 0 0 10px;
+    color: var(--dark-2);
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.field {
+    margin: 0 0 12px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.field input[type="text"],
+.field textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #9fb4c6;
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    color: var(--text);
+    font: inherit;
+}
+
+.field textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+/* Состояния полей: рамка меняется по псевдоклассам, без скриптов */
+.field input:focus,
+.field textarea:focus {
+    border-color: #0b5c8a;
+}
+
+.field input:required:valid,
+.field textarea:required:valid {
+    border-color: #4d8b6a;
+}
+
+.field input:required:invalid:not(:placeholder-shown),
+.field textarea:required:invalid:not(:placeholder-shown) {
+    border-color: #c8102e;
+}
+
+.consent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.consent input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--dark);
+}
+
+.form__submit {
+    padding: 10px 22px;
+    background-color: var(--red);
+    border: 0;
+    border-radius: var(--radius);
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.form__submit:hover {
+    background-color: #9d0c24;
+}
+
+/* 6. Фиксированная панель соцсетей --------------------------------------- */
+.social {
+    position: fixed;
+    top: 240px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.social__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    background-color: var(--red);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.social__link:hover,
+.social__link:focus {
+    background-color: #9d0c24;
+}
+
+/* 7. Узкие экраны: меню перестаёт плавать и встаёт над содержимым -------- */
+@media (max-width: 900px) {
+    .shell {
+        padding: 14px 16px 32px;
+    }
+
+    .sidebar {
+        float: none;
+        width: auto;
+        margin: 0 0 14px;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .social {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 0 16px;
+    }
+}

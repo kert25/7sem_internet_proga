@@ -1,0 +1,85 @@
+{
+  "schema_version": 4,
+  "lab": 8,
+  "report_number": 8,
+  "status": "passed",
+  "checked_at": "2026-11-23T12:23:37Z",
+  "checks": [
+    "content_references",
+    "artifacts",
+    "report_docx",
+    "report_pdf",
+    "text_docx",
+    "report_structure",
+    "execution_evidence",
+    "evidence_binding"
+  ],
+  "warnings": [],
+  "files": [
+    "ЛР8/Отчет_ЛР8.docx",
+    "ЛР8/Отчет_ЛР8.pdf",
+    "ЛР8/text.docx"
+  ],
+  "sha256": {
+    "_context.json": "caee7694c67469ded34c0b11be2477b28df568a5609c9e25b2fc4151e8a6478f",
+    "ЛР8/content.json": "f383d4145db6f6517f7804d58eb2d94dd2a4b40f29ad680bad477f9589c0ebdf",
+    "ЛР8/screenshots/gallery.png": "985e86ffb8727a8ea9b4b7109ad2e8c5242d20e8724ffe7bb3a01c68d9dc218c",
+    "ЛР8/screenshots/menu-form.png": "fb69992cbac1de5b2f40f5413ff168095403ad22144367bf77b14d5b701514f9",
+    "ЛР8/screenshots/news.png": "e929ab83892cdcd8849a77b9524657384c815d398b6383c3646dca56f3a348b3",
+    "ЛР8/screenshots/portfolio.png": "277b79c7ca1f99386844018f5cf312f4d506e272272a96e2f4f20482a488cfcb",
+    "ЛР8/text.docx": "d0ae1bc040297368c71b3e8b4af9c68f9c0b092fe6dd3d1d496dca1a5a99a741",
+    "ЛР8/Отчет_ЛР8.docx": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb",
+    "ЛР8/Отчет_ЛР8.pdf": "94de741fc682f8c86810dc883d9723f98eb74507091873795af9e01aa963548a"
+  },
+  "artifacts": [
+    "ЛР8/check_layout.py",
+    "ЛР8/common.css",
+    "ЛР8/content_text.json",
+    "ЛР8/gallery.css",
+    "ЛР8/gallery.html",
+    "ЛР8/img",
+    "ЛР8/menu-form.css",
+    "ЛР8/menu-form.html",
+    "ЛР8/news.css",
+    "ЛР8/news.html",
+    "ЛР8/portfolio.css",
+    "ЛР8/portfolio.html",
+    "ЛР8/screenshots",
+    "ЛР8/Лабораторная работа 8 _Верстка и макетирование.pdf"
+  ],
+  "evidence": [
+    {
+      "path": "ЛР8/screenshots/gallery.png",
+      "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb"
+    },
+    {
+      "path": "ЛР8/screenshots/menu-form.png",
+      "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb"
+    },
+    {
+      "path": "ЛР8/screenshots/news.png",
+      "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb"
+    },
+    {
+      "path": "ЛР8/screenshots/portfolio.png",
+      "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb"
+    }
+  ],
+  "gate": {
+    "min_sections": 6,
+    "min_paragraphs": 8,
+    "min_text_chars": 300,
+    "min_tables": 2,
+    "min_text_pairs": 6,
+    "min_answer_chars": 200
+  },
+  "report_size": {
+    "min_pages": 2,
+    "max_pages": 15
+  },
+  "report_check": {
+    "command": "py ЛР8/check_layout.py",
+    "exit_code": 0,
+    "duration_s": 0.3
+  }
+}

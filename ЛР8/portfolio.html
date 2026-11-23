@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Собственный макет: страница-визитка учебного сайта с работами по дисциплине «Интернет-программирование», лабораторная работа № 8">
+    <title>Мой макет — учебный сайт Лаукерта Кирилла, лабораторная работа № 8</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="portfolio.css">
+</head>
+<body class="portfolio">
+
+    <header class="portfolio-header">
+        <a class="portfolio-header__brand" href="portfolio.html">
+            <span class="topbar__logo" aria-hidden="true">A</span>
+            Учебный сайт Лаукерта Кирилла
+        </a>
+        <nav class="portfolio-nav" aria-label="Главное меню">
+            <a href="portfolio.html#works">Работы</a>
+            <a href="news.html">Новости</a>
+            <a href="gallery.html">Галерея</a>
+            <a href="menu-form.html">Комментарии</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="hero__text">
+                <h1 class="hero__title">Вёрстка и макетирование: макет учебного сайта</h1>
+                <p class="hero__lead">
+                    Собственный макет собран на Flexbox: шапка закреплена при прокрутке,
+                    первый экран делится на две равные колонки, карточки работ
+                    переносятся на новую строку сами. Ни одной фиксированной ширины,
+                    кроме ограничения полосы набора, — страница одинаково
+                    раскладывается на мониторе и на телефоне.
+                </p>
+                <a class="hero__button" href="#works">Смотреть работы</a>
+            </div>
+            <figure class="hero__figure">
+                <img class="hero__image" src="img/content.png" width="640" height="420"
+                     alt="Учебная иллюстрация: абстрактная композиция в рамке на первом экране">
+                <figcaption class="hero__caption">
+                    Иллюстрация первого экрана, лабораторная работа № 8
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="portfolio-section" id="works">
+            <h2 class="portfolio-section__title">Работы по дисциплине</h2>
+            <p class="portfolio-section__lead">
+                Восемь лабораторных работ, собранных в одном сайте: от структуры
+                документа до макетирования на Grid и Flexbox.
+            </p>
+
+            <ul class="works">
+                <li class="work">
+                    <span class="work__tag">ЛР 1</span>
+                    <h3 class="work__title">Знакомство с HTML</h3>
+                    <p class="work__text">Структура документа, списки, таблицы, строчные и блочные элементы.</p>
+                    <a class="work__link" href="../ЛР1/1.1.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 2</span>
+                    <h3 class="work__title">Гиперссылки</h3>
+                    <p class="work__text">Относительные и абсолютные ссылки, якоря, ссылки на файлы и почту.</p>
+                    <a class="work__link" href="../ЛР2/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 3</span>
+                    <h3 class="work__title">HTML5: video, audio, canvas</h3>
+                    <p class="work__text">Встраиваемые медиа, геолокация и рисование на холсте.</p>
+                    <a class="work__link" href="../ЛР3/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 4</span>
+                    <h3 class="work__title">Новые элементы форм</h3>
+                    <p class="work__text">Типы полей HTML5, атрибуты валидации и подсказки.</p>
+                    <a class="work__link" href="../ЛР4/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 5</span>
+                    <h3 class="work__title">Формы и обработка данных</h3>
+                    <p class="work__text">Сбор данных формы и их обработка на стороне клиента.</p>
+                    <a class="work__link" href="../ЛР5/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 6</span>
+                    <h3 class="work__title">Блоковая модель</h3>
+                    <p class="work__text">Отступы, границы, обтекание и позиционирование блоков.</p>
+                    <a class="work__link" href="../ЛР6/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 7</span>
+                    <h3 class="work__title">Основы работы с CSS3</h3>
+                    <p class="work__text">Каскад, наследование, селекторы и единый стилевой файл сайта.</p>
+                    <a class="work__link" href="../ЛР7/index.html">Открыть</a>
+                </li>
+                <li class="work">
+                    <span class="work__tag">ЛР 8</span>
+                    <h3 class="work__title">Вёрстка и макетирование</h3>
+                    <p class="work__text">Float, Grid и Flexbox: меню с формой, новости, галерея и этот макет.</p>
+                    <a class="work__link" href="menu-form.html">Открыть</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="techniques" aria-label="Техники макетирования в работе">
+            <article class="technique">
+                <h3 class="technique__title">Float</h3>
+                <p class="technique__text">
+                    Меню на странице комментариев выведено из потока и обтекается
+                    содержимым; оболочка очищается от обтекания псевдоэлементом.
+                </p>
+            </article>
+            <article class="technique">
+                <h3 class="technique__title">Grid</h3>
+                <p class="technique__text">
+                    Новости и галерея собраны сеткой: три колонки одинаковой ширины,
+                    одинаковые промежутки, автоматическое выравнивание по высоте.
+                </p>
+            </article>
+            <article class="technique">
+                <h3 class="technique__title">Flexbox</h3>
+                <p class="technique__text">
+                    Этот макет целиком на Flexbox: строки переносятся, карточки делят
+                    свободное место, подвал прижимается к низу окна.
+                </p>
+            </article>
+        </section>
+
+    </main>
+
+    <footer class="portfolio-footer">
+        <p>
+            Лабораторная работа № 8 «Вёрстка и макетирование» · собственный макет ·
+            Лаукерт К. М., группа 220032-11 · 2026
+        </p>
+    </footer>
+
+</body>
+</html>

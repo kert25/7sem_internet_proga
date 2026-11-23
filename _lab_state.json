@@ -306,6 +306,88 @@
         "В приложении к отчёту раздел 4 styles.css (демонстрация селекторов) не дублируется целиком: его правила приведены в тексте работы, раздел 5 — в приложении.",
         "Отчёт занимает ровно 15 страниц PDF (лимит 15): при любой правке текста пересчитывать страницы через py -c pymupdf."
       ]
+    },
+    "8": {
+      "status": "completed",
+      "directory": "ЛР8",
+      "methodical_guide": "ЛР8/Лабораторная работа 8 _Верстка и макетирование.pdf",
+      "report_number": 8,
+      "theme": "Вёрстка и макетирование",
+      "report_size": {
+        "printing": true,
+        "min_pages": 2,
+        "max_pages": 15
+      },
+      "gate": {
+        "min_sections": 6,
+        "min_paragraphs": 8,
+        "min_text_chars": 300,
+        "min_tables": 2,
+        "min_text_pairs": 6
+      },
+      "next_step": "Завершено и подтверждено пользователем.",
+      "commands": {
+        "report_check": "py ЛР8/check_layout.py"
+      },
+      "tooling": {
+        "report_inspector": "bundled:inspect_docx",
+        "pdf_text": "bundled:pdf_text",
+        "pdf_converter": "bundled:docx2pdf",
+        "capture_cdp": "bundled:capture_cdp"
+      },
+      "artifacts": [
+        "ЛР8/Лабораторная работа 8 _Верстка и макетирование.pdf",
+        "ЛР8/screenshots/menu-form.png",
+        "ЛР8/screenshots/news.png",
+        "ЛР8/screenshots/gallery.png",
+        "ЛР8/screenshots/portfolio.png",
+        "ЛР8/common.css",
+        "ЛР8/menu-form.html",
+        "ЛР8/menu-form.css",
+        "ЛР8/news.html",
+        "ЛР8/news.css",
+        "ЛР8/gallery.html",
+        "ЛР8/gallery.css",
+        "ЛР8/portfolio.html",
+        "ЛР8/portfolio.css",
+        "ЛР8/check_layout.py",
+        "ЛР8/content.json",
+        "ЛР8/content_text.json",
+        "ЛР8/img",
+        "ЛР8/screenshots",
+        "ЛР8/Отчет_ЛР8.docx",
+        "ЛР8/Отчет_ЛР8.pdf",
+        "ЛР8/text.docx",
+        "ЛР8/quality_gate.json"
+      ],
+      "evidence": [
+        {
+          "path": "ЛР8/screenshots/menu-form.png",
+          "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb",
+          "added_at": "2026-11-23T12:23:30Z"
+        },
+        {
+          "path": "ЛР8/screenshots/news.png",
+          "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb",
+          "added_at": "2026-11-23T12:23:30Z"
+        },
+        {
+          "path": "ЛР8/screenshots/gallery.png",
+          "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb",
+          "added_at": "2026-11-23T12:23:31Z"
+        },
+        {
+          "path": "ЛР8/screenshots/portfolio.png",
+          "docx_sha256": "696b0d50d334bca98b2ddc71b4c7fa3c78b5fdfe83de1180c5f1e38f46fcdffb",
+          "added_at": "2026-11-23T12:23:31Z"
+        }
+      ],
+      "notes": [
+        "Три страницы свёрстаны по эскизам методички, четвёртая — собственный макет на Flexbox (визитка учебного сайта, 8 карточек работ).",
+        "Скриншоты сняты capture_cdp на 1280 px во всю высоту страницы, в отчёте 13 см по ширине; полная высота menu-form даёт 16,6 см — в полосу 22,5 см укладывается.",
+        "Открытие миниатюр в новой вкладке подтверждено списком целей CDP (вывод в отчёте), отдельный снимок вкладок не снимался.",
+        "Пользователь подтвердил работу: галерея перерисована без наложений текста, категории заменены на осмысленные с одним длинным названием."
+      ]
     }
   }
 }

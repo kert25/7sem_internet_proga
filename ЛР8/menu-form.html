@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Страница с боковым меню и формой для комментариев: двухколоночная вёрстка на float, фиксированная панель соцсетей, лабораторная работа № 8">
+    <title>Меню и форма для комментариев — лабораторная работа № 8</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="menu-form.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <a class="topbar__logo" href="portfolio.html" title="На главную страницу работы">A</a>
+        <p class="topbar__title">Учебный сайт: меню и форма для комментариев</p>
+    </header>
+
+    <div class="shell">
+
+        <aside class="sidebar">
+            <nav class="menu" aria-label="Боковое меню сайта">
+                <p class="menu__title">Разделы</p>
+                <a class="menu__link" href="portfolio.html">Главная</a>
+                <a class="menu__link" href="news.html">Новости</a>
+                <a class="menu__link" href="gallery.html">Галерея</a>
+                <a class="menu__link" href="menu-form.html" aria-current="page">Комментарии</a>
+                <a class="menu__link" href="portfolio.html#works">Мой макет</a>
+                <a class="menu__link menu__more" href="#comments">Ещё…</a>
+            </nav>
+        </aside>
+
+        <main class="content" id="comments">
+
+            <h1>Меню и форма для комментариев</h1>
+
+            <p class="content__lead">
+                Первая страница лабораторной работы собрана по эскизу: слева — меню
+                разделов, справа — лента комментариев и форма для нового сообщения.
+                Меню выведено из общего потока свойством <code>float</code>, а панель
+                соцсетей закреплена у правой границы окна фиксированным
+                позиционированием.
+            </p>
+
+            <p>
+                Двухколоночный макет на плавающем блоке требует одной обязательной
+                операции — очистки обтекания. Меню объявлено как
+                <code>float: left</code> с шириной 228 px, а основная колонка получает
+                <code>margin-left: 256px</code>: этого отступа достаточно, чтобы текст
+                не заезжал под меню. Оболочка страницы получает псевдоэлемент
+                <code>::after</code> с <code>clear: both</code>, иначе фон и границы
+                оболочки обрываются на уровне меню, а не на уровне самой высокой
+                колонки.
+            </p>
+
+            <img class="content__image" src="img/content.png" width="640" height="420"
+                 alt="Учебная иллюстрация к статье: абстрактная композиция в рамке">
+
+            <p>
+                В ленте ниже выводятся три комментария. Флажок у каждого сообщения
+                выбирает его как адресата ответа: выбранная карточка подсвечивается
+                правилом <code>.comments__item:has(:checked)</code>. Форма нового
+                комментария собрана на элементе <code>fieldset</code> с подписями над
+                полями; поля отмечены атрибутом <code>required</code>, поэтому браузер
+                сам проверяет их заполнение и подсвечивает рамку по псевдоклассам
+                <code>:valid</code> и <code>:invalid</code>.
+            </p>
+
+            <h2>Комментарии читателей</h2>
+
+            <ul class="comments">
+                <li class="comments__item">
+                    <label class="comments__check">
+                        <input type="checkbox" name="reply" value="1">
+                        <span>
+                            Комментарий
+                            <span class="comments__author">Анна, 12 ноября 2026, 18:04</span>
+                        </span>
+                    </label>
+                </li>
+                <li class="comments__item">
+                    <label class="comments__check">
+                        <input type="checkbox" name="reply" value="2">
+                        <span>
+                            Комментарий
+                            <span class="comments__author">Дмитрий, 13 ноября 2026, 09:27</span>
+                        </span>
+                    </label>
+                </li>
+                <li class="comments__item">
+                    <label class="comments__check">
+                        <input type="checkbox" name="reply" value="3">
+                        <span>
+                            Комментарий
+                            <span class="comments__author">Ирина, 15 ноября 2026, 21:10</span>
+                        </span>
+                    </label>
+                </li>
+            </ul>
+
+            <form class="comment-form" action="#comments" method="get">
+                <fieldset>
+                    <legend>Новый комментарий</legend>
+
+                    <p class="field">
+                        <label for="comment-name">Имя</label>
+                        <input type="text" id="comment-name" name="name"
+                               placeholder="Как к вам обращаться"
+                               required minlength="2" autocomplete="name">
+                    </p>
+
+                    <p class="field">
+                        <label for="comment-text">Текст комментария</label>
+                        <textarea id="comment-text" name="comment"
+                                  placeholder="Ваше сообщение"
+                                  required minlength="10"></textarea>
+                    </p>
+
+                    <p class="consent">
+                        <input type="checkbox" id="comment-consent" name="consent"
+                               value="yes" required>
+                        <label for="comment-consent">Согласен на публикацию</label>
+                    </p>
+
+                    <button class="form__submit" type="submit">Отправить</button>
+                </fieldset>
+            </form>
+
+        </main>
+
+    </div>
+
+    <aside class="social" aria-label="Социальные сети">
+        <a class="social__link" href="https://vk.com" title="ВКонтакте" target="_blank" rel="noopener noreferrer">vk</a>
+        <a class="social__link" href="https://www.facebook.com" title="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+        <a class="social__link" href="https://www.blogger.com" title="Blogger" target="_blank" rel="noopener noreferrer">B</a>
+    </aside>
+
+    <footer class="page-footer">
+        <p>
+            Лабораторная работа № 8 «Вёрстка и макетирование» · задание 1 ·
+            Лаукерт К. М., группа 220032-11
+        </p>
+    </footer>
+
+</body>
+</html>

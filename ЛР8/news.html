@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Трёхколоночный макет страницы новостей на CSS Grid с изображениями, лабораторная работа № 8">
+    <title>Новости — трёхколоночный макет, лабораторная работа № 8</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="news.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <a class="topbar__logo" href="portfolio.html" title="На главную страницу работы">A</a>
+        <p class="topbar__title">Новости</p>
+    </header>
+
+    <div class="news-shell">
+
+        <p class="news-intro">
+            Три колонки одинаковой ширины собраны сеткой CSS Grid: контейнер задаёт
+            <code>grid-template-columns: repeat(3, minmax(0, 1fr))</code>, а расстояния
+            между колонками — свойство <code>gap</code>. Внутри каждой колонки карточки
+            расположены элементами <code>flex</code>-контейнера и тянутся на всю ширину.
+        </p>
+
+        <main class="news-grid">
+
+            <section class="news-column" aria-label="Первая колонка новостей">
+                <article class="news-card">
+                    <h2 class="news-card__title">Заголовок</h2>
+                    <img class="news-card__image" src="img/news1.png" width="560" height="360"
+                         alt="Учебная иллюстрация к первой новости: абстрактная композиция">
+                    <p class="news-card__text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+                        in felis lacus. Nunc non lectus eu lacus pharetra consectetur eget id
+                        ligula. Nullam lacus ante, bibendum facilisis leo vel, aliquet viverra
+                        eros. Maecenas ut vulputate purus. Nullam feugiat eros augue, vel
+                        commodo risus pellentesque vitae.
+                    </p>
+                    <span class="news-card__meta">12 ноября 2026</span>
+                </article>
+
+                <article class="news-card news-note">
+                    <img class="news-note__image" src="img/news4.png" width="560" height="360"
+                         alt="Учебная иллюстрация к заметке в первой колонке">
+                    <div>
+                        <h3 class="news-note__title">Заголовок</h3>
+                        <p class="news-note__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Maecenas in felis lacus. Nunc non lectus eu lacus pharetra.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="news-column" aria-label="Вторая колонка новостей">
+                <article class="news-card">
+                    <h2 class="news-card__title">Заголовок</h2>
+                    <img class="news-card__image" src="img/news2.png" width="560" height="360"
+                         alt="Учебная иллюстрация ко второй новости: абстрактная композиция">
+                    <p class="news-card__text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+                        in felis lacus. Nunc non lectus eu lacus pharetra consectetur eget id
+                        ligula. Nullam lacus ante, bibendum facilisis leo vel, aliquet viverra
+                        eros. Maecenas ut vulputate purus. Nullam feugiat eros augue, vel
+                        commodo risus pellentesque vitae.
+                    </p>
+                    <span class="news-card__meta">13 ноября 2026</span>
+                </article>
+
+                <article class="news-card news-note">
+                    <img class="news-note__image" src="img/news5.png" width="560" height="360"
+                         alt="Учебная иллюстрация к заметке во второй колонке">
+                    <div>
+                        <h3 class="news-note__title">Заголовок</h3>
+                        <p class="news-note__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Maecenas in felis lacus. Nunc non lectus eu lacus pharetra.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="news-column" aria-label="Третья колонка новостей">
+                <article class="news-card news-note">
+                    <img class="news-note__image" src="img/news3.png" width="560" height="360"
+                         alt="Учебная иллюстрация к первой заметке третьей колонки">
+                    <div>
+                        <h3 class="news-note__title">Заголовок</h3>
+                        <p class="news-note__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Maecenas in felis lacus. Nunc non lectus eu lacus pharetra.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="news-card news-note">
+                    <img class="news-note__image" src="img/news1.png" width="560" height="360"
+                         alt="Учебная иллюстрация ко второй заметке третьей колонки">
+                    <div>
+                        <h3 class="news-note__title">Заголовок</h3>
+                        <p class="news-note__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Maecenas in felis lacus. Nunc non lectus eu lacus pharetra.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <h2 class="news-card__title">Заголовок</h2>
+                    <img class="news-card__image" src="img/news2.png" width="560" height="360"
+                         alt="Учебная иллюстрация к третьей новости: абстрактная композиция">
+                    <p class="news-card__text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+                        in felis lacus. Nunc non lectus eu lacus pharetra consectetur eget id
+                        ligula. Nullam lacus ante, bibendum facilisis leo vel, aliquet viverra
+                        eros.
+                    </p>
+                    <span class="news-card__meta">15 ноября 2026</span>
+                </article>
+            </section>
+
+        </main>
+
+    </div>
+
+    <footer class="page-footer">
+        <p>
+            Лабораторная работа № 8 «Вёрстка и макетирование» · задание 2 ·
+            Лаукерт К. М., группа 220032-11
+        </p>
+    </footer>
+
+</body>
+</html>
